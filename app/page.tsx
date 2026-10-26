@@ -1,69 +1,134 @@
-import Image from "next/image";
+import Link from "next/link";
+import Hero from "@/components/Hero";
+import IntroSection from "@/components/IntroSection";
+import WhatWeDo from "@/components/WhatWeDo";
+import WhyChooseSteel from "@/components/WhyChooseSteel";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="bg-slate-950 text-slate-100">
+      {/* Hero Section */}
+      <Hero />
+
+      {/* 2. Intro Section */}
+      <IntroSection />
+
+      {/* 3. What We Do (4 Cards) */}
+      <WhatWeDo />
+
+      {/* 4. Why Choose Steel Frames (Interactive Section) */}
+      <WhyChooseSteel />
+
+      {/* Flagship Systems Section */}
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">OUR CORE INNOVATIONS</h2>
+          <p className="text-3xl sm:text-4xl font-extrabold text-white uppercase tracking-wide">
+            BUILT FOR BUILDERS WHO DEMAND PRECISION
+          </p>
+          <p className="text-slate-400 mt-3 text-base">
+            From precision roll-formed wall framing to high-load acoustic Alpha Floor systems.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Card 1: Steel Frames */}
+          <div className="rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 p-8 sm:p-10 flex flex-col justify-between hover:border-slate-600 transition-all duration-300">
+            <div>
+              <div className="w-12 h-12 rounded-xl bg-white/10 text-white border border-white/20 flex items-center justify-center mb-6">
+                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-3 uppercase">STEEL FRAMES</h3>
+              <p className="text-slate-400 leading-relaxed mb-6">
+                Computer-aided CNC manufactured wall frames, floor cassettes, and roof trusses using high-tensile BlueScope Truecore® steel. Unmatched structural precision for residential homes and commercial developments.
+              </p>
+              <ul className="space-y-3 text-sm text-slate-300 mb-8">
+                <li className="flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                  Pre-punched service holes for rapid plumbing &amp; electrical rough-in
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                  Non-combustible fire-rated structural performance
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                  Custom engineered to exact architectural designs
+                </li>
+              </ul>
+            </div>
+            <Link
+              href="/steel-frames"
+              className="inline-flex items-center font-bold text-white hover:text-slate-300 group uppercase tracking-wider text-sm"
+            >
+              LEARN MORE ABOUT STEEL FRAMES
+              <svg className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+
+          {/* Card 2: Alpha Floor */}
+          <div className="rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 p-8 sm:p-10 flex flex-col justify-between hover:border-slate-600 transition-all duration-300">
+            <div>
+              <div className="w-12 h-12 rounded-xl bg-white/10 text-white border border-white/20 flex items-center justify-center mb-6">
+                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-3 uppercase">ALPHA FLOOR</h3>
+              <p className="text-slate-400 leading-relaxed mb-6">
+                The revolutionary engineered steel floor joist system. Designed for ultra-long clear spans, squeak-free floors, exceptional acoustic dampening, and streamlined installation.
+              </p>
+              <ul className="space-y-3 text-sm text-slate-300 mb-8">
+                <li className="flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                  Superior load capacity and clear spans up to 7+ meters
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                  Guaranteed squeak-free structural floor integrity
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                  Large service duct cutouts for HVAC and major piping
+                </li>
+              </ul>
+            </div>
+            <Link
+              href="/alpha-floor"
+              className="inline-flex items-center font-bold text-white hover:text-slate-300 group uppercase tracking-wider text-sm"
+            >
+              LEARN MORE ABOUT ALPHA FLOOR
+              <svg className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
         </div>
-      </main>
+      </section>
+
+      {/* Call to action banner */}
+      <section className="bg-slate-900 border-y border-slate-800 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white uppercase tracking-wide">
+            READY TO BUILD SMARTER WITH AUZIE STEEL?
+          </h2>
+          <p className="text-slate-300 max-w-xl mx-auto">
+            Send us your plans for a free consultation and prompt engineering takeoff estimate.
+          </p>
+          <div className="pt-2">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-bold uppercase tracking-wider text-white bg-[#1E63D8] hover:bg-[#1650b5] border border-[#1E63D8] shadow-2xl shadow-[#1E63D8]/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+            >
+              GET IN TOUCH TODAY
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
