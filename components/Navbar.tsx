@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 interface NavItem {
   name: string;
@@ -19,26 +20,48 @@ const navItems: NavItem[] = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const [clickedItem, setClickedItem] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isPastHero, setIsPastHero] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
+
+      if (isHomePage) {
+        const hero = document.getElementById("hero-section");
+        if (hero) {
+          const heroBottom = hero.offsetTop + hero.offsetHeight - 90;
+          setIsPastHero(window.scrollY >= heroBottom);
+          return;
+        }
+      }
+      setIsPastHero(window.scrollY > 20);
     };
+
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("resize", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [isHomePage]);
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 w-full bg-[#0F1114] border-b text-[#EEF0F2] transition-colors duration-200 ${
-          isScrolled
-            ? "border-[#1E63D8]/40"
-            : "border-[#8A929B]/25"
+        className={`fixed top-0 left-0 right-0 z-50 w-full text-[#EEF0F2] transition-all duration-300 ${
+          isHomePage
+            ? isPastHero
+              ? "bg-[#0F1114]/95 backdrop-blur-md border-b border-[#1E63D8]/40 shadow-xl"
+              : "bg-transparent border-b border-transparent shadow-none"
+            : isScrolled
+              ? "bg-[#0F1114]/95 backdrop-blur-md border-b border-[#1E63D8]/40 shadow-xl"
+              : "bg-[#0F1114] border-b border-[#8A929B]/25"
         }`}
       >
       {/* Main Navbar */}
@@ -88,10 +111,10 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <a
               href="tel:1300647833"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-[#EEF0F2] text-[#0F1114] font-bold text-sm tracking-wide shadow-md hover:bg-[#C9CED4] transition-all hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-transparent hover:bg-white/10 text-white font-bold text-sm tracking-wide border border-white/20 transition-all hover:scale-[1.02]"
             >
               <svg
-                className="w-4 h-4 text-[#0F1114]"
+                className="w-4 h-4 text-white"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -102,7 +125,7 @@ export default function Navbar() {
 
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-4 py-2.5 rounded bg-[#1E63D8] hover:bg-[#1650b5] text-white font-bold text-sm tracking-wider uppercase border border-[#1E63D8] shadow-lg shadow-[#1E63D8]/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="inline-flex items-center justify-center px-4 py-2.5 rounded bg-white hover:bg-slate-100 text-[#0F1114] font-bold text-sm tracking-wider uppercase border border-white shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
               GET A QUOTE
             </Link>
@@ -157,9 +180,9 @@ export default function Navbar() {
           <div className="pt-4 border-t border-[#8A929B]/25 space-y-3">
             <a
               href="tel:1300647833"
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded bg-[#EEF0F2] text-[#0F1114] font-bold text-sm tracking-wider shadow"
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded bg-transparent border border-white/20 text-white font-bold text-sm tracking-wider shadow hover:bg-white/10"
             >
-              <svg className="w-4 h-4 text-[#0F1114]" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" />
               </svg>
               1300 647 833
@@ -168,7 +191,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center px-4 py-3 rounded bg-[#1E63D8] hover:bg-[#1650b5] text-white font-bold text-sm tracking-wider uppercase border border-[#1E63D8] shadow text-center"
+              className="w-full flex items-center justify-center px-4 py-3 rounded bg-white hover:bg-slate-100 text-[#0F1114] font-bold text-sm tracking-wider uppercase border border-white shadow text-center"
             >
               GET A QUOTE
             </Link>
@@ -176,8 +199,8 @@ export default function Navbar() {
         </div>
       )}
       </header>
-      {/* Spacer to prevent layout jump under fixed navbar */}
-      <div className="h-20 w-full shrink-0" aria-hidden="true" />
+      {/* Spacer to prevent layout jump under fixed navbar (hidden on home page so hero starts at top: 0 behind transparent navbar) */}
+      {!isHomePage && <div className="h-20 w-full shrink-0" aria-hidden="true" />}
     </>
   );
 }

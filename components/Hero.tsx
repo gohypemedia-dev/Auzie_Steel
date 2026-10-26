@@ -10,33 +10,14 @@ function getFrameUrl(index: number): string {
   return `/Steel_Shack_2_Frames_HQ/Steel_Shack_2_Frames/frame_${padded}.jpg`;
 }
 
+
+
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [currentFrameNum, setCurrentFrameNum] = useState(1);
   const [isFirstFrameReady, setIsFirstFrameReady] = useState(false);
-
-  // Rotating text banner
-  const rotatingLines = [
-    "Light Gauge Steel Manufacturer",
-    "Steel Frame Manufacturer",
-  ];
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFading, setIsFading] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsFading(true);
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % rotatingLines.length);
-        setIsFading(false);
-      }, 300);
-    }, 2800);
-
-    return () => clearInterval(interval);
-  }, [rotatingLines.length]);
 
   // Image cache and animation refs
   const imagesCacheRef = useRef<Map<number, HTMLImageElement>>(new Map());
@@ -69,8 +50,8 @@ export default function Hero() {
     const drawW = imgW * ratio;
     const drawH = imgH * ratio;
 
-    // Center image on the screen, slightly biased to center-right for architectural prominence
-    const offsetX = (canvasW - drawW) * 0.52;
+    // Center image on the screen
+    const offsetX = (canvasW - drawW) * 0.5;
     const offsetY = (canvasH - drawH) * 0.5;
 
     ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
@@ -140,11 +121,12 @@ export default function Hero() {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
-      const rect = canvas.getBoundingClientRect();
+      const w = window.innerWidth;
+      const h = window.innerHeight;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-      canvas.width = Math.floor(rect.width * dpr);
-      canvas.height = Math.floor(rect.height * dpr);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
 
       // Re-draw current active frame
       const currentIdx = Math.round(currentFrameRef.current);
@@ -237,7 +219,6 @@ export default function Hero() {
 
         if (img && img.complete && img.naturalWidth > 0) {
           drawImageCover(img);
-          setCurrentFrameNum(frameToDraw);
         }
       }
 
@@ -251,30 +232,36 @@ export default function Hero() {
     };
   }, [drawImageCover]);
 
-  // Stage text based on scroll progress
-  let currentStageText = "Stage 01: Concrete Slab & Ground Floor Wall Framing";
-  if (scrollProgress > 0.75) {
-    currentStageText = "Stage 04: Roof Truss Pitch & Structural Lock-Up Complete";
-  } else if (scrollProgress > 0.5) {
-    currentStageText = "Stage 03: Second Storey Framing & Structural Wind Bracing";
-  } else if (scrollProgress > 0.25) {
-    currentStageText = "Stage 02: Alpha Floor Joist Cassette & Mid-Floor Erection";
-  }
+  // Active dynamic line based on frame sequence progress
+  const activeLineIndex = scrollProgress < 0.5 ? 0 : 1;
 
-  // Fade out hero headline when user scrolls beyond 35% so they enjoy full building view
-  const heroContentOpacity = Math.max(0, Math.min(1, 1 - (scrollProgress - 0.12) / 0.25));
+  // Step 1: Reveal first badge from left after 5 scrolls (scrollProgress >= 0.10)
+  const isBadgeVisible = scrollProgress >= 0.10;
+
+  // Step 2: Reveal main heading from bottom 5 scrolls after first heading (scrollProgress >= 0.20)
+  const isMainHeadingVisible = scrollProgress >= 0.20;
+
+  // Step 3: Reveal capability line from left 5 scrolls after main heading (scrollProgress >= 0.30)
+  const isCapabilityLineVisible = scrollProgress >= 0.30;
+
+  // Step 4: Reveal CTA buttons from bottom 5 scrolls after capability line (scrollProgress >= 0.40)
+  const isButtonsVisible = scrollProgress >= 0.40;
 
   return (
     // Outer scroll wrapper: 320vh height provides ample smooth scroll travel for 317 frames
-    <div ref={containerRef} className="relative w-full h-[320vh] bg-slate-950">
+    <div id="hero-section" ref={containerRef} className="relative w-full h-[320vh] bg-slate-950">
       
       {/* Sticky Fullscreen Viewport pinned during scrolling */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
 
-        {/* Canvas Background Frame Player */}
+        {/* Canvas Background Frame Player with crisp sub-pixel rendering */}
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full block object-cover z-0"
+          style={{
+            imageRendering: "-webkit-optimize-contrast",
+            filter: "contrast(1.02) saturate(1.02)",
+          }}
         />
 
         {/* Instant Fallback image if canvas is initializing */}
@@ -285,71 +272,87 @@ export default function Hero() {
           />
         )}
 
-        {/* Directional gradient overlay on the left to guarantee crystal clear text contrast */}
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/45 to-transparent sm:w-3/4 lg:w-3/5 pointer-events-none z-10 transition-opacity duration-300"
-          style={{ opacity: Math.max(0.3, heroContentOpacity) }}
-        />
 
-        {/* 1. Main Hero Content (Headline, Rotating Lines, Buttons) - Smoothly fades out as frame scrubs */}
-        <div
-          className="relative z-20 w-full px-6 sm:px-10 md:px-12 lg:pl-14 xl:pl-16 py-12 transition-all duration-200"
-          style={{
-            opacity: heroContentOpacity,
-            transform: `translateY(${(1 - heroContentOpacity) * -24}px)`,
-            pointerEvents: heroContentOpacity < 0.2 ? "none" : "auto",
-          }}
-        >
+        {/* Main Hero Content */}
+        <div className="relative z-20 w-full px-6 sm:px-10 md:px-12 lg:pl-14 xl:pl-16 pt-20 sm:pt-24 pointer-events-auto">
           <div className="max-w-2xl lg:max-w-3xl space-y-6 sm:space-y-8">
-            {/* Small text badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/80 border border-white/20 backdrop-blur-md shadow-lg shadow-black/50">
+            
+            {/* 1. First Heading/Badge - Slides in from LEFT after 5 scrolls */}
+            <div
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/80 border border-white/20 backdrop-blur-md shadow-lg shadow-black/50 transition-all duration-700 ease-out"
+              style={{
+                opacity: isBadgeVisible ? 1 : 0,
+                transform: isBadgeVisible ? "translateX(0px)" : "translateX(-80px)",
+                pointerEvents: isBadgeVisible ? "auto" : "none",
+              }}
+            >
               <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" />
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-white">
+              <span className="text-xs sm:text-sm font-light font-[300] uppercase tracking-widest text-white">
                 Exclusive Distributorship for SA &amp; NT
               </span>
             </div>
 
-            {/* Heading */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-black uppercase tracking-tight text-white leading-[1.08] drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
-              South Australia&apos;s Premier Steel Frames
-            </h1>
+            {/* 2. Main Heading - Slides in from BOTTOM 5 scrolls after first heading */}
+            <div
+              className="transition-all duration-700 ease-out"
+              style={{
+                opacity: isMainHeadingVisible ? 1 : 0,
+                transform: isMainHeadingVisible ? "translateY(0px)" : "translateY(50px)",
+                pointerEvents: isMainHeadingVisible ? "auto" : "none",
+              }}
+            >
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-medium font-[500] uppercase tracking-tight text-white leading-[1.08] drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+                South Australia&apos;s Premier Steel Frames
+              </h1>
+            </div>
 
-            {/* Rotating line */}
-            <div className="space-y-2 pt-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            {/* 3. Capability Dynamic Line & Sub-indicator - Slides in from LEFT 5 scrolls after main heading */}
+            <div
+              className="space-y-3 pt-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] transition-all duration-700 ease-out"
+              style={{
+                opacity: isCapabilityLineVisible ? 1 : 0,
+                transform: isCapabilityLineVisible ? "translateX(0px)" : "translateX(-80px)",
+                pointerEvents: isCapabilityLineVisible ? "auto" : "none",
+              }}
+            >
               <div className="flex items-center gap-3">
                 <span className="h-6 sm:h-8 w-1.5 bg-white rounded-full shadow-md shadow-white/30 shrink-0" />
                 <div className="h-9 sm:h-11 flex items-center overflow-visible">
-                  <span
-                    className={`whitespace-nowrap text-base sm:text-xl md:text-2xl lg:text-3xl font-extrabold uppercase tracking-wide text-white transition-all duration-300 transform ${
-                      isFading ? "opacity-0 -translate-y-2" : "opacity-100 translate-y-0"
-                    }`}
-                  >
-                    {rotatingLines[currentIndex]}
+                  <span className="whitespace-nowrap text-base sm:text-xl md:text-2xl lg:text-3xl font-light font-[300] uppercase tracking-wide text-white transition-all duration-300">
+                    {activeLineIndex === 0
+                      ? "Light Gauge Steel Manufacturer"
+                      : "Steel Frame Manufacturer"}
                   </span>
                 </div>
               </div>
 
               {/* Sub-indicator */}
-              <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-wider pl-4 bg-black/75 backdrop-blur-md py-1.5 px-3 rounded-lg inline-flex border border-white/20 shadow-md whitespace-nowrap">
-                <span className={currentIndex === 0 ? "text-white font-bold" : "text-slate-400"}>
+              <div className="flex items-center gap-2 text-xs sm:text-sm font-light font-[300] uppercase tracking-wider pl-4 bg-black/75 backdrop-blur-md py-1.5 px-3 rounded-lg inline-flex border border-white/20 shadow-md whitespace-nowrap">
+                <span className={activeLineIndex === 0 ? "text-white font-[400]" : "text-slate-400 font-[300]"}>
                   Light Gauge Steel Manufacturer
                 </span>
-                <span className="text-slate-400 font-bold">·</span>
-                <span className={currentIndex === 1 ? "text-white font-bold" : "text-slate-400"}>
+                <span className="text-slate-400 font-[300]">·</span>
+                <span className={activeLineIndex === 1 ? "text-white font-[400]" : "text-slate-400 font-[300]"}>
                   Steel Frame Manufacturer
                 </span>
               </div>
             </div>
 
-            {/* Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            {/* 4. Action CTA Buttons - Slides in from BOTTOM 3 scrolls after capability line */}
+            <div
+              className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 transition-all duration-700 ease-out"
+              style={{
+                opacity: isButtonsVisible ? 1 : 0,
+                transform: isButtonsVisible ? "translateY(0px)" : "translateY(50px)",
+                pointerEvents: isButtonsVisible ? "auto" : "none",
+              }}
+            >
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center px-8 py-4 rounded-xl text-sm sm:text-base font-bold uppercase tracking-wider text-white bg-[#020618] hover:bg-[#071e4a] border border-white/30 shadow-2xl shadow-black hover:border-white/60 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 text-center"
               >
                 Get a Quote
               </Link>
-
               <Link
                 href="/steel-frames"
                 className="inline-flex items-center justify-center px-8 py-4 rounded-xl text-sm sm:text-base font-bold uppercase tracking-wider text-white bg-[#020618]/90 hover:bg-[#020618] border border-white/30 backdrop-blur-md hover:border-white/60 shadow-2xl shadow-black hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 text-center"
@@ -357,66 +360,9 @@ export default function Hero() {
                 Our Services
               </Link>
             </div>
+
           </div>
         </div>
-
-        {/* 2. Interactive Scroll-Down Instruction Pill (Visible at the start) */}
-        {scrollProgress < 0.25 && (
-          <div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 pointer-events-none transition-opacity duration-300"
-            style={{ opacity: Math.max(0, 1 - scrollProgress * 5) }}
-          >
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-black/75 backdrop-blur-md border border-white/25 shadow-xl text-white text-xs sm:text-sm font-bold uppercase tracking-wider animate-bounce">
-              <svg className="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-              <span>Scroll Down to Build Steel Frame</span>
-            </div>
-          </div>
-        )}
-
-        {/* 3. Live Construction Progress HUD (Visible as user scrolls and builds) */}
-        <div
-          className="absolute bottom-8 left-6 sm:left-10 md:left-14 z-30 pointer-events-none transition-all duration-500"
-          style={{
-            opacity: scrollProgress > 0.05 ? 1 : 0,
-            transform: `translateY(${scrollProgress > 0.05 ? 0 : 16}px)`,
-          }}
-        >
-          <div className="inline-flex flex-col gap-1.5 p-3.5 sm:p-4 rounded-2xl bg-black/80 backdrop-blur-md border border-white/20 shadow-2xl max-w-sm sm:max-w-md">
-            <div className="flex items-center justify-between gap-4">
-              <span className="text-[11px] font-bold text-sky-400 uppercase tracking-widest flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
-                Live Assembly Progress
-              </span>
-              <span className="text-xs font-mono font-bold text-white/80">
-                Frame {currentFrameNum} / {TOTAL_FRAMES} ({Math.round(scrollProgress * 100)}%)
-              </span>
-            </div>
-
-            {/* Dynamic Construction Stage Title */}
-            <p className="text-xs sm:text-sm font-extrabold text-white leading-snug">
-              {currentStageText}
-            </p>
-
-            {/* Progress bar */}
-            <div className="w-full h-1.5 rounded-full bg-white/20 overflow-hidden mt-1">
-              <div
-                className="h-full bg-gradient-to-r from-sky-400 to-[#1E63D8] rounded-full transition-all duration-150"
-                style={{ width: `${Math.round(scrollProgress * 100)}%` }}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* 4. Complete indicator at 100% */}
-        {scrollProgress > 0.96 && (
-          <div className="absolute bottom-8 right-6 sm:right-10 z-30 pointer-events-none animate-pulse">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/90 backdrop-blur-md text-white text-xs font-black uppercase tracking-wider shadow-lg shadow-emerald-500/30">
-              <span>✓ Structure Complete • Continue Scrolling ↓</span>
-            </div>
-          </div>
-        )}
 
       </div>
     </div>
