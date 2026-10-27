@@ -43,7 +43,7 @@ export default function IntroSection() {
           </div>
 
           {/* Main Huge Condensed Headline */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[60px] font-black uppercase tracking-tight text-slate-950 leading-[1.08]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[60px] font-medium uppercase tracking-tight text-slate-950 leading-[1.08]">
             OUR COMPREHENSIVE,<br />
             DESIGN TO DELIVERY SERVICE<br />
             IS WHAT SETS US APART.

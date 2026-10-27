@@ -190,8 +190,8 @@ function ParallaxCard({ item, scrollYOffset }: ParallaxCardProps) {
           </span>
         </div>
 
-        {/* Card Title in Bold Deep Navy (#020618) */}
-        <h3 className="text-2xl sm:text-3xl font-black uppercase text-[#020618] tracking-wide mb-3">
+        {/* Card Title in Deep Navy (#020618) */}
+        <h3 className="text-2xl sm:text-3xl font-medium uppercase text-[#020618] tracking-wide mb-3">
           {item.title}
         </h3>
 
@@ -285,7 +285,7 @@ export default function WhatWeDo() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-black uppercase tracking-tight text-[#020618] leading-[1.12]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-light uppercase tracking-tight text-[#020618] leading-[1.12]">
             END-TO-END LIGHT GAUGE STEEL CAPABILITIES
           </h2>
 
