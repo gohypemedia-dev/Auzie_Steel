@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import WhatWeDo3DViewer from "@/components/WhatWeDo3DViewer";
 
 interface WhatWeDoItem {
@@ -185,13 +187,13 @@ function ParallaxCard({ item, scrollYOffset }: ParallaxCardProps) {
               {item.category}
             </span>
           </div>
-          <span className="text-3xl sm:text-4xl font-black text-slate-300 group-hover:text-[#1E63D8]/40 transition-colors">
+          <span className="text-3xl sm:text-4xl font-heading text-[#C9CED4] group-hover:text-[#1E63D8] transition-colors">
             {item.step}
           </span>
         </div>
 
-        {/* Card Title in Deep Navy (#020618) */}
-        <h3 className="text-2xl sm:text-3xl font-medium uppercase text-[#020618] tracking-wide mb-3">
+        {/* Card Title in Brand Black (#0F1114) */}
+        <h3 className="text-2xl sm:text-3xl font-heading uppercase text-[#0F1114] tracking-wide mb-3">
           {item.title}
         </h3>
 
@@ -212,14 +214,15 @@ function ParallaxCard({ item, scrollYOffset }: ParallaxCardProps) {
           ))}
         </ul>
 
-        {/* Action Button in Midnight Navy #0F172B (No color change on hover) */}
-        <div>
-          <Link
-            href={item.ctaHref}
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-[12px] text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-[#0F172B] hover:bg-[#0F172B] shadow-md shadow-black/10 hover:scale-[1.02] active:scale-[0.98] transition-transform group/btn"
-          >
+        {/* Action Button */}
+        <div className="pt-2">
+          <Link href={item.ctaHref} className="btn-circle-arrow group">
             <span>{item.ctaText}</span>
-            <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
+            <span className="circle-icon">
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </span>
           </Link>
         </div>
       </div>
@@ -280,16 +283,18 @@ export default function WhatWeDo() {
         <div className="text-center max-w-3xl mx-auto mb-20 sm:mb-24 space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1E63D8]/10 border border-[#1E63D8]/20 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-[#1E63D8] animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-widest text-[#1E63D8]">
+            <span className="text-xs font-bold font-label tracking-widest text-[#1E63D8]">
               WHAT WE DO
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-light uppercase tracking-tight text-[#020618] leading-[1.12]">
-            END-TO-END LIGHT GAUGE STEEL CAPABILITIES
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-medium uppercase tracking-tight text-[#0F1114] leading-[1.12]">
+            <span className="block overflow-hidden pb-1">
+              <span className="block">END-TO-END LIGHT GAUGE STEEL CAPABILITIES</span>
+            </span>
           </h2>
 
-          <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[#8A929B] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
             From precision roll-forming to direct site delivery, our four-stage structural framing solution ensures exceptional speed, durability, and cost efficiency.
           </p>
         </div>
@@ -315,9 +320,9 @@ export default function WhatWeDo() {
                     {/* Soft Radial Center Illumination (Spotlight on Model, completely grid-free) */}
                     <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_50%_35%,rgba(255,255,255,0.95)_0%,rgba(235,243,252,0.5)_65%,transparent_100%)]" />
 
-                    {/* Subtle Ethereal Sky Ambient Glow (Soft, non-dark, zero muddy colors) */}
-                    <div className="absolute -top-16 -right-16 w-80 h-80 rounded-full bg-sky-400/12 blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-110" />
-                    <div className="absolute -bottom-16 -left-16 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-110" />
+                    {/* Subtle Ethereal Ambient Glow with Brand Blue #1E63D8 */}
+                    <div className="absolute -top-16 -right-16 w-80 h-80 rounded-full bg-[#1E63D8]/8 blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-110" />
+                    <div className="absolute -bottom-16 -left-16 w-80 h-80 rounded-full bg-[#1E63D8]/8 blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-110" />
 
                     {/* 3D WebGL Three.js interactive canvas container */}
                     <WhatWeDo3DViewer
@@ -339,12 +344,13 @@ export default function WhatWeDo() {
 
         {/* Bottom CTA Button */}
         <div className="mt-20 pt-8 text-center border-t border-slate-200">
-          <Link
-            href="/steel-frames"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-[12px] text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-[#0F172B] hover:bg-[#0F172B] shadow-md shadow-black/10 hover:scale-[1.02] active:scale-[0.98] transition-transform group"
-          >
-            <span>LEARN MORE</span>
-            <span className="text-base group-hover:translate-x-1 transition-transform">→</span>
+          <Link href="/steel-frames" className="btn-circle-arrow group">
+            <span>EXPLORE FULL CAPABILITIES</span>
+            <span className="circle-icon">
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </span>
           </Link>
         </div>
 

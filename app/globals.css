@@ -6,6 +6,7 @@
   --brand-grey: #8A929B;
   --brand-light: #EEF0F2;
   --brand-blue: #1E63D8;
+  --brand-blue-hover: #1650B5;
 }
 
 @theme inline {
@@ -14,16 +15,19 @@
   --color-brand-grey: #8A929B;
   --color-brand-light: #EEF0F2;
   --color-brand-blue: #1E63D8;
+  --color-brand-blue-hover: #1650B5;
   --font-sans: var(--font-inter), sans-serif;
   --font-heading: var(--font-archivo-black), sans-serif;
   --font-label: var(--font-montserrat), sans-serif;
 }
 
-/* Base Body: Inter font, Brand Black background, Brand Light text */
+/* Base Body: Inter font, Brand Black text (#0F1114) */
 body {
-  background: #0F1114;
-  color: #EEF0F2;
+  background: #ffffff;
+  color: #0F1114;
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Headings: Archivo Black (wide and heavy, like the logo) */
@@ -36,6 +40,7 @@ h6,
 .font-heading {
   font-family: var(--font-archivo-black), sans-serif;
   letter-spacing: -0.015em;
+  color: #0F1114;
 }
 
 /* Small Labels & Badges: Montserrat in spaced-out capitals */
@@ -46,4 +51,64 @@ label,
 .tracking-wider,
 nav a {
   font-family: var(--font-montserrat), sans-serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Architectural Curve Mask for Hero Section */
+.hero-curved-mask {
+  clip-path: ellipse(115% 100% at 88% 100%);
+  transition: clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 1023px) {
+  .hero-curved-mask {
+    clip-path: ellipse(120% 90% at 50% 100%);
+  }
+}
+
+/* Diagonal and Stepped Architectural Masks */
+.mask-architectural-step {
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 88% 100%, 0 100%);
+}
+
+.mask-architectural-diagonal {
+  clip-path: polygon(0 0, 100% 4%, 100% 100%, 0 96%);
+}
+
+/* Circle-Arrow Button Hover Effect */
+.btn-circle-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0F1114;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-circle-arrow .circle-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  border: 1px solid #C9CED4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0F1114;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-circle-arrow:hover {
+  color: #1E63D8;
+}
+
+.btn-circle-arrow:hover .circle-icon {
+  border-color: #1E63D8;
+  background: #1E63D8;
+  color: #ffffff;
+  transform: translateX(4px);
 }

@@ -39,7 +39,7 @@ export default function RootLayout({
       lang="en"
       className={`${archivoBlack.variable} ${inter.variable} ${montserrat.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 font-sans">
+      <body className="min-h-full flex flex-col bg-white text-[#0F1114] font-sans">
         <Navbar />
         <div className="flex-1">{children}</div>
         <Footer />
