@@ -1,306 +1,383 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-interface HeroSlide {
-  id: string;
-  badge: string;
-  tagline: string;
-  titleLine1: string;
-  titleLine2: string;
-  description: string;
-  imageSrc: string;
-  imageAlt: string;
-  ctaText: string;
-  ctaHref: string;
+const TOTAL_FRAMES = 340;
+const SCROLL_DISTANCE = 5500; // 5500px pin distance ensures slow, smooth, buttery scrubbing without skipping
+
+function getFrameUrl(index: number): string {
+  const padded = String(index).padStart(4, "0");
+  return `/steel_structure_frames/frame_${padded}.png`;
 }
 
-const slides: HeroSlide[] = [
-  {
-    id: "steel-framing",
-    badge: "EXCLUSIVE DISTRIBUTORSHIP · SA & NT",
-    tagline: "ARCHITECTURAL CAPABILITY",
-    titleLine1: "SOUTH AUSTRALIA'S",
-    titleLine2: "PREMIER STEEL FRAMES",
-    description:
-      "Auzie Steel delivers precision-engineered light gauge steel wall frames and trusses. Manufactured with advanced CNC automation for architectural freedom, high structural integrity, and rapid delivery.",
-    imageSrc: "/hero-construction.webp",
-    imageAlt: "South Australia Premier Light Gauge Steel Framing Construction",
-    ctaText: "EXPLORE PROJECTS",
-    ctaHref: "/steel-frames",
-  },
-  {
-    id: "alpha-floor",
-    badge: "ENGINEERED FLOOR CASSETTES",
-    tagline: "STRUCTURAL INNOVATION",
-    titleLine1: "HIGH SPAN STRENGTH",
-    titleLine2: "ALPHA FLOOR SYSTEMS",
-    description:
-      "State-of-the-art acoustic and structural flooring solutions. Zero squeak, high load-bearing capacity, termite-proof, and designed for multi-residential and architectural construction.",
-    imageSrc: "/why-choose-customisable-main.jpg",
-    imageAlt: "Alpha Floor High Strength Steel Framing System",
-    ctaText: "DISCOVER ALPHA FLOOR",
-    ctaHref: "/alpha-floor",
-  },
-  {
-    id: "custom-engineering",
-    badge: "STATE-OF-THE-ART CAD / BIM",
-    tagline: "DESIGN TO DELIVERY",
-    titleLine1: "END-TO-END",
-    titleLine2: "CUSTOM FABRICATIONS",
-    description:
-      "From architectural takeoff and BIM digital detailing to precision roll-forming and direct site delivery across South Australia and the Northern Territory.",
-    imageSrc: "/who-we-are-steelwork.jpg",
-    imageAlt: "Precision Architectural Light Gauge Steelwork Fabrication",
-    ctaText: "VIEW SERVICES",
-    ctaHref: "/steel-frames",
-  },
+const rotatingPhrases = [
+  "Light Gauge Steel Manufacturer",
+  "Steel Frame Manufacturer",
+  "Precision CNC Roll-Forming",
+  "High-Tensile Truecore® Framing",
 ];
 
 export default function Hero() {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const containerRef = useRef<HTMLElement>(null);
-  const imageWrapperRef = useRef<HTMLDivElement>(null);
-  const imageInnerRef = useRef<HTMLDivElement>(null);
-  const textLine1Ref = useRef<HTMLSpanElement>(null);
-  const textLine2Ref = useRef<HTMLSpanElement>(null);
-  const badgeRef = useRef<HTMLDivElement>(null);
-  const descRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const tabsRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Parallax on mouse move
+  // Typography animation refs
+  const smallTextRef = useRef<HTMLDivElement>(null);
+  const headingLine1Ref = useRef<HTMLHeadingElement>(null);
+  const headingLine2Ref = useRef<HTMLHeadingElement>(null);
+  const rotatingLineRef = useRef<HTMLDivElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [activePhraseIndex, setActivePhraseIndex] = useState(0);
+
+  // References for render loop & high performance
+  const imagesCacheRef = useRef<Map<number, HTMLImageElement>>(new Map());
+  const currentFrameRef = useRef<number>(1);
+
+  // Subtle rotating text ticker interval
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!imageInnerRef.current) return;
-      const { innerWidth, innerHeight } = window;
-      const x = (e.clientX / innerWidth - 0.5) * 16;
-      const y = (e.clientY / innerHeight - 0.5) * 16;
-      gsap.to(imageInnerRef.current, {
-        x,
-        y,
-        duration: 1.2,
-        ease: "power2.out",
+    const interval = setInterval(() => {
+      setActivePhraseIndex((prev) => (prev + 1) % rotatingPhrases.length);
+    }, 3200);
+    return () => clearInterval(interval);
+  }, []);
+
+  // High-Quality Canvas Draw Helper (Cover Fit)
+  const drawImageCover = useCallback((img: HTMLImageElement) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d", { alpha: false });
+    if (!ctx) return;
+
+    const canvasW = canvas.width;
+    const canvasH = canvas.height;
+    const imgW = img.naturalWidth || img.width;
+    const imgH = img.naturalHeight || img.height;
+
+    if (!imgW || !imgH) return;
+
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
+    const hRatio = canvasW / imgW;
+    const vRatio = canvasH / imgH;
+    const ratio = Math.max(hRatio, vRatio);
+
+    const drawW = imgW * ratio;
+    const drawH = imgH * ratio;
+
+    const offsetX = (canvasW - drawW) * 0.5;
+    const offsetY = (canvasH - drawH) * 0.5;
+
+    ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
+  }, []);
+
+  // Display specific frame immediately
+  const renderFrame = useCallback(
+    (frameIndex: number) => {
+      const clamped = Math.max(1, Math.min(TOTAL_FRAMES, frameIndex));
+      currentFrameRef.current = clamped;
+
+      const cached = imagesCacheRef.current.get(clamped);
+      if (cached && cached.complete && cached.naturalWidth > 0) {
+        drawImageCover(cached);
+      } else {
+        // If not in cache yet, load on demand and draw immediately
+        const fresh = new Image();
+        fresh.src = getFrameUrl(clamped);
+        fresh.onload = () => {
+          imagesCacheRef.current.set(clamped, fresh);
+          if (currentFrameRef.current === clamped) {
+            drawImageCover(fresh);
+          }
+        };
+      }
+    },
+    [drawImageCover]
+  );
+
+  // 1. Preload pipeline: Frame 1 immediately, then the rest in concurrent batches
+  useEffect(() => {
+    let isCancelled = false;
+    const cache = imagesCacheRef.current;
+
+    // Load Frame 1 immediately for 0ms delay
+    const frame1 = new Image();
+    frame1.src = getFrameUrl(1);
+    frame1.onload = () => {
+      if (isCancelled) return;
+      cache.set(1, frame1);
+      setIsLoaded(true);
+      drawImageCover(frame1);
+      ScrollTrigger.refresh();
+    };
+
+    // Preload remaining frames in concurrent batches of 10
+    const BATCH_SIZE = 10;
+    let nextIndex = 2;
+
+    const loadNextBatch = () => {
+      if (isCancelled || nextIndex > TOTAL_FRAMES) return;
+
+      const batchPromises: Promise<void>[] = [];
+      const end = Math.min(nextIndex + BATCH_SIZE, TOTAL_FRAMES + 1);
+
+      for (let i = nextIndex; i < end; i++) {
+        const idx = i;
+        if (cache.has(idx)) continue;
+
+        const p = new Promise<void>((resolve) => {
+          const img = new Image();
+          img.src = getFrameUrl(idx);
+          img.onload = () => {
+            if (!isCancelled) {
+              cache.set(idx, img);
+            }
+            resolve();
+          };
+          img.onerror = () => resolve();
+        });
+        batchPromises.push(p);
+      }
+
+      nextIndex = end;
+
+      Promise.all(batchPromises).then(() => {
+        if (!isCancelled && nextIndex <= TOTAL_FRAMES) {
+          setTimeout(loadNextBatch, 15);
+        }
       });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+    const timer = setTimeout(loadNextBatch, 40);
 
-  // Cinematic GSAP entrance animation whenever activeSlide changes
+    return () => {
+      isCancelled = true;
+      clearTimeout(timer);
+    };
+  }, [drawImageCover]);
+
+  // 2. High-DPI Canvas resize handler
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const handleResize = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
 
-    const ctx = gsap.context(() => {
-      if (prefersReducedMotion) {
-        gsap.set([badgeRef.current, textLine1Ref.current, textLine2Ref.current, descRef.current, ctaRef.current, tabsRef.current], {
-          opacity: 1,
-          y: 0,
-        });
-        if (imageWrapperRef.current) {
-          imageWrapperRef.current.style.clipPath = "ellipse(115% 100% at 88% 100%)";
-        }
-        return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+
+      const currentImg = imagesCacheRef.current.get(currentFrameRef.current);
+      if (currentImg && currentImg.complete) {
+        drawImageCover(currentImg);
       }
+    };
 
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    handleResize();
+    window.addEventListener("resize", handleResize, { passive: true });
 
-      // 1. Text elements initial positions
-      gsap.set([textLine1Ref.current, textLine2Ref.current], { y: "110%", opacity: 0 });
-      gsap.set(badgeRef.current, { y: 20, opacity: 0 });
-      gsap.set(descRef.current, { y: 25, opacity: 0 });
-      gsap.set(ctaRef.current, { y: 20, opacity: 0 });
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [drawImageCover]);
 
-      // 2. Architectural curved mask reveal
-      if (imageWrapperRef.current) {
-        gsap.fromTo(
-          imageWrapperRef.current,
-          {
-            clipPath: "ellipse(40% 60% at 100% 100%)",
-            opacity: 0.8,
-          },
-          {
-            clipPath: "ellipse(118% 105% at 88% 100%)",
-            opacity: 1,
-            duration: 1.6,
-            ease: "expo.out",
+  // 3. GSAP ScrollTrigger Fullscreen Pin & Staggered Cinematic Heading Reveals
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Initial typography state: not too bold, clean subtle offset
+    gsap.set(smallTextRef.current, { x: -80, opacity: 0 });
+    gsap.set(headingLine1Ref.current, { x: -110, opacity: 0 });
+    gsap.set(headingLine2Ref.current, { y: 65, opacity: 0 });
+    gsap.set(rotatingLineRef.current, { y: 45, opacity: 0 });
+    gsap.set(buttonsRef.current, { y: 45, opacity: 0 });
+
+    // Proxy object for GSAP to smoothly tween frame numbers
+    const frameProxy = { frame: 1 };
+
+    // Coordinated Timeline tied to scroll distance
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: container,
+        start: "top top",
+        end: `+=${SCROLL_DISTANCE}`, // Pinned firmly for 5500px of scroll distance
+        pin: true,
+        pinSpacing: true,
+        scrub: 1.2, // Smooth dampened scrub, preventing rapid jumping on single scroll tick
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: () => {
+          const target = Math.min(
+            TOTAL_FRAMES,
+            Math.max(1, Math.round(frameProxy.frame))
+          );
+
+          if (target !== currentFrameRef.current) {
+            renderFrame(target);
           }
-        );
-      }
+        },
+      },
+    });
 
-      // 3. Inner image subtle scale from 1.08 to 1.0
-      if (imageInnerRef.current) {
-        gsap.fromTo(
-          imageInnerRef.current,
-          { scale: 1.08 },
-          { scale: 1.0, duration: 1.8, ease: "power2.out" }
-        );
-      }
+    // 1. Frame scrub continuously from 0% to 100% of the pin
+    tl.to(frameProxy, { frame: TOTAL_FRAMES, ease: "none", duration: 1 }, 0);
 
-      // 4. Staggered typography reveal
-      tl.to(badgeRef.current, { y: 0, opacity: 1, duration: 0.8 }, 0.2)
-        .to(textLine1Ref.current, { y: "0%", opacity: 1, duration: 1.1, ease: "power4.out" }, 0.3)
-        .to(textLine2Ref.current, { y: "0%", opacity: 1, duration: 1.1, ease: "power4.out" }, 0.42)
-        .to(descRef.current, { y: 0, opacity: 1, duration: 0.9 }, 0.6)
-        .to(ctaRef.current, { y: 0, opacity: 1, duration: 0.8 }, 0.75);
-    }, containerRef);
+    // 2. Staggered arrivals on scroll (arrives in distinct stages, not all at once):
+    // Stage 1: Small text glides smoothly from the LEFT
+    tl.to(
+      smallTextRef.current,
+      { x: 0, opacity: 1, duration: 0.16, ease: "power2.out" },
+      0.08
+    );
 
-    return () => ctx.revert();
-  }, [activeSlide]);
+    // Stage 2: Heading Line 1 ("South Australia's") glides smoothly from the LEFT
+    tl.to(
+      headingLine1Ref.current,
+      { x: 0, opacity: 1, duration: 0.18, ease: "power2.out" },
+      0.22
+    );
 
-  const slide = slides[activeSlide];
+    // Stage 3: Heading Line 2 ("Premier Steel Frames") slides smoothly from the BOTTOM
+    tl.to(
+      headingLine2Ref.current,
+      { y: 0, opacity: 1, duration: 0.18, ease: "power2.out" },
+      0.40
+    );
+
+    // Stage 4: Rotating subheadline slides smoothly from the BOTTOM
+    tl.to(
+      rotatingLineRef.current,
+      { y: 0, opacity: 1, duration: 0.16, ease: "power2.out" },
+      0.58
+    );
+
+    // Stage 5: Buttons reveal smoothly from the BOTTOM
+    tl.to(
+      buttonsRef.current,
+      { y: 0, opacity: 1, duration: 0.16, ease: "power2.out" },
+      0.74
+    );
+
+    // Refresh after layout settles
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+
+    return () => {
+      clearTimeout(refreshTimer);
+      tl.scrollTrigger?.kill();
+      tl.kill();
+    };
+  }, [renderFrame]);
 
   return (
     <section
       id="hero-section"
       ref={containerRef}
-      className="relative w-full min-h-screen bg-white text-slate-900 overflow-hidden flex flex-col justify-between pt-24 sm:pt-28 pb-10"
+      className="relative w-full h-screen overflow-hidden bg-[#0A0C10] text-white select-none"
     >
-      {/* Background Architectural Grid Lines (Clean luxury editorial texture) */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.035] bg-[radial-gradient(#000000_1px,transparent_1px)] [background-size:24px_24px]" />
+      {/* Fullscreen HTML5 High-Performance Canvas */}
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full block object-cover will-change-transform"
+        style={{ width: "100%", height: "100%" }}
+      />
 
-      {/* Main Two-Column Hero Grid */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col lg:flex-row items-center gap-12 lg:gap-8 my-auto">
-        
-        {/* Left Editorial Content Column */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center space-y-6 sm:space-y-7 z-20">
-          
-          {/* Badge & Category Line */}
-          <div ref={badgeRef} className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-[#1E63D8] animate-pulse" />
-            <span className="text-[11px] sm:text-xs font-bold font-label tracking-[0.22em] text-[#1E63D8] uppercase">
-              {slide.badge}
-            </span>
-          </div>
+      {/* Fallback image shown during initial 0ms load */}
+      {!isLoaded && (
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${getFrameUrl(1)})`,
+          }}
+        />
+      )}
 
-          {/* Main Huge Headline with Vertical Text Clipping Mask */}
-          <div className="space-y-1">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl xl:text-[62px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.05]">
-              <span className="block overflow-hidden pb-1">
-                <span ref={textLine1Ref} className="block will-change-transform">
-                  {slide.titleLine1}
-                </span>
-              </span>
-              <span className="block overflow-hidden pb-1">
-                <span ref={textLine2Ref} className="block text-[#1E63D8] will-change-transform">
-                  {slide.titleLine2}
-                </span>
-              </span>
-            </h1>
-          </div>
-
-          {/* Editorial Supporting Description */}
-          <p
-            ref={descRef}
-            className="text-sm sm:text-base md:text-lg text-slate-600 font-normal leading-relaxed max-w-xl"
-          >
-            {slide.description}
-          </p>
-
-          {/* Action CTAs - Featuring Reference Video's Iconic Circle-Arrow */}
-          <div ref={ctaRef} className="pt-2 flex flex-wrap items-center gap-6 sm:gap-8">
-            <Link href="/contact" className="btn-circle-arrow group">
-              <span>GET A FAST QUOTE</span>
-              <span className="circle-icon">
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </span>
-            </Link>
-
-            <Link
-              href={slide.ctaHref}
-              className="inline-flex items-center justify-center px-6 py-3.5 rounded-full text-xs font-bold font-label tracking-wider text-white bg-[#0F1114] hover:bg-[#1E63D8] shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
-            >
-              {slide.ctaText}
-            </Link>
-          </div>
-
-          {/* Slide Switcher Controls (Matching Reference Video's Minimal Tab Switcher) */}
-          <div ref={tabsRef} className="pt-6 border-t border-[#EEF0F2] flex items-center gap-6 text-xs font-bold font-label uppercase tracking-widest text-[#8A929B]">
-            {slides.map((s, idx) => (
-              <button
-                key={s.id}
-                onClick={() => setActiveSlide(idx)}
-                className={`relative pb-1.5 transition-all cursor-pointer ${
-                  activeSlide === idx
-                    ? "text-[#0F1114] font-extrabold"
-                    : "hover:text-[#0F1114]"
-                }`}
-              >
-                <span>0{idx + 1} {s.id.replace("-", " ")}</span>
-                {activeSlide === idx && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#1E63D8] rounded-full" />
-                )}
-              </button>
-            ))}
-          </div>
-
-        </div>
-
-        {/* Right Architectural Image Column with Curved Mask Reveal */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center relative">
-          <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] lg:aspect-[5/4] max-w-xl lg:max-w-none">
+      {/* Left-Aligned Cinematic Editorial Typography Overlay */}
+      <div className="absolute inset-0 z-20 pointer-events-none flex flex-col justify-center">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 w-full">
+          <div className="max-w-xl sm:max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-5 text-left">
             
-            {/* The Curved Architectural Mask Container */}
+            {/* 1. Small Text (Enters smoothly from LEFT on scroll) */}
             <div
-              ref={imageWrapperRef}
-              className="relative w-full h-full overflow-hidden hero-curved-mask shadow-2xl shadow-slate-300/60 bg-[#EEF0F2] border border-[#C9CED4]"
+              ref={smallTextRef}
+              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-black/25 backdrop-blur-md border border-white/20 shadow-md will-change-transform"
             >
-              <div ref={imageInnerRef} className="relative w-full h-full will-change-transform">
-                <Image
-                  src={slide.imageSrc}
-                  alt={slide.imageAlt}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  quality={92}
-                  className="object-cover object-center"
-                />
-                {/* Soft Architectural Highlight & Vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+              <span className="w-2 h-2 rounded-full bg-[#1E63D8] animate-pulse" />
+              <span className="text-xs sm:text-[13px] font-normal tracking-[0.18em] text-white uppercase font-sans">
+                Exclusive Distributorship for SA &amp; NT
+              </span>
+            </div>
+
+            {/* 2. Main Heading (Light & Medium Font Weight, Crisp & Bright) */}
+            <div className="space-y-1">
+              {/* Line 1 (Enters smoothly from LEFT on scroll) */}
+              <div className="overflow-hidden pb-1">
+                <h1
+                  ref={headingLine1Ref}
+                  className="text-3xl sm:text-5xl md:text-6xl font-light tracking-tight text-white leading-[1.1] font-sans will-change-transform"
+                >
+                  South Australia&apos;s
+                </h1>
+              </div>
+
+              {/* Line 2 (Enters smoothly from BOTTOM on scroll) */}
+              <div className="overflow-hidden pb-1">
+                <h1
+                  ref={headingLine2Ref}
+                  className="text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white leading-[1.1] font-sans will-change-transform"
+                >
+                  <span className="text-[#3B82F6] font-semibold">Premier Steel</span> Frames
+                </h1>
               </div>
             </div>
 
-            {/* Subtle Architectural Dimension Tag (Float on bottom-left of curve) */}
-            <div className="absolute -bottom-4 -left-3 sm:bottom-4 sm:left-4 z-30 bg-white/95 backdrop-blur-md border border-[#C9CED4] px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-3">
-              <div className="w-7 h-7 rounded-lg bg-[#EEF0F2] text-[#1E63D8] border border-[#C9CED4] flex items-center justify-center font-bold text-xs font-label">
-                AU
-              </div>
-              <div className="leading-tight">
-                <span className="block text-[10px] font-bold font-label tracking-widest text-[#8A929B] uppercase">
-                  STRUCTURAL ACCREDITED
-                </span>
-                <span className="block text-xs font-extrabold font-label text-[#0F1114] uppercase">
-                  AS/NZS 4600 &amp; NCC 2022
-                </span>
-              </div>
+            {/* 3. Rotating line: Light Gauge Steel Manufacturer · Steel Frame Manufacturer */}
+            <div
+              ref={rotatingLineRef}
+              className="flex flex-wrap items-center gap-2 pt-1 text-sm sm:text-base font-normal text-white tracking-wide will-change-transform"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#3B82F6]" />
+              <span className="text-white font-medium">
+                Light Gauge Steel Manufacturer
+              </span>
+              <span className="text-white/60">·</span>
+              <span className="text-white font-medium">
+                Steel Frame Manufacturer
+              </span>
+            </div>
+
+            {/* 4. Action Buttons (Enters smoothly from BOTTOM on scroll) */}
+            <div
+              ref={buttonsRef}
+              className="pt-3 flex flex-wrap items-center gap-4 pointer-events-auto will-change-transform"
+            >
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-wider text-white bg-[#0B2545] hover:bg-[#12396B] border border-blue-400/30 shadow-lg shadow-blue-950/40 hover:shadow-blue-900/50 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+              >
+                Get a Quote
+              </Link>
+
+              <Link
+                href="/steel-frames"
+                className="inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-wider text-white bg-[#0B2545] hover:bg-[#12396B] border border-blue-400/30 shadow-lg shadow-blue-950/40 hover:shadow-blue-900/50 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+              >
+                Our Services
+              </Link>
             </div>
 
           </div>
         </div>
-
       </div>
-
-      {/* Bottom Architectural Metadata Bar */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between text-[11px] font-bold uppercase tracking-widest text-slate-400 gap-4">
-        <div className="flex items-center gap-6">
-          <span>LOCATION: ADELAIDE, SA</span>
-          <span className="hidden sm:inline">·</span>
-          <span className="hidden sm:inline">PRECISION ROLL-FORMING</span>
-          <span className="hidden sm:inline">·</span>
-          <span className="hidden sm:inline">BLUESCOPE TRUECORE® STEEL</span>
-        </div>
-        <div className="flex items-center gap-2 text-slate-500">
-          <span>SCROLL TO EXPLORE</span>
-          <span className="animate-bounce">↓</span>
-        </div>
-      </div>
-
     </section>
   );
 }

@@ -3,24 +3,28 @@ import Hero from "@/components/Hero";
 import IntroSection from "@/components/IntroSection";
 import WhatWeDo from "@/components/WhatWeDo";
 import ProjectsGallery from "@/components/ProjectsGallery";
+import WhyChooseSteelFrames from "@/components/WhyChooseSteelFrames";
 import WhyChooseSteel from "@/components/WhyChooseSteel";
 
 export default function Home() {
   return (
-    <div className="bg-white text-slate-900 overflow-hidden">
+    <div className="bg-white text-slate-900 overflow-x-clip">
       {/* 1. Hero Section with Cinematic Typography & Curved Mask */}
       <Hero />
 
       {/* 2. Intro Section with Line-by-Line Reveals & Architectural Mask */}
       <IntroSection />
 
-      {/* 3. Services / Capabilities (4 Interactive Zigzag Stages) */}
+      {/* 3. Services / Capabilities (Frame-by-Frame Canvas Animation) */}
       <WhatWeDo />
 
       {/* 4. Projects & Image Gallery (Staggered Waterfall Columns from Reference Video) */}
       <ProjectsGallery />
 
-      {/* 5. Why Choose Steel Frames (Interactive Benefit Cards) */}
+      {/* 5. Why Choose Steel Frames For Your Next Project (Slide Up Stacking Cards) */}
+      <WhyChooseSteelFrames />
+
+      {/* 6. Why Light Gauge Steel (Dual Parallax Stream Cards) */}
       <WhyChooseSteel />
 
       {/* 6. Flagship Systems Section (Minimal White Architectural Luxury Aesthetic) */}

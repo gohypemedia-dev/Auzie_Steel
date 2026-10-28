@@ -101,7 +101,7 @@ export default function ProjectsGallery() {
             scrollTrigger: {
               trigger: headingRef.current,
               start: "top 80%",
-              toggleActions: "play none none none",
+              toggleActions: "play reverse play reverse",
             },
           }
         );
@@ -130,7 +130,7 @@ export default function ProjectsGallery() {
                 scrollTrigger: {
                   trigger: card,
                   start: "top 82%",
-                  toggleActions: "play none none none",
+                  toggleActions: "play reverse play reverse",
                 },
               }
             );
@@ -147,7 +147,7 @@ export default function ProjectsGallery() {
                 scrollTrigger: {
                   trigger: card,
                   start: "top 82%",
-                  toggleActions: "play none none none",
+                  toggleActions: "play reverse play reverse",
                 },
               }
             );
@@ -166,7 +166,7 @@ export default function ProjectsGallery() {
                 scrollTrigger: {
                   trigger: card,
                   start: "top 82%",
-                  toggleActions: "play none none none",
+                  toggleActions: "play reverse play reverse",
                 },
               }
             );
