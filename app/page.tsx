@@ -2,9 +2,9 @@ import Link from "next/link";
 import Hero from "@/components/Hero";
 import IntroSection from "@/components/IntroSection";
 import WhatWeDo from "@/components/WhatWeDo";
-import ProjectsGallery from "@/components/ProjectsGallery";
 import WhyChooseSteelFrames from "@/components/WhyChooseSteelFrames";
 import WhyChooseSteel from "@/components/WhyChooseSteel";
+import ContactCallToAction from "@/components/ContactCallToAction";
 
 export default function Home() {
   return (
@@ -18,10 +18,7 @@ export default function Home() {
       {/* 3. Services / Capabilities (Frame-by-Frame Canvas Animation) */}
       <WhatWeDo />
 
-      {/* 4. Projects & Image Gallery (Staggered Waterfall Columns from Reference Video) */}
-      <ProjectsGallery />
-
-      {/* 5. Why Choose Steel Frames For Your Next Project (Slide Up Stacking Cards) */}
+      {/* 4. Why Choose Steel Frames For Your Next Project (Slide Up Stacking Cards) */}
       <WhyChooseSteelFrames />
 
       {/* 6. Why Light Gauge Steel (Dual Parallax Stream Cards) */}
@@ -139,43 +136,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. Call to Action Banner (Minimalist Clean Architectural Layout) */}
-      <section className="bg-[#0F1114] text-white py-20 sm:py-28 relative overflow-hidden">
-        {/* Subtle grid accent */}
-        <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8] animate-pulse" />
-            <span className="text-[11px] font-bold font-label tracking-widest text-[#EEF0F2]">
-              START YOUR PROJECT
-            </span>
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight text-white leading-[1.12]">
-            READY TO BUILD SMARTER WITH AUZIE STEEL?
-          </h2>
-
-          <p className="text-[#C9CED4] max-w-xl mx-auto text-sm sm:text-base font-normal leading-relaxed">
-            Send us your architectural plans for a comprehensive engineering takeoff estimate and manufacturer-direct pricing.
-          </p>
-
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-5">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-full text-xs sm:text-sm font-bold font-label tracking-wider text-[#0F1114] bg-white hover:bg-[#EEF0F2] shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
-            >
-              REQUEST A TAKEOFF QUOTE
-            </Link>
-            <a
-              href="tel:1300647833"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-full text-xs sm:text-sm font-bold font-label tracking-wider text-white border border-[#C9CED4]/40 hover:bg-white/10 transition-all"
-            >
-              CALL 1300 647 833
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* 7. Call To Action & Contact Section (Split Card Design directly above footer) */}
+      <ContactCallToAction />
     </div>
   );
 }

@@ -1,77 +1,67 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import WhatWeDo3DViewer from "@/components/WhatWeDo3DViewer";
 
-interface WhatWeDoItem {
+interface ServiceItem {
   step: string;
   category: string;
   title: string;
   description: string;
   imageSrc: string;
   imageAlt: string;
-  badgeLabel: string;
   keyPoints: string[];
   ctaText: string;
   ctaHref: string;
   imageOnLeft: boolean;
-  parallaxSpeed: number; // Parallax multiplier for depth
-  modelType: "custom-designs" | "fabrications" | "installations" | "our-promise";
 }
 
-const items: WhatWeDoItem[] = [
+const serviceItems: ServiceItem[] = [
   {
     step: "01",
     category: "DESIGN & ENGINEERING",
-    title: "Custom designs",
+    title: "CUSTOM DESIGNS",
     description:
-      "Our machinery is state of the art and can customise steel frames to suit any home design.",
+      "Our computer-controlled machinery manufactures bespoke light gauge steel frames directly from CAD/BIM models with extreme millimeter accuracy. Build cantilevers, double-height ceiling voids, and expansive open-plan spans with complete structural confidence.",
     imageSrc: "/what-we-do-custom-designs.jpg",
     imageAlt: "Custom light gauge steel home framing design",
-    badgeLabel: "BESPOKE ARCHITECTURAL CAD",
     keyPoints: [
       "Precision 3D CAD & BIM digital detailing",
-      "Full flexibility for any architectural residential plan",
-      "Millimeter-accurate tolerances from foundation to roof",
+      "Full flexibility for bespoke residential plans",
+      "Millimeter roll-forming accuracy from slab to truss",
     ],
     ctaText: "LEARN MORE ABOUT CUSTOM STEEL",
     ctaHref: "/steel-frames",
-    imageOnLeft: true,
-    parallaxSpeed: -0.35,
-    modelType: "custom-designs",
+    imageOnLeft: false, // Card on Left, Image on Right
   },
   {
     step: "02",
     category: "MANUFACTURING & FABRICATION",
-    title: "Fabrications",
+    title: "FABRICATIONS",
     description:
-      "Our prefabricated frames are designed tough and last forever, while minimising manufacturing times to keep your project on time and on budget.",
+      "Manufactured with high-tensile BlueScope Truecore® steel, our structural framing will not rot, warp, twist, shrink or sag over decades of building life. 100% immune to termite infestation, moisture, and fungal decay.",
     imageSrc: "/what-we-do-fabrications.jpg",
     imageAlt: "Automated light gauge steel frame fabrication facility",
-    badgeLabel: "CNC AUTOMATED ROLL-FORMING",
     keyPoints: [
-      "Manufactured with high-tensile BlueScope Truecore® steel",
+      "Manufactured from high-tensile BlueScope Truecore® steel",
       "Automated roll-forming minimizes site delays & waste",
       "Engineered tough: 100% termite-proof & non-combustible",
     ],
     ctaText: "EXPLORE OUR FABRICATIONS",
     ctaHref: "/steel-frames",
-    imageOnLeft: false,
-    parallaxSpeed: -0.55,
-    modelType: "fabrications",
+    imageOnLeft: true, // Image on Left, Card on Right
   },
   {
     step: "03",
     category: "SITE ASSEMBLY",
-    title: "Installations",
+    title: "INSTALLATIONS",
     description:
-      "As our frames are made from light gauge steel, they can be installed easily and with minimal effort.",
+      "Our lightweight steel framing packs arrive directly to site in sequenced, colour-coded bundles. Installation requires significantly less crane time, smaller onsite crews, and minimal manual lifting, keeping your construction weeks ahead of schedule.",
     imageSrc: "/what-we-do-installations.jpg",
     imageAlt: "Easy installation of light gauge steel frames on site",
-    badgeLabel: "LIGHTWEIGHT & EFFORTLESS ASSEMBLY",
     keyPoints: [
       "Significantly lighter than traditional timber framing",
       "Pre-punched service holes for rapid plumbing & electricals",
@@ -79,19 +69,16 @@ const items: WhatWeDoItem[] = [
     ],
     ctaText: "DISCOVER EASY INSTALLATION",
     ctaHref: "/steel-frames",
-    imageOnLeft: true,
-    parallaxSpeed: -0.4,
-    modelType: "installations",
+    imageOnLeft: false, // Card on Left, Image on Right
   },
   {
     step: "04",
     category: "GUARANTEED DELIVERY",
-    title: "Our promise",
+    title: "OUR PROMISE",
     description:
-      "Our design to delivery service gives you the opportunity to have your next project designed, manufactured and delivered on site in efficient timeframes.",
+      "Our design to delivery service gives you the opportunity to have your next project designed, manufactured and delivered on site in efficient timeframes so your build stays on schedule and on budget.",
     imageSrc: "/what-we-do-our-promise.jpg",
     imageAlt: "On-time direct to site steel frame delivery",
-    badgeLabel: "DIRECT TO SITE LOGISTICS",
     keyPoints: [
       "Complete design-to-site crane truck logistics",
       "Guaranteed delivery schedules to keep projects on track",
@@ -99,28 +86,12 @@ const items: WhatWeDoItem[] = [
     ],
     ctaText: "CONTACT US TODAY",
     ctaHref: "/contact",
-    imageOnLeft: false,
-    parallaxSpeed: -0.5,
-    modelType: "our-promise",
+    imageOnLeft: true, // Image on Left, Card on Right
   },
 ];
 
-const modelStudioTheme = {
-  bgGradient: "bg-gradient-to-b from-[#F8FAFD] via-[#EDF4FB] to-[#E1EDFA]",
-  border: "border-slate-200/90 hover:border-[#1E63D8]/40",
-  shadow: "shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:shadow-[#1E63D8]/10",
-  accentDot: "bg-[#1E63D8]",
-  accentText: "text-slate-700",
-  badgeBg: "bg-white/95",
-  badgeBorder: "border-slate-200/90",
-};
-
-interface ParallaxCardProps {
-  item: WhatWeDoItem;
-  scrollYOffset: number;
-}
-
-function ParallaxCard({ item, scrollYOffset }: ParallaxCardProps) {
+// Interactive Information Card (Restored from previous design with 12px radius, 3D tilt & glare)
+function ServiceInfoCard({ item }: { item: ServiceItem }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [tiltStyle, setTiltStyle] = useState("");
   const [glarePosition, setGlarePosition] = useState({ x: 50, y: 50, opacity: 0 });
@@ -133,16 +104,16 @@ function ParallaxCard({ item, scrollYOffset }: ParallaxCardProps) {
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = -((y - centerY) / centerY) * 7;
-    const rotateY = ((x - centerX) / centerX) * 7;
+    const rotateX = -((y - centerY) / centerY) * 6;
+    const rotateY = ((x - centerX) / centerX) * 6;
 
     setTiltStyle(
-      `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px) scale3d(1.015, 1.015, 1.015)`
+      `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px) scale3d(1.01, 1.01, 1.01)`
     );
     setGlarePosition({
       x: (x / rect.width) * 100,
       y: (y / rect.height) * 100,
-      opacity: 0.12,
+      opacity: 0.1,
     });
   };
 
@@ -151,80 +122,62 @@ function ParallaxCard({ item, scrollYOffset }: ParallaxCardProps) {
     setGlarePosition((prev) => ({ ...prev, opacity: 0 }));
   };
 
-  const scrollTranslateY = scrollYOffset * item.parallaxSpeed;
-
   return (
     <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       style={{
-        transform: `translateY(${scrollTranslateY.toFixed(1)}px)`,
-        transition: "transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1)",
+        transform: tiltStyle || "perspective(1000px) rotateX(0deg) rotateY(0deg)",
+        transition: tiltStyle ? "transform 0.1s ease-out" : "transform 0.4s ease-out",
       }}
-      className="will-change-transform"
+      className="relative overflow-hidden p-7 sm:p-9 lg:p-10 bg-white border border-slate-200/90 hover:border-[#1E63D8]/40 shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:shadow-[#1E63D8]/10 transition-all duration-300 rounded-[12px] group w-full"
     >
+      {/* Subtle Radial Shine on Mouse Hover */}
       <div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        className="absolute inset-0 pointer-events-none rounded-[12px] transition-opacity duration-300"
         style={{
-          transform: tiltStyle || "perspective(1000px) rotateX(0deg) rotateY(0deg)",
-          transition: tiltStyle ? "transform 0.1s ease-out" : "transform 0.4s ease-out",
+          background: `radial-gradient(circle at ${glarePosition.x}% ${glarePosition.y}%, rgba(30, 99, 216, ${glarePosition.opacity}), transparent 70%)`,
         }}
-        className="relative overflow-hidden p-8 sm:p-10 lg:p-12 bg-white/95 border border-slate-200/90 hover:border-[#1E63D8]/40 shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:shadow-[#1E63D8]/10 transition-all duration-300 rounded-[12px] group"
-      >
-        {/* Subtle Radial Shine on Mouse Hover */}
-        <div
-          className="absolute inset-0 pointer-events-none rounded-[12px] transition-opacity duration-300"
-          style={{
-            background: `radial-gradient(circle at ${glarePosition.x}% ${glarePosition.y}%, rgba(30, 99, 216, ${glarePosition.opacity}), transparent 70%)`,
-          }}
-        />
+      />
 
-        {/* Step & Category Header */}
-        <div className="flex items-center justify-between mb-5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1E63D8]/10 border border-[#1E63D8]/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8] animate-pulse" />
-            <span className="text-[11px] font-bold uppercase tracking-widest text-[#1E63D8]">
-              {item.category}
+      {/* Step Header */}
+      <div className="flex items-center justify-between mb-4">
+        <span className="text-2xl sm:text-3xl font-heading font-black text-[#C9CED4] group-hover:text-[#1E63D8] transition-colors">
+          {item.step}
+        </span>
+      </div>
+
+      {/* Card Title (Dash Removed) */}
+      <h3 className="text-2xl sm:text-3xl font-heading font-black uppercase text-[#0F1114] tracking-tight mb-3">
+        {item.title}
+      </h3>
+
+      {/* Card Description */}
+      <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6 font-normal">
+        {item.description}
+      </p>
+
+      {/* Key Feature Highlights */}
+      <ul className="space-y-3 mb-8 pt-5 border-t border-slate-100">
+        {item.keyPoints.map((point, idx) => (
+          <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700">
+            <span className="w-5 h-5 rounded-full bg-[#1E63D8]/10 text-[#1E63D8] flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+              ✓
             </span>
-          </div>
-          <span className="text-3xl sm:text-4xl font-heading text-[#C9CED4] group-hover:text-[#1E63D8] transition-colors">
-            {item.step}
-          </span>
-        </div>
+            <span className="font-medium">{point}</span>
+          </li>
+        ))}
+      </ul>
 
-        {/* Card Title in Brand Black (#0F1114) */}
-        <h3 className="text-2xl sm:text-3xl font-heading uppercase text-[#0F1114] tracking-wide mb-3">
-          {item.title}
-        </h3>
-
-        {/* Card Description */}
-        <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-6 font-normal">
-          {item.description}
-        </p>
-
-        {/* Key Feature Highlights */}
-        <ul className="space-y-3 mb-8 pt-5 border-t border-slate-100">
-          {item.keyPoints.map((point, idx) => (
-            <li key={idx} className="flex items-start gap-3 text-sm text-slate-600">
-              <span className="w-5 h-5 rounded-full bg-[#1E63D8]/10 text-[#1E63D8] flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
-                ✓
-              </span>
-              <span className="font-medium">{point}</span>
-            </li>
-          ))}
-        </ul>
-
-        {/* Action Button */}
-        <div className="pt-2">
-          <Link href={item.ctaHref} className="btn-circle-arrow group">
-            <span>{item.ctaText}</span>
-            <span className="circle-icon">
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </span>
-          </Link>
-        </div>
+      {/* Action Button (Arrow Removed) */}
+      <div className="pt-2">
+        <Link
+          href={item.ctaHref}
+          className="inline-flex items-center justify-center px-6 py-3 rounded-lg text-xs sm:text-sm font-bold font-label tracking-wider uppercase text-white bg-slate-950 hover:bg-slate-900 border border-slate-800 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+        >
+          {item.ctaText}
+        </Link>
       </div>
     </div>
   );
@@ -232,129 +185,371 @@ function ParallaxCard({ item, scrollYOffset }: ParallaxCardProps) {
 
 export default function WhatWeDo() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [scrollYOffset, setScrollYOffset] = useState(0);
+
+  // 1. Loader Refs (Scoped strictly inside WhatWeDo banner)
+  const loaderCurtainRef = useRef<HTMLDivElement>(null);
+  const counterNumberRef = useRef<HTMLSpanElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const hasTriggeredLoaderRef = useRef<boolean>(false);
+
+  // 2. Banner Stage Refs (Zero-gap curtain reveal)
+  const bannerContainerRef = useRef<HTMLDivElement>(null);
+  const bannerContentRef = useRef<HTMLDivElement>(null);
+
+  // 3. Services Header & Row Refs
+  const servicesHeaderRef = useRef<HTMLDivElement>(null);
+  const rowsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    let ticking = false;
+    if (typeof window === "undefined") return;
+    gsap.registerPlugin(ScrollTrigger);
 
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (sectionRef.current) {
-            const rect = sectionRef.current.getBoundingClientRect();
-            const windowH = window.innerHeight;
-            if (rect.top < windowH && rect.bottom > 0) {
-              const progress = (windowH - rect.top) / (windowH + rect.height);
-              setScrollYOffset((progress - 0.5) * 90);
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const ctx = gsap.context(() => {
+      // -----------------------------------------------------------------
+      // PHASE 1: PRELOADER (000 -> 100) & ARCHITECTURAL DOME CURTAIN SWEEP UP
+      // -----------------------------------------------------------------
+      const counterObj = { val: 0 };
+      const counterEl = counterNumberRef.current;
+      const progressEl = progressBarRef.current;
+      const curtainEl = loaderCurtainRef.current;
+
+      const runLoaderSequence = () => {
+        if (hasTriggeredLoaderRef.current) return;
+        hasTriggeredLoaderRef.current = true;
+
+        if (prefersReducedMotion) {
+          if (curtainEl) curtainEl.style.display = "none";
+          return;
+        }
+
+        const loaderTl = gsap.timeline();
+
+        // 1. Counter counts up smoothly 000 -> 100 over a comfortable 2.2 seconds
+        loaderTl.to(counterObj, {
+          val: 100,
+          duration: 2.2,
+          ease: "power1.inOut",
+          onUpdate: () => {
+            if (counterEl) {
+              const current = Math.floor(counterObj.val);
+              counterEl.textContent = current < 10 ? `00${current}` : current < 100 ? `0${current}` : "100";
             }
-          }
-          ticking = false;
+            if (progressEl) {
+              progressEl.style.width = `${counterObj.val}%`;
+            }
+          },
         });
-        ticking = true;
-      }
-    };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+        // 2. Comfortable dwell time at 100 (0.4s)
+        loaderTl.to({}, { duration: 0.4 });
+
+        // 3. Curtain smoothly sweeps UP with architectural dome curve
+        loaderTl.to(curtainEl, {
+          yPercent: -105,
+          duration: 1.4,
+          ease: "power3.inOut",
+          onComplete: () => {
+            if (curtainEl) {
+              curtainEl.style.display = "none";
+            }
+          },
+        });
+      };
+
+      // Trigger loader when user arrives at WhatWeDo banner
+      ScrollTrigger.create({
+        trigger: bannerContainerRef.current,
+        start: "top 35%",
+        once: true,
+        onEnter: runLoaderSequence,
+      });
+
+      // Fallback check on load
+      const checkInitialVisibility = () => {
+        if (bannerContainerRef.current) {
+          const rect = bannerContainerRef.current.getBoundingClientRect();
+          if (rect.top <= window.innerHeight * 0.4 && rect.bottom > 0) {
+            runLoaderSequence();
+          }
+        }
+      };
+      const fallbackTimer = setTimeout(checkInitialVisibility, 300);
+
+      // -----------------------------------------------------------------
+      // PHASE 2 & 3: BANNER PIN WITH SEAMLESS CURTAIN REVEAL (NO BLACK VOID!)
+      // Pin banner for 100vh with pinSpacing: false so OUR SERVICES smoothly slides up over it
+      // -----------------------------------------------------------------
+      if (bannerContainerRef.current && bannerContentRef.current) {
+        ScrollTrigger.create({
+          id: "whatWeDoBannerPin",
+          trigger: bannerContainerRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: false,
+        });
+
+        gsap.to(bannerContentRef.current, {
+          y: -80,
+          opacity: 0.15,
+          scale: 0.95,
+          ease: "power1.out",
+          scrollTrigger: {
+            trigger: bannerContainerRef.current,
+            start: "top top",
+            end: "+=100%",
+            scrub: 1.2,
+          },
+        });
+      }
+
+      // -----------------------------------------------------------------
+      // PHASE 4: SERVICES HEADER: STAGGERED LINE REVEAL
+      // -----------------------------------------------------------------
+      if (servicesHeaderRef.current) {
+        const headerLines = servicesHeaderRef.current.querySelectorAll(".service-header-line");
+        gsap.fromTo(
+          headerLines,
+          { yPercent: 110, opacity: 0 },
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: servicesHeaderRef.current,
+              start: "top 80%",
+              toggleActions: "play reverse play reverse",
+            },
+          }
+        );
+      }
+
+      // -----------------------------------------------------------------
+      // 4 ALTERNATING CARDS: OPPOSING SLOW SLIDE-IN
+      // -----------------------------------------------------------------
+      // For each row: Info Card slides in from ONE side, Image slides in from the OPPOSITE side
+      // with slow, graceful glide (95px offset, scrub 2.2)
+      rowsRef.current.forEach((row, idx) => {
+        if (!row) return;
+
+        const textCol = row.querySelector(".service-text-col");
+        const imageCol = row.querySelector(".service-image-col");
+        const isImageOnLeft = serviceItems[idx].imageOnLeft;
+
+        // Dynamic Opposing Horizontal Offsets
+        const textStartX = isImageOnLeft ? 95 : -95;
+        const imageStartX = isImageOnLeft ? -95 : 95;
+
+        const rowTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: row,
+            start: "top 95%",
+            end: "bottom 60%",
+            scrub: 2.2,
+          },
+        });
+
+        // 1. Info Card slides in slowly from its side
+        if (textCol) {
+          rowTl.fromTo(
+            textCol,
+            { x: textStartX, opacity: 0 },
+            { x: 0, opacity: 1, ease: "power1.out" },
+            0
+          );
+        }
+
+        // 2. Image slides in slowly from the OPPOSITE side
+        if (imageCol) {
+          rowTl.fromTo(
+            imageCol,
+            { x: imageStartX, opacity: 0, scale: 0.96 },
+            { x: 0, opacity: 1, scale: 1, ease: "power1.out" },
+            0
+          );
+        }
+      });
+
+      return () => {
+        clearTimeout(fallbackTimer);
+      };
+    }, sectionRef);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      ScrollTrigger.getById("whatWeDoBannerPin")?.kill(true);
+      ctx.revert();
     };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 sm:py-32 bg-white text-slate-800 overflow-hidden border-b border-slate-200"
+      className="relative w-full bg-white text-[#0F1114] overflow-hidden border-b border-[#CBD5E1]"
     >
-
-      {/* Ambient Dark Blue Subtle Glow */}
+      {/* ===================================================================
+          PHASE 1 & 2: ARCHITECTURAL BANNER + SCOPED PRELOADER CURTAIN
+          (DESIGN TO DELIVERY & LIGHT GAUGE STEEL FRAMING PILL COMPLETELY REMOVED!)
+          =================================================================== */}
       <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[450px] bg-[#071e4a]/[0.035] rounded-full blur-3xl pointer-events-none will-change-transform"
-        style={{
-          transform: `translate(-50%, calc(-50% + ${(scrollYOffset * 0.2).toFixed(1)}px))`,
-          transition: "transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1)",
-        }}
-      />
+        ref={bannerContainerRef}
+        className="relative w-full h-screen min-h-[640px] max-h-[1000px] overflow-hidden bg-[#0F1114]"
+      >
+        {/* Architectural Background Photography */}
+        <Image
+          src="/ani3-hero-curved-building.jpg"
+          alt="Auzie Steel High Tensile Architectural Framing Architecture"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center brightness-[0.52] will-change-transform"
+        />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20 sm:mb-24 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1E63D8]/10 border border-[#1E63D8]/20 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#1E63D8] animate-pulse" />
-            <span className="text-xs font-bold font-label tracking-widest text-[#1E63D8]">
-              WHAT WE DO
-            </span>
-          </div>
+        {/* Luxury Studio Dark Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/75 pointer-events-none" />
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-medium uppercase tracking-tight text-[#0F1114] leading-[1.12]">
-            <span className="block overflow-hidden pb-1">
-              <span className="block">END-TO-END LIGHT GAUGE STEEL CAPABILITIES</span>
-            </span>
+        {/* Banner Main Typography & Information */}
+        <div
+          ref={bannerContentRef}
+          className="relative z-10 h-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center space-y-6 sm:space-y-8 will-change-transform"
+        >
+          <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-black uppercase text-white tracking-tight leading-[1.05]">
+            MANUFACTURING EXCELLENCE <br />
+            <span className="text-[#60A5FA]">THAT SETS US APART</span>
           </h2>
 
-          <p className="text-[#8A929B] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
-            From precision roll-forming to direct site delivery, our four-stage structural framing solution ensures exceptional speed, durability, and cost efficiency.
+          <p className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-slate-200 leading-relaxed font-normal">
+            From automated roll-forming machinery to site-delivered cassettes and trusses, explore our complete structural framing services below.
           </p>
+
+          <div className="pt-4 flex flex-col items-center justify-center gap-2 text-white/80 font-mono text-xs uppercase tracking-widest animate-bounce">
+            <span>SCROLL TO EXPLORE SERVICES</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+          </div>
         </div>
 
-        {/* 4 Alternating Zigzag Rows */}
-        <div className="space-y-20 sm:space-y-28 lg:space-y-32">
-          {items.map((item) => {
+        {/* PHASE 1: Scoped Preloader Curtain (Sweeps Up 000 -> 100) */}
+        <div
+          ref={loaderCurtainRef}
+          className="absolute inset-0 z-30 bg-[#FAF9F6] flex flex-col items-center justify-center select-none will-change-transform shadow-2xl"
+          style={{
+            clipPath: "ellipse(150% 100% at 50% 0%)",
+          }}
+        >
+          <div className="flex flex-col items-center space-y-6">
+            {/* Brand Architectural Monogram & Name */}
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 border-2 border-[#0F1114] flex items-center justify-center font-heading font-black text-lg text-[#0F1114]">
+                A
+              </div>
+              <span className="font-heading font-black text-2xl tracking-widest text-[#0F1114] uppercase">
+                AUZIE STEEL
+              </span>
+            </div>
+
+            {/* Dynamic Gold/Black Progress Line */}
+            <div className="w-56 h-[3px] bg-[#CBD5E1] rounded-full overflow-hidden relative">
+              <div
+                ref={progressBarRef}
+                className="absolute inset-y-0 left-0 bg-[#0F1114] transition-all duration-75"
+                style={{ width: "0%" }}
+              />
+            </div>
+
+            {/* Dynamic Counter Number: 000 -> 100 */}
+            <div className="text-4xl sm:text-5xl font-mono font-bold tracking-widest text-[#0F1114]">
+              <span ref={counterNumberRef}>000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ===================================================================
+          PHASE 3 & 4: "OUR SERVICES" & CARDS WITH OPPOSING SIDE SLIDE-IN
+          (Smooth White Curtain Over Banner - ZERO Black Void!)
+          =================================================================== */}
+      <div className="relative z-20 w-full bg-white shadow-[0_-30px_70px_rgba(0,0,0,0.22)]">
+        <div className="py-24 sm:py-36 md:py-44 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Services Section Header */}
+        <div ref={servicesHeaderRef} className="mb-16 sm:mb-24 md:mb-28">
+          <div className="overflow-hidden pb-2">
+            <h2 className="service-header-line text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[96px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-tight will-change-transform">
+              OUR SERVICES
+            </h2>
+          </div>
+        </div>
+
+        {/* 4 Alternating Zigzag Cards with Opposing Slide-in Animation */}
+        <div className="space-y-40 sm:space-y-52 md:space-y-64">
+          {serviceItems.map((item, idx) => {
             return (
               <div
                 key={item.step}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center"
+                ref={(el) => {
+                  rowsRef.current[idx] = el;
+                }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center overflow-hidden py-6"
               >
-                {/* INTERACTIVE 3D ANIMATED STEEL MODEL WITH CLEAN LIGHT STUDIO BACKGROUND (NO GRID) */}
+                {/* --------------------------------------------------------
+                    INFORMATION CARD COLUMN (Slides in from Left or Right)
+                    Restored polished card container with 12px radius & 3D tilt
+                    -------------------------------------------------------- */}
                 <div
-                  className={`relative group ${
-                    item.imageOnLeft ? "lg:order-1" : "lg:order-2"
-                  }`}
+                  className={`service-text-col ${
+                    item.imageOnLeft
+                      ? "lg:col-span-6 lg:order-2"
+                      : "lg:col-span-6 lg:order-1"
+                  } flex flex-col justify-center will-change-transform`}
                 >
-                  {/* Clean Light Studio Card Container with 12px border radius */}
-                  <div
-                    className={`relative w-full rounded-[12px] overflow-hidden ${modelStudioTheme.bgGradient} border ${modelStudioTheme.border} ${modelStudioTheme.shadow} transition-all duration-500`}
-                  >
-                    {/* Soft Radial Center Illumination (Spotlight on Model, completely grid-free) */}
-                    <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_50%_35%,rgba(255,255,255,0.95)_0%,rgba(235,243,252,0.5)_65%,transparent_100%)]" />
+                  <ServiceInfoCard item={item} />
+                </div>
 
-                    {/* Subtle Ethereal Ambient Glow with Brand Blue #1E63D8 */}
-                    <div className="absolute -top-16 -right-16 w-80 h-80 rounded-full bg-[#1E63D8]/8 blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-110" />
-                    <div className="absolute -bottom-16 -left-16 w-80 h-80 rounded-full bg-[#1E63D8]/8 blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-110" />
-
-                    {/* 3D WebGL Three.js interactive canvas container */}
-                    <WhatWeDo3DViewer
-                      type={item.modelType}
-                      badgeLabel={item.badgeLabel}
-                      step={item.step}
+                {/* --------------------------------------------------------
+                    IMAGE COLUMN (Slides in from the OPPOSITE side)
+                    Clean 12px card, all wireframes/outline numbers/chips removed!
+                    -------------------------------------------------------- */}
+                <div
+                  className={`service-image-col relative ${
+                    item.imageOnLeft
+                      ? "lg:col-span-6 lg:order-1"
+                      : "lg:col-span-6 lg:order-2"
+                  } flex items-center justify-center will-change-transform`}
+                >
+                  <div className="relative w-full aspect-[4/3] rounded-[12px] overflow-hidden border border-slate-200/90 shadow-xl hover:shadow-2xl transition-all duration-500 group bg-slate-100">
+                    <Image
+                      src={item.imageSrc}
+                      alt={item.imageAlt}
+                      fill
+                      priority={idx === 0}
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
                   </div>
                 </div>
 
-                {/* PARALLAX CARD with 12px border radius */}
-                <div className={item.imageOnLeft ? "lg:order-2" : "lg:order-1"}>
-                  <ParallaxCard item={item} scrollYOffset={scrollYOffset} />
-                </div>
               </div>
             );
           })}
         </div>
 
-        {/* Bottom CTA Button */}
-        <div className="mt-20 pt-8 text-center border-t border-slate-200">
-          <Link href="/steel-frames" className="btn-circle-arrow group">
-            <span>EXPLORE FULL CAPABILITIES</span>
-            <span className="circle-icon">
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </span>
+        {/* Bottom Learn More CTA */}
+        <div className="mt-12 sm:mt-16 text-center">
+          <Link
+            href="/steel-frames"
+            className="inline-flex items-center justify-center px-10 py-4 rounded-full text-xs sm:text-sm font-bold font-label tracking-widest uppercase text-white bg-slate-950 hover:bg-slate-900 border border-slate-800 shadow-xl hover:shadow-2xl hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+          >
+            LEARN MORE
           </Link>
         </div>
 
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 }

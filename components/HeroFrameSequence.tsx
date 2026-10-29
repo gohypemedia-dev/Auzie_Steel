@@ -362,7 +362,6 @@ export default function HeroFrameSequence({ className = "" }: HeroFrameSequenceP
         <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
           {/* Status Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-white shadow-lg pointer-events-auto">
-            <span className="w-2 h-2 rounded-full bg-[#1E63D8] animate-pulse" />
             <span className="text-[10px] sm:text-[11px] font-bold font-label tracking-widest uppercase">
               3D STEEL STRUCTURE
             </span>
@@ -528,7 +527,6 @@ export default function HeroFrameSequence({ className = "" }: HeroFrameSequenceP
           {/* Header */}
           <div className="flex items-center justify-between text-white pb-4 border-b border-white/15">
             <div className="flex items-center gap-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#1E63D8] animate-pulse" />
               <h3 className="font-heading uppercase tracking-tight text-lg sm:text-xl">
                 AUZIE STEEL · 3D STRUCTURAL ASSEMBLY
               </h3>

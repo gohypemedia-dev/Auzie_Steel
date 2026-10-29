@@ -383,7 +383,7 @@ export default function WhyChooseSteel() {
             {leftItems.map((item) => (
               <div
                 key={item.id}
-                className="group bg-white rounded-2xl xl:rounded-3xl border border-[#E2E8F0] shadow-[0_12px_32px_rgba(15,17,20,0.06)] hover:shadow-[0_20px_44px_rgba(30,99,216,0.14)] hover:border-[#1E63D8]/40 transition-all duration-300 overflow-hidden flex flex-col"
+                className="group bg-white rounded-[7px] border border-[#E2E8F0] shadow-[0_12px_32px_rgba(15,17,20,0.06)] hover:shadow-[0_20px_44px_rgba(30,99,216,0.14)] hover:border-[#1E63D8]/40 transition-all duration-300 overflow-hidden flex flex-col"
               >
                 {/* Visual Image with Flush Edge-to-Edge Ratio (No outer margin/padding) */}
                 <div className="relative w-full aspect-[16/10] overflow-hidden bg-slate-100">
@@ -433,10 +433,10 @@ export default function WhyChooseSteel() {
               {/* Left Half of Split Card */}
               <div
                 ref={splitLeftRef}
-                className="relative w-1/2 h-full overflow-hidden rounded-l-2xl xl:rounded-l-3xl border-y border-l border-[#CBD5E1] bg-white shadow-[-12px_24px_48px_rgba(15,17,20,0.12)] will-change-transform"
+                className="relative w-1/2 h-full overflow-hidden rounded-l-[7px] border-y border-l border-[#CBD5E1] bg-white shadow-[-12px_24px_48px_rgba(15,17,20,0.12)] will-change-transform"
               >
                 <div className="absolute top-0 left-0 w-[360px] sm:w-[400px] xl:w-[440px] h-full flex flex-col justify-between overflow-hidden">
-                  <div className="relative w-full h-[64%] overflow-hidden bg-slate-100">
+                  <div className="relative w-full h-[74%] overflow-hidden bg-slate-100">
                     <Image
                       src="/why-choose-customisable-main.jpg"
                       alt="Auzie Steel Light Gauge Framing"
@@ -445,21 +445,12 @@ export default function WhyChooseSteel() {
                       sizes="440px"
                       priority
                     />
-                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 backdrop-blur-md text-[10px] font-mono font-bold text-[#1E63D8] shadow-sm">
-                      AUZIE STEEL
-                    </div>
                   </div>
 
-                  <div className="text-left p-4 space-y-1">
-                    <span className="text-[10px] font-bold font-label tracking-widest text-[#1E63D8] uppercase">
-                      6 ADVANTAGES
-                    </span>
+                  <div className="text-left p-4 pb-5">
                     <h3 className="font-heading font-black text-sm xl:text-base uppercase text-[#0F1114] leading-tight">
                       Why Light Gauge Steel?
                     </h3>
-                    <p className="text-[11px] text-[#64748B] line-clamp-2">
-                      Cold-formed Truecore® precision framing.
-                    </p>
                   </div>
 
                 </div>
@@ -468,10 +459,10 @@ export default function WhyChooseSteel() {
               {/* Right Half of Split Card */}
               <div
                 ref={splitRightRef}
-                className="relative w-1/2 h-full overflow-hidden rounded-r-2xl xl:rounded-r-3xl border-y border-r border-[#CBD5E1] bg-white shadow-[12px_24px_48px_rgba(15,17,20,0.12)] will-change-transform"
+                className="relative w-1/2 h-full overflow-hidden rounded-r-[7px] border-y border-r border-[#CBD5E1] bg-white shadow-[12px_24px_48px_rgba(15,17,20,0.12)] will-change-transform"
               >
                 <div className="absolute top-0 -left-[180px] sm:-left-[200px] xl:-left-[220px] w-[360px] sm:w-[400px] xl:w-[440px] h-full flex flex-col justify-between overflow-hidden">
-                  <div className="relative w-full h-[64%] overflow-hidden bg-slate-100">
+                  <div className="relative w-full h-[74%] overflow-hidden bg-slate-100">
                     <Image
                       src="/why-choose-customisable-main.jpg"
                       alt="Auzie Steel Light Gauge Framing"
@@ -480,21 +471,12 @@ export default function WhyChooseSteel() {
                       sizes="440px"
                       priority
                     />
-                    <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-md bg-[#0F1114]/80 text-white text-[11px] font-mono font-bold">
-                      01 / 06
-                    </div>
                   </div>
 
-                  <div className="text-left p-4 space-y-1">
-                    <span className="text-[10px] font-bold font-label tracking-widest text-[#1E63D8] uppercase">
-                      6 ADVANTAGES
-                    </span>
+                  <div className="text-left p-4 pb-5">
                     <h3 className="font-heading font-black text-sm xl:text-base uppercase text-[#0F1114] leading-tight">
                       Why Light Gauge Steel?
                     </h3>
-                    <p className="text-[11px] text-[#64748B] line-clamp-2">
-                      Cold-formed Truecore® precision framing.
-                    </p>
                   </div>
 
                 </div>
@@ -507,16 +489,15 @@ export default function WhyChooseSteel() {
               className="max-w-md xl:max-w-lg space-y-4 will-change-transform"
             >
               
-              {/* Category Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-[#CBD5E1] shadow-sm pointer-events-auto">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8] animate-pulse" />
-                <span className="text-[11px] font-bold font-label tracking-widest text-[#0F1114] uppercase">
+              {/* Category Pill (Enlarged & Blue Dot Removed) */}
+              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white border border-[#CBD5E1] shadow-sm pointer-events-auto">
+                <span className="text-xs sm:text-sm font-bold font-heading tracking-wider text-[#0F1114] uppercase">
                   WHY LIGHT GAUGE STEEL
                 </span>
               </div>
 
               {/* Center Main Editorial Heading */}
-              <h2 className="text-4xl xl:text-5xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.08]">
+              <h2 className="text-4xl sm:text-5xl xl:text-6xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.06]">
                 Why light
                 <br />
                 <span className="text-[#1E63D8]">gauge steel?</span>
@@ -556,7 +537,7 @@ export default function WhyChooseSteel() {
             {rightItems.map((item) => (
               <div
                 key={item.id}
-                className="group bg-white rounded-2xl xl:rounded-3xl border border-[#E2E8F0] shadow-[0_12px_32px_rgba(15,17,20,0.06)] hover:shadow-[0_20px_44px_rgba(30,99,216,0.14)] hover:border-[#1E63D8]/40 transition-all duration-300 overflow-hidden flex flex-col"
+                className="group bg-white rounded-[7px] border border-[#E2E8F0] shadow-[0_12px_32px_rgba(15,17,20,0.06)] hover:shadow-[0_20px_44px_rgba(30,99,216,0.14)] hover:border-[#1E63D8]/40 transition-all duration-300 overflow-hidden flex flex-col"
               >
                 {/* Visual Image with Flush Edge-to-Edge Ratio (No outer margin/padding) */}
                 <div className="relative w-full aspect-[16/10] overflow-hidden bg-slate-100">
@@ -607,14 +588,13 @@ export default function WhyChooseSteel() {
         
         {/* Mobile Header */}
         <div className="text-center max-w-xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-[#CBD5E1] shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8] animate-pulse" />
-            <span className="text-[11px] font-bold font-label tracking-widest text-[#0F1114] uppercase">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white border border-[#CBD5E1] shadow-sm">
+            <span className="text-xs sm:text-sm font-bold font-heading tracking-wider text-[#0F1114] uppercase">
               WHY LIGHT GAUGE STEEL
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.12]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.12]">
             Why light <span className="text-[#1E63D8]">gauge steel?</span>
           </h2>
 
@@ -628,7 +608,7 @@ export default function WhyChooseSteel() {
           {items.map((item) => (
             <div
               key={item.id}
-              className="why-steel-card-mobile group bg-white rounded-2xl border border-[#E2E8F0] shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+              className="why-steel-card-mobile group bg-white rounded-[7px] border border-[#E2E8F0] shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
             >
               <div className="relative w-full aspect-[16/10] overflow-hidden bg-slate-100">
                 <Image

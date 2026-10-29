@@ -187,8 +187,7 @@ export default function ProjectsGallery() {
         
         {/* Section Header - Editorial Architecture Layout */}
         <div className="max-w-3xl mb-16 sm:mb-24 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#EEF0F2] border border-[#C9CED4]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8] animate-pulse" />
+          <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-[#EEF0F2] border border-[#C9CED4]">
             <span className="text-[11px] font-bold font-label tracking-widest text-[#0F1114]">
               FEATURED PORTFOLIO
             </span>

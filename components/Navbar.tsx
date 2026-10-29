@@ -50,7 +50,7 @@ export default function Navbar() {
     };
   }, [isHomePage]);
 
-  // Transparent on hero section; solid black afterwards
+  // Transparent on hero section; dark blue (matching footer) afterwards
   const isTransparent = isHomePage && !isPastHero;
 
   return (
@@ -59,7 +59,7 @@ export default function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500 shadow-none ${
           isTransparent
             ? "bg-transparent border-b border-transparent text-white"
-            : "bg-[#0A0C10]/95 backdrop-blur-md border-b border-white/10 text-white"
+            : "bg-slate-950/95 backdrop-blur-md border-b border-slate-800 text-white"
         }`}
       >
         {/* Main Navbar */}
@@ -154,7 +154,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Dropdown */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-b border-white/10 bg-[#0A0C10]/98 backdrop-blur-md px-4 pt-3 pb-6 space-y-2 shadow-none">
+          <div className="lg:hidden border-t border-b border-slate-800 bg-slate-950/98 backdrop-blur-md px-4 pt-3 pb-6 space-y-2 shadow-none">
             {navItems.map((item) => {
               const isSelected = clickedItem === item.name || (pathname === item.href && !clickedItem);
               return (
@@ -168,14 +168,14 @@ export default function Navbar() {
                   className={`block px-4 py-2.5 rounded-lg text-xs font-bold tracking-widest uppercase transition-all ${
                     isSelected
                       ? "text-[#1E63D8] bg-blue-950/40 font-extrabold"
-                      : "text-white/80 hover:text-white hover:bg-white/10"
+                      : "text-white/80 hover:text-white hover:bg-slate-900"
                   }`}
                 >
                   {item.name}
                 </Link>
               );
             })}
-            <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
+            <div className="pt-3 border-t border-slate-800 flex flex-col gap-2">
               <a
                 href="tel:1300647833"
                 className="text-center py-2.5 rounded-lg text-xs font-bold text-white bg-white/10 uppercase tracking-wider"

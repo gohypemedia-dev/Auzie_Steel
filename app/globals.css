@@ -21,26 +21,28 @@
   --font-label: var(--font-montserrat), sans-serif;
 }
 
-/* Base Body: Inter font, Brand Black text (#0F1114) */
-body {
-  background: #ffffff;
-  color: #0F1114;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
+@layer base {
+  /* Base Body: Inter font, Brand Black text (#0F1114) */
+  body {
+    background: #ffffff;
+    color: #0F1114;
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
 
-/* Headings: Archivo Black (wide and heavy, like the logo) */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.font-heading {
-  font-family: var(--font-archivo-black), sans-serif;
-  letter-spacing: -0.015em;
-  color: #0F1114;
+  /* Headings: Archivo Black default, can be overridden by utility classes */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-heading {
+    font-family: var(--font-archivo-black), sans-serif;
+    letter-spacing: -0.015em;
+    color: #0F1114;
+  }
 }
 
 /* Small Labels & Badges: Montserrat in spaced-out capitals */
@@ -76,7 +78,7 @@ nav a {
   clip-path: polygon(0 0, 100% 4%, 100% 100%, 0 96%);
 }
 
-/* Circle-Arrow Premium Dark Blue Button */
+/* Circle-Arrow Premium Dark Slate Blue Button (Matching Footer bg-slate-950) */
 .btn-circle-arrow {
   display: inline-flex;
   align-items: center;
@@ -84,15 +86,15 @@ nav a {
   gap: 0.85rem;
   padding: 0.85rem 1.65rem;
   border-radius: 9999px;
-  background-color: #0B2545;
+  background-color: #020617; /* Same as footer bg-slate-950 */
   color: #ffffff !important;
   font-family: var(--font-montserrat), sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 14px 0 rgba(11, 37, 69, 0.25);
+  border: 1px solid #1e293b; /* border-slate-800 */
+  box-shadow: 0 4px 14px 0 rgba(2, 6, 23, 0.35);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   text-decoration: none;

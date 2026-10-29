@@ -201,19 +201,16 @@ export default function WhyChooseSteelFrames() {
         <div className="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:24px_24px]" />
 
         {/* Top Fixed Header Bar (Clears fixed 80px navbar with ample padding) */}
-        <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-4 sm:pb-5 flex flex-col items-center text-center border-b border-[#E2E8F0]">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-[#CBD5E1] shadow-sm mb-2.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8] animate-pulse" />
-            <span className="text-[11px] font-bold font-label tracking-widest text-[#0F1114] uppercase">
-              WHY AUZIE STEEL
-            </span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.12]">
-            WHY CHOOSE STEEL FRAMES FOR YOUR NEXT PROJECT
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-26 pb-3 sm:pb-4 flex flex-col items-center text-center border-b border-[#E2E8F0]">
+          {/* Main Primary Heading (Centered, Heavy Bold, Blue Dot Removed) */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-tight mb-2 sm:mb-2.5">
+            WHY AUZIE STEEL
           </h2>
-          <p className="mt-1.5 text-xs sm:text-sm text-[#64748B] max-w-2xl font-normal">
-            Precision cold-formed Truecore® steel framing engineered for architectural freedom, generational durability, and rapid assembly.
-          </p>
+
+          {/* Sub-heading underneath with reduced font weight */}
+          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-sans font-semibold uppercase tracking-tight text-[#0F1114] leading-snug">
+            WHY CHOOSE STEEL FRAMES FOR YOUR NEXT PROJECT
+          </h3>
         </div>
 
         {/* Center Stacking Cards Deck Area (Slide Up Animation with Clean White Cards) */}
@@ -225,23 +222,10 @@ export default function WhyChooseSteelFrames() {
                 ref={(el) => {
                   cardsRef.current[idx] = el;
                 }}
-                className="absolute inset-0 w-full h-full bg-white rounded-[24px] sm:rounded-[30px] border border-[#CBD5E1] shadow-[0_-15px_40px_rgba(15,17,20,0.06),0_15px_35px_rgba(15,17,20,0.05)] overflow-hidden flex flex-col justify-between p-5 sm:p-7 lg:p-9 transform-gpu will-change-transform [backface-visibility:hidden]"
+                className="absolute inset-0 w-full h-full bg-white rounded-[12px] border border-[#CBD5E1] shadow-[0_-15px_40px_rgba(15,17,20,0.06),0_15px_35px_rgba(15,17,20,0.05)] overflow-hidden flex flex-col justify-between p-5 sm:p-7 lg:p-9 transform-gpu will-change-transform [backface-visibility:hidden]"
               >
                 {/* Top Accent Line */}
                 <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#1E63D8] via-[#60A5FA] to-[#1E63D8] pointer-events-none" />
-
-                {/* Card Sub-header */}
-                <div className="flex items-center justify-between border-b border-[#F1F3F5] pb-2.5 sm:pb-3 mb-2.5 sm:mb-3">
-                  <div className="flex items-center gap-2.5">
-                    <span className="w-2 h-2 rounded-full bg-[#1E63D8]" />
-                    <span className="text-xs font-mono font-bold text-[#1E63D8] tracking-widest uppercase">
-                      STAGE {service.step} · {service.pill}
-                    </span>
-                  </div>
-                  <span className="text-xs font-label uppercase text-[#8A929B] font-semibold tracking-wider hidden sm:inline-block">
-                    LIGHT GAUGE STEEL FRAMING
-                  </span>
-                </div>
 
                 {/* Main Card Content (2-Column Grid) */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center flex-1 overflow-hidden">
@@ -261,39 +245,32 @@ export default function WhyChooseSteelFrames() {
                       {service.description}
                     </p>
 
-                    {/* Specs Pills */}
+                    {/* Specs Pills (Blue Dots Removed) */}
                     <div className="flex flex-wrap gap-2 pt-1">
                       {service.specs.map((spec) => (
                         <span
                           key={spec}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F8FAFD] border border-[#CBD5E1] text-xs font-semibold text-[#0F1114]"
+                          className="inline-flex items-center px-3 py-1.5 rounded-lg bg-[#F8FAFD] border border-[#CBD5E1] text-xs font-semibold text-[#0F1114]"
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8]" />
                           {spec}
                         </span>
                       ))}
                     </div>
 
-                    {/* Action Link */}
-                    <div className="pt-1.5">
+                    {/* Action Button: Dark Slate Blue (Matching Footer) */}
+                    <div className="pt-2">
                       <Link
                         href={service.href}
-                        className="group inline-flex items-center gap-3 text-sm font-bold text-[#0F1114] hover:text-[#1E63D8] transition-colors duration-300"
+                        className="inline-flex items-center justify-center px-6 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm font-bold font-label tracking-wider uppercase text-white bg-slate-950 hover:bg-slate-900 border border-slate-800 shadow-md shadow-slate-950/20 hover:shadow-lg hover:shadow-slate-950/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
                       >
-                        <span className="h-[2px] w-7 bg-[#0F1114] group-hover:w-14 group-hover:bg-[#1E63D8] transition-all duration-300 rounded-full" />
-                        <span className="tracking-wide uppercase font-label text-xs sm:text-sm">
-                          {service.linkText}
-                        </span>
-                        <span className="text-[#1E63D8] group-hover:translate-x-1.5 transition-transform duration-300 font-black">
-                          →
-                        </span>
+                        {service.linkText}
                       </Link>
                     </div>
                   </div>
 
-                  {/* Right Column: Tall Image Card */}
+                  {/* Right Column: Tall Image Card (12px Radius, Bottom Overlay Removed) */}
                   <div className="lg:col-span-5 h-full flex items-center justify-center">
-                    <div className="relative w-full h-[200px] sm:h-[260px] lg:h-[360px] rounded-[18px] sm:rounded-[22px] overflow-hidden border border-[#CBD5E1] shadow-lg group bg-slate-100">
+                    <div className="relative w-full h-[200px] sm:h-[260px] lg:h-[360px] rounded-[12px] overflow-hidden border border-[#CBD5E1] shadow-lg group bg-slate-100">
                       <Image
                         src={service.imageSrc}
                         alt={service.imageAlt}
@@ -301,28 +278,9 @@ export default function WhyChooseSteelFrames() {
                         className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                         sizes="(max-width: 1024px) 100vw, 40vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-
-                      <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 bg-white/95 backdrop-blur-md border border-[#CBD5E1] rounded-xl px-3 py-2 flex items-center justify-between text-[11px] shadow-md">
-                        <div className="flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8]" />
-                          <span className="font-bold text-[#0F1114] tracking-wider uppercase font-label">
-                            100% BLUESCOPE TRUECORE®
-                          </span>
-                        </div>
-                        <span className="font-mono text-[#64748B] font-semibold hidden sm:inline">
-                          AUZIE STEEL
-                        </span>
-                      </div>
                     </div>
                   </div>
 
-                </div>
-
-                {/* Bottom Micro-Footer */}
-                <div className="pt-2.5 border-t border-[#F1F3F5] flex items-center justify-between text-[11px] text-[#8A929B] font-mono">
-                  <span className="font-semibold text-[#64748B]">AUZIE STEEL CAPABILITIES</span>
-                  <span>AUSTRALIAN STANDARDS COMPLIANT · AS/NZS 4600</span>
                 </div>
               </div>
             ))}

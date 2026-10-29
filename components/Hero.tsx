@@ -25,7 +25,6 @@ export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Typography animation refs
-  const smallTextRef = useRef<HTMLDivElement>(null);
   const headingLine1Ref = useRef<HTMLHeadingElement>(null);
   const headingLine2Ref = useRef<HTMLHeadingElement>(null);
   const rotatingLineRef = useRef<HTMLDivElement>(null);
@@ -194,7 +193,6 @@ export default function Hero() {
     if (!container) return;
 
     // Initial typography state: not too bold, clean subtle offset
-    gsap.set(smallTextRef.current, { x: -80, opacity: 0 });
     gsap.set(headingLine1Ref.current, { x: -110, opacity: 0 });
     gsap.set(headingLine2Ref.current, { y: 65, opacity: 0 });
     gsap.set(rotatingLineRef.current, { y: 45, opacity: 0 });
@@ -231,39 +229,32 @@ export default function Hero() {
     tl.to(frameProxy, { frame: TOTAL_FRAMES, ease: "none", duration: 1 }, 0);
 
     // 2. Staggered arrivals on scroll (arrives in distinct stages, not all at once):
-    // Stage 1: Small text glides smoothly from the LEFT
-    tl.to(
-      smallTextRef.current,
-      { x: 0, opacity: 1, duration: 0.16, ease: "power2.out" },
-      0.08
-    );
-
-    // Stage 2: Heading Line 1 ("South Australia's") glides smoothly from the LEFT
+    // Stage 1: Heading Line 1 ("South Australia's") glides smoothly from the LEFT
     tl.to(
       headingLine1Ref.current,
       { x: 0, opacity: 1, duration: 0.18, ease: "power2.out" },
-      0.22
+      0.12
     );
 
-    // Stage 3: Heading Line 2 ("Premier Steel Frames") slides smoothly from the BOTTOM
+    // Stage 2: Heading Line 2 ("Premier Steel Frames") slides smoothly from the BOTTOM
     tl.to(
       headingLine2Ref.current,
       { y: 0, opacity: 1, duration: 0.18, ease: "power2.out" },
-      0.40
+      0.32
     );
 
-    // Stage 4: Rotating subheadline slides smoothly from the BOTTOM
+    // Stage 3: Rotating subheadline slides smoothly from the BOTTOM
     tl.to(
       rotatingLineRef.current,
       { y: 0, opacity: 1, duration: 0.16, ease: "power2.out" },
-      0.58
+      0.52
     );
 
-    // Stage 5: Buttons reveal smoothly from the BOTTOM
+    // Stage 4: Buttons reveal smoothly from the BOTTOM
     tl.to(
       buttonsRef.current,
       { y: 0, opacity: 1, duration: 0.16, ease: "power2.out" },
-      0.74
+      0.70
     );
 
     // Refresh after layout settles
@@ -302,28 +293,18 @@ export default function Hero() {
       )}
 
       {/* Left-Aligned Cinematic Editorial Typography Overlay */}
-      <div className="absolute inset-0 z-20 pointer-events-none flex flex-col justify-center">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 w-full">
-          <div className="max-w-xl sm:max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-5 text-left">
+      <div className="absolute inset-0 z-20 pointer-events-none flex flex-col justify-center pt-14 sm:pt-20 lg:pt-24">
+        <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-14">
+          <div className="max-w-xl sm:max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-5 text-left translate-y-6 sm:translate-y-10 lg:translate-y-12">
             
-            {/* 1. Small Text (Enters smoothly from LEFT on scroll) */}
-            <div
-              ref={smallTextRef}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-black/25 backdrop-blur-md border border-white/20 shadow-md will-change-transform"
-            >
-              <span className="w-2 h-2 rounded-full bg-[#1E63D8] animate-pulse" />
-              <span className="text-xs sm:text-[13px] font-normal tracking-[0.18em] text-white uppercase font-sans">
-                Exclusive Distributorship for SA &amp; NT
-              </span>
-            </div>
-
-            {/* 2. Main Heading (Light & Medium Font Weight, Crisp & Bright) */}
+            {/* 1. Main Heading (Heavy Bold Architectural Weight, Crisp & Bright) */}
             <div className="space-y-1">
               {/* Line 1 (Enters smoothly from LEFT on scroll) */}
               <div className="overflow-hidden pb-1">
                 <h1
                   ref={headingLine1Ref}
-                  className="text-3xl sm:text-5xl md:text-6xl font-light tracking-tight text-white leading-[1.1] font-sans will-change-transform"
+                  className="text-3xl sm:text-5xl md:text-6xl font-heading font-bold tracking-tight text-white !text-white leading-[1.1] will-change-transform"
+                  style={{ color: "#ffffff" }}
                 >
                   South Australia&apos;s
                 </h1>
@@ -333,9 +314,13 @@ export default function Hero() {
               <div className="overflow-hidden pb-1">
                 <h1
                   ref={headingLine2Ref}
-                  className="text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white leading-[1.1] font-sans will-change-transform"
+                  className="text-3xl sm:text-5xl md:text-6xl font-heading font-bold tracking-tight text-white !text-white leading-[1.1] will-change-transform"
+                  style={{ color: "#ffffff" }}
                 >
-                  <span className="text-[#3B82F6] font-semibold">Premier Steel</span> Frames
+                  <span className="text-[#3B82F6] font-heading font-bold">Premier Steel</span>{" "}
+                  <span className="text-white !text-white font-heading font-bold" style={{ color: "#ffffff" }}>
+                    Frames
+                  </span>
                 </h1>
               </div>
             </div>
@@ -345,7 +330,6 @@ export default function Hero() {
               ref={rotatingLineRef}
               className="flex flex-wrap items-center gap-2 pt-1 text-sm sm:text-base font-normal text-white tracking-wide will-change-transform"
             >
-              <span className="w-2 h-2 rounded-full bg-[#3B82F6]" />
               <span className="text-white font-medium">
                 Light Gauge Steel Manufacturer
               </span>
@@ -362,14 +346,14 @@ export default function Hero() {
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-wider text-white bg-[#0B2545] hover:bg-[#12396B] border border-blue-400/30 shadow-lg shadow-blue-950/40 hover:shadow-blue-900/50 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                className="inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-wider text-white bg-slate-950 hover:bg-slate-900 border border-slate-800 shadow-lg shadow-slate-950/40 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
               >
                 Get a Quote
               </Link>
 
               <Link
                 href="/steel-frames"
-                className="inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-wider text-white bg-[#0B2545] hover:bg-[#12396B] border border-blue-400/30 shadow-lg shadow-blue-950/40 hover:shadow-blue-900/50 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                className="inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-medium tracking-wider text-white bg-slate-950 hover:bg-slate-900 border border-slate-800 shadow-lg shadow-slate-950/40 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
               >
                 Our Services
               </Link>

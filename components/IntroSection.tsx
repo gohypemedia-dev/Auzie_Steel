@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function IntroSection() {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   const bannerImages = [
     {
@@ -28,7 +29,23 @@ export default function IntroSection() {
       caption: "PRECISION CAD / BIM",
       subcaption: "Non-Combustible, Termite-Proof & 100% Recyclable",
     },
+    {
+      src: "/who-we-are-steelwork.jpg",
+      alt: "Auzie Steel High-Tensile Structural Steelwork Assembly",
+      caption: "STRUCTURAL INTEGRITY",
+      subcaption: "Manufactured for Complete Architectural Freedom",
+    },
   ];
+
+  // Auto-play interval: advances slide smoothly every 4 seconds
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setCurrentImgIndex((prev) => (prev + 1) % bannerImages.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, bannerImages.length]);
 
   const nextImage = () => {
     setCurrentImgIndex((prev) => (prev + 1) % bannerImages.length);
@@ -39,7 +56,8 @@ export default function IntroSection() {
   };
 
   const sectionRef = useRef<HTMLElement>(null);
-  const labelRef = useRef<HTMLDivElement>(null);
+  const labelRef = useRef<HTMLSpanElement>(null);
+  const whoWeAreRef = useRef<HTMLHeadingElement>(null);
   const headlineLine1Ref = useRef<HTMLSpanElement>(null);
   const headlineLine2Ref = useRef<HTMLSpanElement>(null);
   const headlineLine3Ref = useRef<HTMLSpanElement>(null);
@@ -60,6 +78,7 @@ export default function IntroSection() {
         gsap.set(
           [
             labelRef.current,
+            whoWeAreRef.current,
             headlineLine1Ref.current,
             headlineLine2Ref.current,
             headlineLine3Ref.current,
@@ -76,11 +95,19 @@ export default function IntroSection() {
       }
 
       // Initial state
-      gsap.set([headlineLine1Ref.current, headlineLine2Ref.current, headlineLine3Ref.current], {
-        y: "115%",
-        opacity: 0,
-      });
-      gsap.set(labelRef.current, { y: 20, opacity: 0 });
+      gsap.set(
+        [
+          whoWeAreRef.current,
+          labelRef.current,
+          headlineLine1Ref.current,
+          headlineLine2Ref.current,
+          headlineLine3Ref.current,
+        ],
+        {
+          y: "115%",
+          opacity: 0,
+        }
+      );
       gsap.set([subheadRef.current, bodyRef.current, ctaRef.current], { y: 30, opacity: 0 });
 
       const tl = gsap.timeline({
@@ -93,8 +120,9 @@ export default function IntroSection() {
       });
 
       // Coordinated sequence - Preserving original animations completely
-      tl.to(labelRef.current, { y: 0, opacity: 1, duration: 0.6 })
-        .to(headlineLine1Ref.current, { y: "0%", opacity: 1, duration: 0.9, ease: "power4.out" }, "-=0.3")
+      tl.to(whoWeAreRef.current, { y: "0%", opacity: 1, duration: 0.9, ease: "power4.out" })
+        .to(labelRef.current, { y: "0%", opacity: 1, duration: 0.9, ease: "power4.out" }, "-=0.4")
+        .to(headlineLine1Ref.current, { y: "0%", opacity: 1, duration: 0.9, ease: "power4.out" }, "-=0.7")
         .to(headlineLine2Ref.current, { y: "0%", opacity: 1, duration: 0.9, ease: "power4.out" }, "-=0.7")
         .to(headlineLine3Ref.current, { y: "0%", opacity: 1, duration: 0.9, ease: "power4.out" }, "-=0.7")
         .to(subheadRef.current, { y: 0, opacity: 1, duration: 0.7 }, "-=0.5")
@@ -150,27 +178,52 @@ export default function IntroSection() {
       className="relative w-full py-24 sm:py-32 bg-[#EEF0F2]/40 text-[#0F1114] overflow-hidden border-y border-[#C9CED4]"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Top Centered Section Header: WHO WE ARE */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="overflow-hidden pb-1">
+            <h2
+              ref={whoWeAreRef}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-tight will-change-transform"
+            >
+              WHO WE ARE
+            </h2>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           
           {/* Left Slanted Parallelogram Banner Image (Matching Reference Screenshot 1) */}
           <div className="lg:col-span-5 relative order-1">
             <div
               ref={imageMaskRef}
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
               className="relative w-full aspect-[4/5] sm:aspect-[1/1] lg:aspect-[4/5] overflow-hidden group shadow-none"
               style={{
                 clipPath: "polygon(9% 0%, 100% 0%, 91% 100%, 0% 100%)",
               }}
             >
-              {/* Background 3D Zoomed-Out Steel Frame Image */}
+              {/* Background 3D Zoomed-Out Steel Frame Image (Smooth Auto-play Crossfade) */}
               <div ref={imageInnerRef} className="relative w-full h-full will-change-transform bg-transparent">
-                <Image
-                  src={bannerImages[currentImgIndex].src}
-                  alt={bannerImages[currentImgIndex].alt}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 45vw"
-                  className="object-cover object-center transition-all duration-700 group-hover:scale-105"
-                />
+                {bannerImages.map((image, idx) => (
+                  <div
+                    key={image.src}
+                    className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                      idx === currentImgIndex
+                        ? "opacity-100 z-10"
+                        : "opacity-0 z-0 pointer-events-none"
+                    }`}
+                  >
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      priority={idx === 0}
+                      sizes="(max-width: 1024px) 100vw, 45vw"
+                      className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                ))}
               </div>
 
               {/* Left Circular Navigation Button */}
@@ -196,46 +249,45 @@ export default function IntroSection() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
               </button>
+
+              {/* Slide Indicator Dashes */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0F1114]/60 backdrop-blur-md">
+                {bannerImages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setCurrentImgIndex(idx)}
+                    aria-label={`Go to slide ${idx + 1}`}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      idx === currentImgIndex
+                        ? "w-6 bg-white"
+                        : "w-2 bg-white/40 hover:bg-white/75"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Right Text Content with Blueprint Schematic Watermark in Background (Matching Reference) */}
+          {/* Right Text Content */}
           <div className="lg:col-span-7 relative order-2 pl-0 lg:pl-4">
-            
-            {/* Architectural CAD Blueprint Watermark (Bottom Right Background) */}
-            <div className="absolute -bottom-16 -right-16 sm:-bottom-20 sm:-right-10 w-[360px] sm:w-[480px] lg:w-[540px] pointer-events-none opacity-20 select-none rotate-[-6deg] z-0">
-              <Image
-                src="/blueprint-floorplan.svg"
-                alt="Architectural Framing Blueprint Drawing"
-                width={700}
-                height={600}
-                className="w-full h-auto object-contain"
-              />
-            </div>
-
             {/* Foreground Content (Preserving All Original Animation Refs) */}
             <div className="relative z-10 space-y-6 sm:space-y-8">
               
-              {/* Top Brand Tag */}
-              <div ref={labelRef} className="leading-tight">
-                <span className="block text-xs font-bold font-label tracking-widest text-[#1E63D8] uppercase">
-                  WHO WE ARE
+              {/* Secondary Headline (With Integrated Exclusive Distributorship) */}
+              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-sans font-semibold uppercase tracking-tight text-[#0F1114] leading-[1.2]">
+                <span className="block overflow-hidden pb-1">
+                  <span
+                    ref={labelRef}
+                    className="block text-[#1E63D8] font-bold will-change-transform"
+                  >
+                    EXCLUSIVE DISTRIBUTORSHIP FOR SA &amp; NT
+                  </span>
                 </span>
-                <span className="block text-[10px] font-bold font-label tracking-widest text-[#8A929B] uppercase">
-                  STEELWORK INNOVATIONS
-                </span>
-              </div>
-
-              {/* Main Huge Condensed Headline with Line-by-line Reveal */}
-              <h2
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] xl:text-[52px] font-sans uppercase tracking-tight text-[#0F1114] leading-[1.12]"
-                style={{ fontWeight: 200 }}
-              >
                 <span className="block overflow-hidden pb-1">
                   <span
                     ref={headlineLine1Ref}
                     className="block will-change-transform"
-                    style={{ fontWeight: 200 }}
                   >
                     OUR COMPREHENSIVE,
                   </span>
@@ -244,7 +296,6 @@ export default function IntroSection() {
                   <span
                     ref={headlineLine2Ref}
                     className="block will-change-transform"
-                    style={{ fontWeight: 200 }}
                   >
                     DESIGN TO DELIVERY SERVICE
                   </span>
@@ -252,18 +303,17 @@ export default function IntroSection() {
                 <span className="block overflow-hidden pb-1">
                   <span
                     ref={headlineLine3Ref}
-                    className="block text-[#1E63D8] will-change-transform"
-                    style={{ fontWeight: 200 }}
+                    className="block text-[#1E63D8] font-bold will-change-transform"
                   >
                     IS WHAT SETS US APART.
                   </span>
                 </span>
-              </h2>
+              </h3>
 
-              {/* Subheading in Bold Uppercase */}
+              {/* Subheading in Sentence Case with Full Bold Weight */}
               <p
                 ref={subheadRef}
-                className="text-sm sm:text-base md:text-lg font-bold uppercase tracking-wide text-[#0F1114] leading-snug max-w-2xl"
+                className="text-sm sm:text-base md:text-lg font-bold tracking-wide text-[#0F1114] leading-snug max-w-2xl"
               >
                 Auzie Steel is the leading manufacturer of customisable steel frames for the local building industry. Based in Adelaide, we rely on the latest technologies to produce housing frames made from light gauge steel.
               </p>
@@ -293,6 +343,17 @@ export default function IntroSection() {
           </div>
 
         </div>
+      </div>
+
+      {/* Architectural CAD Blueprint Watermark (Directly in Bottom-Right Corner of the Section) */}
+      <div className="absolute bottom-0 right-0 w-[300px] sm:w-[420px] md:w-[500px] lg:w-[560px] pointer-events-none opacity-20 select-none z-0">
+        <Image
+          src="/blueprint-floorplan.svg"
+          alt="Architectural Framing Blueprint Drawing"
+          width={700}
+          height={600}
+          className="w-full h-auto object-contain object-right-bottom"
+        />
       </div>
     </section>
   );
