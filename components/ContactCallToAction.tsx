@@ -54,7 +54,7 @@ export default function ContactCallToAction() {
               
               {/* Header */}
               <div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black text-[#0F1114] tracking-tight leading-[1.1]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-[#0F1114] tracking-tight leading-[1.14]">
                   Call Today To Enquire
                 </h2>
 

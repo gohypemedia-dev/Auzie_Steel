@@ -407,7 +407,7 @@ export default function WhyChooseSteel() {
                 {/* Content Details */}
                 <div className="p-4 sm:p-5 flex flex-col gap-1.5">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-heading font-black text-sm xl:text-base uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug">
+                    <h3 className="font-sans font-bold text-[13px] xl:text-[14.5px] uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug">
                       {item.title}
                     </h3>
                     <span className="text-[#1E63D8] font-black text-sm group-hover:translate-x-1 transition-transform duration-200">
@@ -561,7 +561,7 @@ export default function WhyChooseSteel() {
                 {/* Content Details */}
                 <div className="p-4 sm:p-5 flex flex-col gap-1.5">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-heading font-black text-sm xl:text-base uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug">
+                    <h3 className="font-sans font-bold text-[13px] xl:text-[14.5px] uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug">
                       {item.title}
                     </h3>
                     <span className="text-[#1E63D8] font-black text-sm group-hover:translate-x-1 transition-transform duration-200">
@@ -594,7 +594,7 @@ export default function WhyChooseSteel() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.12]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.14]">
             Why light <span className="text-[#1E63D8]">gauge steel?</span>
           </h2>
 
@@ -627,7 +627,7 @@ export default function WhyChooseSteel() {
               </div>
 
               <div className="p-5 flex flex-col gap-2">
-                <h3 className="font-heading font-black text-base uppercase text-[#0F1114]">
+                <h3 className="font-sans font-bold text-[15px] uppercase tracking-tight text-[#0F1114]">
                   {item.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">

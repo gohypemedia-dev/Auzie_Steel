@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
@@ -9,6 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 interface ServiceItem {
   step: string;
   category: string;
+  tag: string;
   title: string;
   description: string;
   imageSrc: string;
@@ -16,16 +17,16 @@ interface ServiceItem {
   keyPoints: string[];
   ctaText: string;
   ctaHref: string;
-  imageOnLeft: boolean;
 }
 
 const serviceItems: ServiceItem[] = [
   {
     step: "01",
-    category: "DESIGN & ENGINEERING",
+    category: "DESIGN & BIM",
+    tag: "3D CAD PRECISION",
     title: "CUSTOM DESIGNS",
     description:
-      "Our computer-controlled machinery manufactures bespoke light gauge steel frames directly from CAD/BIM models with extreme millimeter accuracy. Build cantilevers, double-height ceiling voids, and expansive open-plan spans with complete structural confidence.",
+      "Engineered bespoke light gauge steel frames generated directly from CAD/BIM models with millimeter tolerances. Build cantilevers, double-height voids, and expansive open-plan spans with complete structural confidence.",
     imageSrc: "/what-we-do-custom-designs.jpg",
     imageAlt: "Custom light gauge steel home framing design",
     keyPoints: [
@@ -35,14 +36,14 @@ const serviceItems: ServiceItem[] = [
     ],
     ctaText: "LEARN MORE ABOUT CUSTOM STEEL",
     ctaHref: "/steel-frames",
-    imageOnLeft: false, // Card on Left, Image on Right
   },
   {
     step: "02",
-    category: "MANUFACTURING & FABRICATION",
+    category: "FABRICATION",
+    tag: "BLUESCOPE TRUECORE®",
     title: "FABRICATIONS",
     description:
-      "Manufactured with high-tensile BlueScope Truecore® steel, our structural framing will not rot, warp, twist, shrink or sag over decades of building life. 100% immune to termite infestation, moisture, and fungal decay.",
+      "Automated CNC roll-formed using high-tensile BlueScope Truecore® steel. Will not rot, warp, twist, shrink or sag over decades of building life. 100% immune to termite infestation, moisture, and fire hazards.",
     imageSrc: "/what-we-do-fabrications.jpg",
     imageAlt: "Automated light gauge steel frame fabrication facility",
     keyPoints: [
@@ -52,14 +53,14 @@ const serviceItems: ServiceItem[] = [
     ],
     ctaText: "EXPLORE OUR FABRICATIONS",
     ctaHref: "/steel-frames",
-    imageOnLeft: true, // Image on Left, Card on Right
   },
   {
     step: "03",
-    category: "SITE ASSEMBLY",
+    category: "ASSEMBLY",
+    tag: "RAPID SITE ERECTION",
     title: "INSTALLATIONS",
     description:
-      "Our lightweight steel framing packs arrive directly to site in sequenced, colour-coded bundles. Installation requires significantly less crane time, smaller onsite crews, and minimal manual lifting, keeping your construction weeks ahead of schedule.",
+      "Sequenced, colour-coded framing packs arrive ready for rapid onsite erection. Requires significantly less crane time, smaller onsite crews, and minimal manual lifting, keeping construction weeks ahead of schedule.",
     imageSrc: "/what-we-do-installations.jpg",
     imageAlt: "Easy installation of light gauge steel frames on site",
     keyPoints: [
@@ -69,14 +70,14 @@ const serviceItems: ServiceItem[] = [
     ],
     ctaText: "DISCOVER EASY INSTALLATION",
     ctaHref: "/steel-frames",
-    imageOnLeft: false, // Card on Left, Image on Right
   },
   {
     step: "04",
-    category: "GUARANTEED DELIVERY",
+    category: "LOGISTICS",
+    tag: "ON-TIME GUARANTEE",
     title: "OUR PROMISE",
     description:
-      "Our design to delivery service gives you the opportunity to have your next project designed, manufactured and delivered on site in efficient timeframes so your build stays on schedule and on budget.",
+      "End-to-end design to delivery crane-truck logistics. We ensure your light gauge steel framing is engineered, fabricated, and delivered on site in efficient timeframes so your build stays strictly on schedule and on budget.",
     imageSrc: "/what-we-do-our-promise.jpg",
     imageAlt: "On-time direct to site steel frame delivery",
     keyPoints: [
@@ -86,470 +87,394 @@ const serviceItems: ServiceItem[] = [
     ],
     ctaText: "CONTACT US TODAY",
     ctaHref: "/contact",
-    imageOnLeft: true, // Image on Left, Card on Right
   },
 ];
 
-// Interactive Information Card (Restored from previous design with 12px radius, 3D tilt & glare)
-function ServiceInfoCard({ item }: { item: ServiceItem }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [tiltStyle, setTiltStyle] = useState("");
-  const [glarePosition, setGlarePosition] = useState({ x: 50, y: 50, opacity: 0 });
+// Precision Engineering Dial SVG (120 radial tick marks, drafting dots, concentric circles)
+function EngineeringDial() {
+  const numTicks = 120;
+  const cx = 450;
+  const cy = 450;
+  const rTickStart = 370;
+  const rTickEnd = 405;
+  const rDots = 352;
+  const rMajorTickStart = 358;
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = -((y - centerY) / centerY) * 6;
-    const rotateY = ((x - centerX) / centerX) * 6;
+  const ticks = useMemo(() => {
+    const items = [];
+    for (let i = 0; i < numTicks; i++) {
+      const angleDeg = (i / numTicks) * 360;
+      const angleRad = (angleDeg * Math.PI) / 180;
+      const isMajor = i % 10 === 0;
+      const isDot = i % 2 === 0;
 
-    setTiltStyle(
-      `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px) scale3d(1.01, 1.01, 1.01)`
-    );
-    setGlarePosition({
-      x: (x / rect.width) * 100,
-      y: (y / rect.height) * 100,
-      opacity: 0.1,
-    });
-  };
+      const start = isMajor ? rMajorTickStart : rTickStart;
+      const x1 = cx + start * Math.cos(angleRad);
+      const y1 = cy + start * Math.sin(angleRad);
+      const x2 = cx + rTickEnd * Math.cos(angleRad);
+      const y2 = cy + rTickEnd * Math.sin(angleRad);
 
-  const handleMouseLeave = () => {
-    setTiltStyle("perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)");
-    setGlarePosition((prev) => ({ ...prev, opacity: 0 }));
-  };
+      let dotX = 0;
+      let dotY = 0;
+      if (isDot) {
+        dotX = cx + rDots * Math.cos(angleRad);
+        dotY = cy + rDots * Math.sin(angleRad);
+      }
+
+      items.push({
+        x1,
+        y1,
+        x2,
+        y2,
+        isMajor,
+        isDot,
+        dotX,
+        dotY,
+      });
+    }
+    return items;
+  }, []);
 
   return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        transform: tiltStyle || "perspective(1000px) rotateX(0deg) rotateY(0deg)",
-        transition: tiltStyle ? "transform 0.1s ease-out" : "transform 0.4s ease-out",
-      }}
-      className="relative overflow-hidden p-7 sm:p-9 lg:p-10 bg-white border border-slate-200/90 hover:border-[#1E63D8]/40 shadow-xl shadow-slate-200/60 hover:shadow-2xl hover:shadow-[#1E63D8]/10 transition-all duration-300 rounded-[12px] group w-full"
+    <svg
+      viewBox="0 0 900 900"
+      className="w-[620px] h-[620px] sm:w-[780px] sm:h-[780px] lg:w-[920px] lg:h-[920px] select-none pointer-events-none"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Subtle Radial Shine on Mouse Hover */}
-      <div
-        className="absolute inset-0 pointer-events-none rounded-[12px] transition-opacity duration-300"
-        style={{
-          background: `radial-gradient(circle at ${glarePosition.x}% ${glarePosition.y}%, rgba(30, 99, 216, ${glarePosition.opacity}), transparent 70%)`,
-        }}
+      {/* Outer subtle guide circle */}
+      <circle cx={cx} cy={cy} r={425} stroke="#E2E8F0" strokeWidth="1" opacity={0.6} />
+
+      {/* Primary dotted drafting circle */}
+      <circle
+        cx={cx}
+        cy={cy}
+        r={rDots}
+        stroke="#CBD5E1"
+        strokeWidth="1.2"
+        strokeDasharray="4 6"
+        opacity={0.7}
       />
 
-      {/* Step Header */}
-      <div className="flex items-center justify-between mb-4">
-        <span className="text-2xl sm:text-3xl font-heading font-black text-[#C9CED4] group-hover:text-[#1E63D8] transition-colors">
-          {item.step}
-        </span>
-      </div>
+      {/* Inner boundary circle */}
+      <circle cx={cx} cy={cy} r={310} stroke="#E2E8F0" strokeWidth="1" opacity={0.4} />
 
-      {/* Card Title (Dash Removed) */}
-      <h3 className="text-2xl sm:text-3xl font-heading font-black uppercase text-[#0F1114] tracking-tight mb-3">
-        {item.title}
-      </h3>
+      {/* Radial Ticks & Dots */}
+      {ticks.map((t, idx) => (
+        <g key={idx}>
+          <line
+            x1={t.x1.toFixed(1)}
+            y1={t.y1.toFixed(1)}
+            x2={t.x2.toFixed(1)}
+            y2={t.y2.toFixed(1)}
+            stroke={t.isMajor ? "#64748B" : "#CBD5E1"}
+            strokeWidth={t.isMajor ? 1.8 : 1.1}
+            strokeLinecap="round"
+          />
+          {t.isDot && (
+            <circle
+              cx={t.dotX.toFixed(1)}
+              cy={t.dotY.toFixed(1)}
+              r={t.isMajor ? 2.2 : 1.4}
+              fill={t.isMajor ? "#64748B" : "#94A3B8"}
+            />
+          )}
+        </g>
+      ))}
 
-      {/* Card Description */}
-      <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6 font-normal">
-        {item.description}
-      </p>
-
-      {/* Key Feature Highlights */}
-      <ul className="space-y-3 mb-8 pt-5 border-t border-slate-100">
-        {item.keyPoints.map((point, idx) => (
-          <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700">
-            <span className="w-5 h-5 rounded-full bg-[#1E63D8]/10 text-[#1E63D8] flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
-              ✓
-            </span>
-            <span className="font-medium">{point}</span>
-          </li>
-        ))}
-      </ul>
-
-      {/* Action Button (Arrow Removed) */}
-      <div className="pt-2">
-        <Link
-          href={item.ctaHref}
-          className="inline-flex items-center justify-center px-6 py-3 rounded-lg text-xs sm:text-sm font-bold font-label tracking-wider uppercase text-white bg-slate-950 hover:bg-slate-900 border border-slate-800 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
-        >
-          {item.ctaText}
-        </Link>
-      </div>
-    </div>
+      {/* Subtle Cardinal Crosshairs */}
+      <line x1={cx - 40} y1={cy} x2={cx + 40} y2={cy} stroke="#CBD5E1" strokeWidth="1" strokeDasharray="3 3" opacity={0.4} />
+      <line x1={cx} y1={cy - 40} x2={cx} y2={cy + 40} stroke="#CBD5E1" strokeWidth="1" strokeDasharray="3 3" opacity={0.4} />
+    </svg>
   );
 }
 
 export default function WhatWeDo() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const pinSectionRef = useRef<HTMLDivElement>(null);
+  const dialRef = useRef<HTMLDivElement>(null);
+  const centerTitleRef = useRef<HTMLDivElement>(null);
+  const bgImageRef = useRef<HTMLDivElement>(null);
+  const cardsTrackRef = useRef<HTMLDivElement>(null);
+  const cardElementsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  // 1. Loader Refs (Scoped strictly inside WhatWeDo banner)
-  const loaderCurtainRef = useRef<HTMLDivElement>(null);
-  const counterNumberRef = useRef<HTMLSpanElement>(null);
-  const progressBarRef = useRef<HTMLDivElement>(null);
-  const hasTriggeredLoaderRef = useRef<boolean>(false);
-
-  // 2. Banner Stage Refs (Zero-gap curtain reveal)
-  const bannerContainerRef = useRef<HTMLDivElement>(null);
-  const bannerContentRef = useRef<HTMLDivElement>(null);
-
-  // 3. Services Header & Row Refs
-  const servicesHeaderRef = useRef<HTMLDivElement>(null);
-  const rowsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     gsap.registerPlugin(ScrollTrigger);
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const container = containerRef.current;
+    const pinSection = pinSectionRef.current;
+    const dial = dialRef.current;
+    const centerTitle = centerTitleRef.current;
+    const cardsTrack = cardsTrackRef.current;
+    const bgImage = bgImageRef.current;
 
-    const ctx = gsap.context(() => {
-      // -----------------------------------------------------------------
-      // PHASE 1: PRELOADER (000 -> 100) & ARCHITECTURAL DOME CURTAIN SWEEP UP
-      // -----------------------------------------------------------------
-      const counterObj = { val: 0 };
-      const counterEl = counterNumberRef.current;
-      const progressEl = progressBarRef.current;
-      const curtainEl = loaderCurtainRef.current;
+    if (!container || !pinSection || !cardsTrack) return;
 
-      const runLoaderSequence = () => {
-        if (hasTriggeredLoaderRef.current) return;
-        hasTriggeredLoaderRef.current = true;
+    const isMobile = window.innerWidth < 768;
 
-        if (prefersReducedMotion) {
-          if (curtainEl) curtainEl.style.display = "none";
-          return;
+    // Mobile fallback: let native horizontal scroll-snap handle with light GSAP fade
+    if (isMobile) {
+      const ctxMobile = gsap.context(() => {
+        if (bgImage) {
+          gsap.to(bgImage, {
+            opacity: 0,
+            ease: "power1.inOut",
+            scrollTrigger: {
+              trigger: container,
+              start: "top top",
+              end: "top -25%",
+              scrub: 0.5,
+            },
+          });
         }
 
-        const loaderTl = gsap.timeline();
-
-        // 1. Counter counts up smoothly 000 -> 100 over a comfortable 2.2 seconds
-        loaderTl.to(counterObj, {
-          val: 100,
-          duration: 2.2,
-          ease: "power1.inOut",
-          onUpdate: () => {
-            if (counterEl) {
-              const current = Math.floor(counterObj.val);
-              counterEl.textContent = current < 10 ? `00${current}` : current < 100 ? `0${current}` : "100";
-            }
-            if (progressEl) {
-              progressEl.style.width = `${counterObj.val}%`;
-            }
+        gsap.to(dial, {
+          rotate: 180,
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
           },
         });
+      }, container);
+      return () => ctxMobile.revert();
+    }
 
-        // 2. Comfortable dwell time at 100 (0.4s)
-        loaderTl.to({}, { duration: 0.4 });
+    // Desktop/Tablet: Signature Pinned Orbital Scroll Animation
+    const ctx = gsap.context(() => {
+      // Calculate total horizontal travel distance for cards
+      const trackWidth = cardsTrack.scrollWidth;
+      const windowWidth = window.innerWidth;
+      // Start with cards off to the right, end when last card is past center
+      const travelDistance = trackWidth + windowWidth * 0.2;
 
-        // 3. Curtain smoothly sweeps UP with architectural dome curve
-        loaderTl.to(curtainEl, {
-          yPercent: -105,
-          duration: 1.4,
-          ease: "power3.inOut",
-          onComplete: () => {
-            if (curtainEl) {
-              curtainEl.style.display = "none";
-            }
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: "+=3000",
+          pin: pinSection,
+          scrub: 1.25,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const p = self.progress;
+
+            // Compute active card (0 to 3) during cards phase (0.15 to 0.85)
+            if (p < 0.25) setActiveCardIndex(0);
+            else if (p < 0.45) setActiveCardIndex(1);
+            else if (p < 0.68) setActiveCardIndex(2);
+            else setActiveCardIndex(3);
           },
-        });
-      };
-
-      // Trigger loader when user arrives at WhatWeDo banner
-      ScrollTrigger.create({
-        trigger: bannerContainerRef.current,
-        start: "top 35%",
-        once: true,
-        onEnter: runLoaderSequence,
+        },
       });
 
-      // Fallback check on load
-      const checkInitialVisibility = () => {
-        if (bannerContainerRef.current) {
-          const rect = bannerContainerRef.current.getBoundingClientRect();
-          if (rect.top <= window.innerHeight * 0.4 && rect.bottom > 0) {
-            runLoaderSequence();
-          }
-        }
-      };
-      const fallbackTimer = setTimeout(checkInitialVisibility, 300);
+      // Phase 1: Center Title & Intro Background Image Fade Out (0% -> 22%)
+      tl.to(
+        centerTitle,
+        {
+          opacity: 0,
+          scale: 0.9,
+          y: -20,
+          duration: 0.2,
+          ease: "power2.inOut",
+        },
+        0
+      );
 
-      // -----------------------------------------------------------------
-      // PHASE 2 & 3: BANNER PIN WITH SEAMLESS CURTAIN REVEAL (NO BLACK VOID!)
-      // Pin banner for 100vh with pinSpacing: false so OUR SERVICES smoothly slides up over it
-      // -----------------------------------------------------------------
-      if (bannerContainerRef.current && bannerContentRef.current) {
-        ScrollTrigger.create({
-          id: "whatWeDoBannerPin",
-          trigger: bannerContainerRef.current,
-          start: "top top",
-          end: "+=100%",
-          pin: true,
-          pinSpacing: false,
-        });
-
-        gsap.to(bannerContentRef.current, {
-          y: -80,
-          opacity: 0.15,
-          scale: 0.95,
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: bannerContainerRef.current,
-            start: "top top",
-            end: "+=100%",
-            scrub: 1.2,
-          },
-        });
-      }
-
-      // -----------------------------------------------------------------
-      // PHASE 4: SERVICES HEADER: STAGGERED LINE REVEAL
-      // -----------------------------------------------------------------
-      if (servicesHeaderRef.current) {
-        const headerLines = servicesHeaderRef.current.querySelectorAll(".service-header-line");
-        gsap.fromTo(
-          headerLines,
-          { yPercent: 110, opacity: 0 },
+      if (bgImage) {
+        tl.to(
+          bgImage,
           {
-            yPercent: 0,
-            opacity: 1,
-            duration: 1.2,
-            stagger: 0.2,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: servicesHeaderRef.current,
-              start: "top 80%",
-              toggleActions: "play reverse play reverse",
-            },
-          }
+            opacity: 0,
+            scale: 1.05,
+            duration: 0.22,
+            ease: "power2.inOut",
+          },
+          0
         );
       }
 
-      // -----------------------------------------------------------------
-      // 4 ALTERNATING CARDS: OPPOSING SLOW SLIDE-IN
-      // -----------------------------------------------------------------
-      // For each row: Info Card slides in from ONE side, Image slides in from the OPPOSITE side
-      // with slow, graceful glide (95px offset, scrub 2.2)
-      rowsRef.current.forEach((row, idx) => {
-        if (!row) return;
+      // Dial Continuous Smooth Rotation across entire scroll
+      tl.to(
+        dial,
+        {
+          rotate: 220,
+          duration: 1,
+          ease: "none",
+        },
+        0
+      );
 
-        const textCol = row.querySelector(".service-text-col");
-        const imageCol = row.querySelector(".service-image-col");
-        const isImageOnLeft = serviceItems[idx].imageOnLeft;
+      // Phase 2: Cards Glide Across Orbital Wave (10% -> 95%)
+      tl.fromTo(
+        cardsTrack,
+        { x: windowWidth * 0.75 },
+        {
+          x: -(trackWidth - windowWidth * 0.35),
+          duration: 0.85,
+          ease: "power1.inOut",
+        },
+        0.1
+      );
 
-        // Dynamic Opposing Horizontal Offsets
-        const textStartX = isImageOnLeft ? 95 : -95;
-        const imageStartX = isImageOnLeft ? -95 : 95;
-
-        const rowTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: row,
-            start: "top 95%",
-            end: "bottom 60%",
-            scrub: 2.2,
+      // Individual Card Organic Tilt/Elevation as they glide (Hardware accelerated, zero CSS conflict)
+      cardElementsRef.current.forEach((card, idx) => {
+        if (!card) return;
+        const isOdd = idx % 2 === 1;
+        const baseY = isOdd ? 28 : -24;
+        tl.fromTo(
+          card,
+          {
+            y: baseY,
+            rotate: isOdd ? 2 : -2,
           },
-        });
-
-        // 1. Info Card slides in slowly from its side
-        if (textCol) {
-          rowTl.fromTo(
-            textCol,
-            { x: textStartX, opacity: 0 },
-            { x: 0, opacity: 1, ease: "power1.out" },
-            0
-          );
-        }
-
-        // 2. Image slides in slowly from the OPPOSITE side
-        if (imageCol) {
-          rowTl.fromTo(
-            imageCol,
-            { x: imageStartX, opacity: 0, scale: 0.96 },
-            { x: 0, opacity: 1, scale: 1, ease: "power1.out" },
-            0
-          );
-        }
+          {
+            y: baseY + (isOdd ? -10 : 10),
+            rotate: isOdd ? -1.5 : 1.5,
+            duration: 0.85,
+            ease: "sine.inOut",
+          },
+          0.1
+        );
       });
+    }, container);
 
-      return () => {
-        clearTimeout(fallbackTimer);
-      };
-    }, sectionRef);
-
-    return () => {
-      ScrollTrigger.getById("whatWeDoBannerPin")?.kill(true);
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
-      ref={sectionRef}
-      className="relative w-full bg-white text-[#0F1114] overflow-hidden border-b border-[#CBD5E1]"
+      ref={containerRef}
+      id="services-section"
+      className="relative w-full bg-[#FAF9F6] text-[#0F1114] border-b border-[#E2E8F0] overflow-hidden"
     >
       {/* ===================================================================
-          PHASE 1 & 2: ARCHITECTURAL BANNER + SCOPED PRELOADER CURTAIN
-          (DESIGN TO DELIVERY & LIGHT GAUGE STEEL FRAMING PILL COMPLETELY REMOVED!)
+          PINNED STAGE (Viewport View Container)
           =================================================================== */}
       <div
-        ref={bannerContainerRef}
-        className="relative w-full h-screen min-h-[640px] max-h-[1000px] overflow-hidden bg-[#0F1114]"
+        ref={pinSectionRef}
+        className="relative w-full h-screen min-h-[680px] max-h-[1080px] flex flex-col justify-center overflow-hidden py-6 sm:py-8"
       >
-        {/* Architectural Background Photography */}
-        <Image
-          src="/ani3-hero-curved-building.jpg"
-          alt="Auzie Steel High Tensile Architectural Framing Architecture"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center brightness-[0.52] will-change-transform"
-        />
-
-        {/* Luxury Studio Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/75 pointer-events-none" />
-
-        {/* Banner Main Typography & Information */}
+        {/* ===============================================================
+            INTRO BACKGROUND IMAGE (Smoothly fades out on scroll along with Center Title)
+            =============================================================== */}
         <div
-          ref={bannerContentRef}
-          className="relative z-10 h-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center space-y-6 sm:space-y-8 will-change-transform"
+          ref={bgImageRef}
+          className="absolute inset-0 z-0 overflow-hidden pointer-events-none will-change-transform"
         >
-          <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-black uppercase text-white tracking-tight leading-[1.05]">
-            MANUFACTURING EXCELLENCE <br />
-            <span className="text-[#60A5FA]">THAT SETS US APART</span>
-          </h2>
-
-          <p className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-slate-200 leading-relaxed font-normal">
-            From automated roll-forming machinery to site-delivered cassettes and trusses, explore our complete structural framing services below.
-          </p>
-
-          <div className="pt-4 flex flex-col items-center justify-center gap-2 text-white/80 font-mono text-xs uppercase tracking-widest animate-bounce">
-            <span>SCROLL TO EXPLORE SERVICES</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
-          </div>
+          <Image
+            src="/who-we-are-steel-banner-pure.jpg"
+            alt="Auzie Steel Services - Precision Structural Steel Framing"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center select-none"
+          />
+          {/* Subtle architectural tint to harmonize with #FAF9F6 and keep text crystal-clear */}
+          <div className="absolute inset-0 bg-[#FAF9F6]/45" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#FAF9F6]/60 via-transparent to-[#FAF9F6]/85" />
         </div>
 
-        {/* PHASE 1: Scoped Preloader Curtain (Sweeps Up 000 -> 100) */}
-        <div
-          ref={loaderCurtainRef}
-          className="absolute inset-0 z-30 bg-[#FAF9F6] flex flex-col items-center justify-center select-none will-change-transform shadow-2xl"
-          style={{
-            clipPath: "ellipse(150% 100% at 50% 0%)",
-          }}
-        >
-          <div className="flex flex-col items-center space-y-6">
-            {/* Brand Architectural Monogram & Name */}
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 border-2 border-[#0F1114] flex items-center justify-center font-heading font-black text-lg text-[#0F1114]">
-                A
-              </div>
-              <span className="font-heading font-black text-2xl tracking-widest text-[#0F1114] uppercase">
-                AUZIE STEEL
-              </span>
-            </div>
-
-            {/* Dynamic Gold/Black Progress Line */}
-            <div className="w-56 h-[3px] bg-[#CBD5E1] rounded-full overflow-hidden relative">
-              <div
-                ref={progressBarRef}
-                className="absolute inset-y-0 left-0 bg-[#0F1114] transition-all duration-75"
-                style={{ width: "0%" }}
-              />
-            </div>
-
-            {/* Dynamic Counter Number: 000 -> 100 */}
-            <div className="text-4xl sm:text-5xl font-mono font-bold tracking-widest text-[#0F1114]">
-              <span ref={counterNumberRef}>000</span>
-            </div>
+        {/* Center Canvas: Circular Precision Dial + Cards Stream */}
+        <div className="relative z-10 flex-1 w-full flex items-center justify-center overflow-hidden">
+          {/* ===============================================================
+              ROTATING BACKGROUND PRECISION DIAL
+              =============================================================== */}
+          <div
+            ref={dialRef}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none transition-transform will-change-transform"
+          >
+            <EngineeringDial />
           </div>
-        </div>
-      </div>
 
-      {/* ===================================================================
-          PHASE 3 & 4: "OUR SERVICES" & CARDS WITH OPPOSING SIDE SLIDE-IN
-          (Smooth White Curtain Over Banner - ZERO Black Void!)
-          =================================================================== */}
-      <div className="relative z-20 w-full bg-white shadow-[0_-30px_70px_rgba(0,0,0,0.22)]">
-        <div className="py-24 sm:py-36 md:py-44 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Services Section Header */}
-        <div ref={servicesHeaderRef} className="mb-16 sm:mb-24 md:mb-28">
-          <div className="overflow-hidden pb-2">
-            <h2 className="service-header-line text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[96px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-tight will-change-transform">
-              OUR SERVICES
+          {/* ===============================================================
+              PHASE 1: CENTER EDITORIAL TITLE (Fades out smoothly on scroll)
+              =============================================================== */}
+          <div
+            ref={centerTitleRef}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-center max-w-xl sm:max-w-2xl px-6 pointer-events-none will-change-transform"
+          >
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-heading font-black tracking-tight text-[#0F1114] leading-[1.12] mb-3 drop-shadow-[0_2px_12px_rgba(255,255,255,0.95)]">
+              Our Services
             </h2>
+            <p className="text-sm sm:text-base md:text-lg text-slate-700 max-w-lg mx-auto font-medium leading-relaxed drop-shadow-[0_1px_8px_rgba(255,255,255,0.95)]">
+              From precision CAD/BIM detailing to high-tensile BlueScope Truecore® roll-forming and direct site delivery across South Australia.
+            </p>
           </div>
-        </div>
 
-        {/* 4 Alternating Zigzag Cards with Opposing Slide-in Animation */}
-        <div className="space-y-40 sm:space-y-52 md:space-y-64">
-          {serviceItems.map((item, idx) => {
-            return (
-              <div
-                key={item.step}
-                ref={(el) => {
-                  rowsRef.current[idx] = el;
-                }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center overflow-hidden py-6"
-              >
-                {/* --------------------------------------------------------
-                    INFORMATION CARD COLUMN (Slides in from Left or Right)
-                    Restored polished card container with 12px radius & 3D tilt
-                    -------------------------------------------------------- */}
-                <div
-                  className={`service-text-col ${
-                    item.imageOnLeft
-                      ? "lg:col-span-6 lg:order-2"
-                      : "lg:col-span-6 lg:order-1"
-                  } flex flex-col justify-center will-change-transform`}
-                >
-                  <ServiceInfoCard item={item} />
-                </div>
+          {/* ===============================================================
+              PHASE 2: ORBITAL CARDS STREAM (Glides across circular gauge)
+              =============================================================== */}
+          <div
+            ref={cardsTrackRef}
+            className="relative z-20 flex items-center gap-6 sm:gap-8 md:gap-10 px-6 sm:px-12 md:px-20 will-change-transform overflow-x-auto md:overflow-visible no-scrollbar py-8"
+          >
+            {serviceItems.map((item, idx) => {
+              const isActive = activeCardIndex === idx;
 
-                {/* --------------------------------------------------------
-                    IMAGE COLUMN (Slides in from the OPPOSITE side)
-                    Clean 12px card, all wireframes/outline numbers/chips removed!
-                    -------------------------------------------------------- */}
+              return (
                 <div
-                  className={`service-image-col relative ${
-                    item.imageOnLeft
-                      ? "lg:col-span-6 lg:order-1"
-                      : "lg:col-span-6 lg:order-2"
-                  } flex items-center justify-center will-change-transform`}
+                  key={idx}
+                  ref={(el) => {
+                    cardElementsRef.current[idx] = el;
+                  }}
+                  className={`shrink-0 w-[300px] sm:w-[340px] md:w-[380px] bg-white rounded-[6px] overflow-hidden flex flex-col justify-between border transform-gpu will-change-transform [backface-visibility:hidden] transition-[border-color,box-shadow] duration-500 ease-out ${isActive
+                      ? "border-[#1E63D8]/50 shadow-[0_20px_45px_rgba(30,99,216,0.12)]"
+                      : "border-[#E2E8F0] shadow-[0_12px_32px_rgba(15,17,20,0.06)] hover:border-slate-300 hover:shadow-[0_16px_40px_rgba(15,17,20,0.09)]"
+                    }`}
                 >
-                  <div className="relative w-full aspect-[4/3] rounded-[12px] overflow-hidden border border-slate-200/90 shadow-xl hover:shadow-2xl transition-all duration-500 group bg-slate-100">
+                  {/* Card Visual / Image Container (Flush Edge-to-Edge: Zero Top/Left/Right Padding) */}
+                  <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-slate-100 group/img border-b border-[#E2E8F0]">
                     <Image
                       src={item.imageSrc}
                       alt={item.imageAlt}
                       fill
-                      priority={idx === 0}
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                      sizes="(max-width: 768px) 300px, 380px"
+                      className="object-cover group-hover/img:scale-105 transition-transform duration-500"
                     />
                   </div>
+
+                  {/* Card Body Content (Title, Description, Highlights, Button) */}
+                  <div className="p-5 sm:p-6 flex flex-col justify-between flex-1">
+                    {/* Card Title & Description */}
+                    <div className="space-y-2 mb-4">
+                      <h3 className="text-lg sm:text-[20px] font-sans font-bold tracking-tight text-[#0F1114] uppercase">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal line-clamp-3">
+                        {item.description}
+                      </p>
+                    </div>
+
+                    {/* Key Highlights */}
+                    <div className="space-y-2 pt-3 border-t border-slate-100 mb-5">
+                      {item.keyPoints.slice(0, 2).map((point, pIdx) => (
+                        <div key={pIdx} className="flex items-center gap-2 text-[11px] sm:text-xs text-slate-700">
+                          <span className="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0" />
+                          <span className="font-medium truncate">{point}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Card CTA Button */}
+                    <Link
+                      href={item.ctaHref}
+                      className="w-full inline-flex items-center justify-center py-3 px-5 rounded-[6px] text-xs font-bold font-label tracking-wider uppercase text-white bg-slate-950 hover:bg-[#1E63D8] shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
+                    >
+                      <span>{item.ctaText}</span>
+                    </Link>
+                  </div>
                 </div>
-
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-
-        {/* Bottom Learn More CTA */}
-        <div className="mt-12 sm:mt-16 text-center">
-          <Link
-            href="/steel-frames"
-            className="inline-flex items-center justify-center px-10 py-4 rounded-full text-xs sm:text-sm font-bold font-label tracking-widest uppercase text-white bg-slate-950 hover:bg-slate-900 border border-slate-800 shadow-xl hover:shadow-2xl hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
-          >
-            LEARN MORE
-          </Link>
-        </div>
-
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 }

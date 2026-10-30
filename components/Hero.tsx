@@ -303,10 +303,10 @@ export default function Hero() {
               <div className="overflow-hidden pb-1">
                 <h1
                   ref={headingLine1Ref}
-                  className="text-3xl sm:text-5xl md:text-6xl font-heading font-bold tracking-tight text-white !text-white leading-[1.1] will-change-transform"
+                  className="text-2xl sm:text-4xl md:text-[46px] lg:text-[52px] font-heading font-bold tracking-tight text-white !text-white uppercase leading-[1.12] will-change-transform"
                   style={{ color: "#ffffff" }}
                 >
-                  South Australia&apos;s
+                  SOUTH AUSTRALIA&apos;S
                 </h1>
               </div>
 
@@ -314,12 +314,12 @@ export default function Hero() {
               <div className="overflow-hidden pb-1">
                 <h1
                   ref={headingLine2Ref}
-                  className="text-3xl sm:text-5xl md:text-6xl font-heading font-bold tracking-tight text-white !text-white leading-[1.1] will-change-transform"
+                  className="text-2xl sm:text-4xl md:text-[46px] lg:text-[52px] font-heading font-bold tracking-tight text-white !text-white uppercase leading-[1.12] will-change-transform"
                   style={{ color: "#ffffff" }}
                 >
-                  <span className="text-[#3B82F6] font-heading font-bold">Premier Steel</span>{" "}
+                  <span className="text-[#3B82F6] font-heading font-bold">PREMIER STEEL</span>{" "}
                   <span className="text-white !text-white font-heading font-bold" style={{ color: "#ffffff" }}>
-                    Frames
+                    FRAMES
                   </span>
                 </h1>
               </div>

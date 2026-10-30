@@ -265,16 +265,16 @@ export default function Footer() {
       </div>
 
       {/* ===================================================================
-          GIANT BRAND WATERMARK (End-to-End Across 100% Width, Exact Uniform Height)
+          GIANT BRAND WATERMARK (End-to-End Across Full Width, Symmetrical & Fully Uncut)
           =================================================================== */}
-      <div className="relative w-full overflow-hidden select-none pointer-events-none pt-2 sm:pt-4 -mb-1 sm:-mb-2">
+      <div className="relative w-full overflow-hidden select-none pointer-events-none pt-2 sm:pt-4 -mb-1 sm:-mb-2 px-2 sm:px-4">
         <svg
-          viewBox="0 0 1000 135"
-          className="w-full h-auto block select-none pointer-events-none overflow-hidden"
+          viewBox="0 0 1100 135"
+          className="w-full h-auto block select-none pointer-events-none"
           preserveAspectRatio="none"
         >
           <text
-            x="500"
+            x="550"
             y="118"
             textAnchor="middle"
             className="font-heading font-black fill-white/[0.08] uppercase"
@@ -282,7 +282,7 @@ export default function Footer() {
               fontFamily: "var(--font-archivo-black), sans-serif",
               fontSize: "130px",
             }}
-            textLength="1000"
+            textLength="1040"
             lengthAdjust="spacingAndGlyphs"
           >
             AUZIE STEEL

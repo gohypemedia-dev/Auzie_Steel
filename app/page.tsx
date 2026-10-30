@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import IntroSection from "@/components/IntroSection";
+import PartnerBrandsStrip from "@/components/PartnerBrandsStrip";
 import WhatWeDo from "@/components/WhatWeDo";
 import WhyChooseSteelFrames from "@/components/WhyChooseSteelFrames";
 import WhyChooseSteel from "@/components/WhyChooseSteel";
+import BuiltOnTrust from "@/components/BuiltOnTrust";
 import ContactCallToAction from "@/components/ContactCallToAction";
 
 export default function Home() {
@@ -15,6 +17,9 @@ export default function Home() {
       {/* 2. Intro Section with Line-by-Line Reveals & Architectural Mask */}
       <IntroSection />
 
+      {/* 2.5 Industry Partner Trust Marquee Strip */}
+      <PartnerBrandsStrip />
+
       {/* 3. Services / Capabilities (Frame-by-Frame Canvas Animation) */}
       <WhatWeDo />
 
@@ -24,20 +29,22 @@ export default function Home() {
       {/* 6. Why Light Gauge Steel (Dual Parallax Stream Cards) */}
       <WhyChooseSteel />
 
+      {/* 6.5 Why Choose Auzie Steel? Built on Trust, Engineered for Excellence (3-Card Layout) */}
+      <BuiltOnTrust />
+
       {/* 6. Flagship Systems Section (Minimal White Architectural Luxury Aesthetic) */}
       <section className="py-24 sm:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-[#C9CED4]/60">
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#EEF0F2] border border-[#C9CED4]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8] animate-pulse" />
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#EEF0F2] border border-[#C9CED4]">
             <span className="text-[11px] font-bold font-label tracking-widest text-[#0F1114]">
               OUR CORE INNOVATIONS
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.12]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.14]">
             BUILT FOR BUILDERS WHO DEMAND PRECISION
           </h2>
-          
+
           <p className="text-[#8A929B] mt-3 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-normal">
             From precision roll-formed wall framing to high-load acoustic Alpha Floor systems.
           </p>
@@ -53,7 +60,7 @@ export default function Home() {
                 </svg>
               </div>
 
-              <h3 className="text-2xl font-heading uppercase text-[#0F1114] mb-3 tracking-tight">
+              <h3 className="text-xl font-sans font-bold uppercase text-[#0F1114] mb-2.5 tracking-tight">
                 STEEL FRAMES
               </h3>
 
@@ -63,15 +70,15 @@ export default function Home() {
 
               <ul className="space-y-3 text-sm text-slate-700 mb-8 font-medium">
                 <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                   Pre-punched service holes for rapid plumbing &amp; electrical rough-in
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                   Non-combustible fire-rated structural performance
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                   Custom engineered to exact architectural designs
                 </li>
               </ul>
@@ -98,7 +105,7 @@ export default function Home() {
                 </svg>
               </div>
 
-              <h3 className="text-2xl font-heading uppercase text-[#0F1114] mb-3 tracking-tight">
+              <h3 className="text-xl font-sans font-bold uppercase text-[#0F1114] mb-2.5 tracking-tight">
                 ALPHA FLOOR
               </h3>
 
@@ -108,15 +115,15 @@ export default function Home() {
 
               <ul className="space-y-3 text-sm text-slate-700 mb-8 font-medium">
                 <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                   Superior load capacity and clear spans up to 7+ meters
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                   Guaranteed squeak-free structural floor integrity
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#1E63D8]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                   Large service duct cutouts for HVAC and major piping
                 </li>
               </ul>

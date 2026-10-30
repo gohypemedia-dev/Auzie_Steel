@@ -195,27 +195,22 @@ export default function WhyChooseSteelFrames() {
       {/* Pinned Inner Wrapper */}
       <div
         ref={pinWrapperRef}
-        className="relative w-full h-screen min-h-[760px] max-h-[1020px] flex flex-col justify-between overflow-hidden"
+        className="relative w-full h-screen min-h-[800px] max-h-[1100px] flex flex-col justify-between overflow-hidden"
       >
         {/* Subtle Architectural Dot Pattern Background */}
         <div className="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:24px_24px]" />
 
         {/* Top Fixed Header Bar (Clears fixed 80px navbar with ample padding) */}
         <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-26 pb-3 sm:pb-4 flex flex-col items-center text-center border-b border-[#E2E8F0]">
-          {/* Main Primary Heading (Centered, Heavy Bold, Blue Dot Removed) */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-tight mb-2 sm:mb-2.5">
-            WHY AUZIE STEEL
+          {/* Main Primary Heading */}
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[40px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-snug max-w-4xl mx-auto">
+            Why choose steel frames for your next project
           </h2>
-
-          {/* Sub-heading underneath with reduced font weight */}
-          <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-sans font-semibold uppercase tracking-tight text-[#0F1114] leading-snug">
-            WHY CHOOSE STEEL FRAMES FOR YOUR NEXT PROJECT
-          </h3>
         </div>
 
         {/* Center Stacking Cards Deck Area (Slide Up Animation with Clean White Cards) */}
-        <div className="relative z-10 flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-5 overflow-hidden flex items-center justify-center">
-          <div className="relative w-full h-[65vh] sm:h-[68vh] lg:h-[70vh] max-h-[640px]">
+        <div className="relative z-10 flex-1 w-full max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-5 overflow-hidden flex items-center justify-center">
+          <div className="relative w-full h-[68vh] sm:h-[72vh] lg:h-[75vh] max-h-[700px]">
             {services.map((service, idx) => (
               <div
                 key={service.id}
@@ -229,11 +224,11 @@ export default function WhyChooseSteelFrames() {
 
                 {/* Main Card Content (2-Column Grid) */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center flex-1 overflow-hidden">
-                  
+
                   {/* Left Column: Bold Typography & Tagline */}
                   <div className="lg:col-span-7 flex flex-col justify-center space-y-3 sm:space-y-4">
                     <div>
-                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-black uppercase text-[#0F1114] tracking-tight leading-[1.1]">
+                      <h3 className="text-xl sm:text-2xl lg:text-3xl font-sans font-bold uppercase text-[#0F1114] tracking-tight leading-snug">
                         {service.title}
                       </h3>
                       <p className="mt-1.5 text-sm sm:text-base font-semibold text-[#1E63D8] leading-snug">
@@ -270,7 +265,7 @@ export default function WhyChooseSteelFrames() {
 
                   {/* Right Column: Tall Image Card (12px Radius, Bottom Overlay Removed) */}
                   <div className="lg:col-span-5 h-full flex items-center justify-center">
-                    <div className="relative w-full h-[200px] sm:h-[260px] lg:h-[360px] rounded-[12px] overflow-hidden border border-[#CBD5E1] shadow-lg group bg-slate-100">
+                    <div className="relative w-full h-[220px] sm:h-[290px] lg:h-[410px] rounded-[12px] overflow-hidden border border-[#CBD5E1] shadow-lg group bg-slate-100">
                       <Image
                         src={service.imageSrc}
                         alt={service.imageAlt}
