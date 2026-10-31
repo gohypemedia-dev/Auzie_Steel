@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -24,42 +24,51 @@ export default function Navbar() {
   const isHomePage = pathname === "/";
   const [clickedItem, setClickedItem] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isPastHero, setIsPastHero] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const lastScrollYRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (isHomePage) {
-        const hero = document.getElementById("hero-section");
-        if (hero) {
-          const rect = hero.getBoundingClientRect();
-          // While hero is pinned or active in viewport, rect.bottom > 80.
-          // Once hero unpins and scrolls away off the top, rect.bottom <= 80.
-          setIsPastHero(rect.bottom <= 80);
-          return;
+      const currentScrollY = window.scrollY;
+      const lastScrollY = lastScrollYRef.current;
+
+      // Scrolled state
+      setIsScrolled(currentScrollY > 20);
+
+      // Always show at top of page
+      if (currentScrollY <= 20) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 6) {
+        // Scrolling DOWN -> hide navbar
+        if (!mobileMenuOpen) {
+          setIsVisible(false);
         }
+      } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 6) {
+        // Scrolling UP -> reveal navbar
+        setIsVisible(true);
       }
-      setIsPastHero(window.scrollY > 20);
+
+      lastScrollYRef.current = currentScrollY;
     };
 
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, [isHomePage]);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [mobileMenuOpen]);
 
-  // Transparent on hero section; dark blue (matching footer) afterwards
-  const isTransparent = isHomePage && !isPastHero;
+  // Transparent only at the very top of the homepage
+  const isTransparent = isHomePage && !isScrolled;
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500 shadow-none ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full transition-transform duration-300 ease-in-out shadow-none ${
+          isVisible ? "translate-y-0" : "-translate-y-full"
+        } ${
           isTransparent
             ? "bg-transparent border-b border-transparent text-white"
-            : "bg-slate-950/95 backdrop-blur-md border-b border-slate-800 text-white"
+            : "bg-slate-950/75 backdrop-blur-md border-b border-slate-800/70 text-white"
         }`}
       >
         {/* Main Navbar */}

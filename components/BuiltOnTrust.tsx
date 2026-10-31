@@ -81,23 +81,27 @@ export default function BuiltOnTrust() {
   ];
 
   return (
-    <section className="relative w-full bg-white py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden select-none border-b border-[#CBD5E1]">
+    <section className="relative w-full bg-slate-950 text-white py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden select-none border-b border-slate-800/80">
+      {/* Background Architectural Ambient Light & Subtle Pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(30,99,216,0.18),transparent)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none" />
+
       <div className="relative max-w-7xl mx-auto z-10">
         {/* Section Header */}
         <div className="text-center max-w-4xl mx-auto mb-14 sm:mb-16 md:mb-20">
-          {/* Main Primary Heading (Refined, Archivo Black Uppercase matching website style) */}
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.12]">
+          {/* Main Primary Heading */}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-heading font-black uppercase tracking-tight text-white leading-[1.12]">
             WHY CHOOSE AUZIE STEEL
           </h2>
 
-          {/* Secondary Heading (Slightly smaller, Black + Blue combination) */}
+          {/* Secondary Heading (White + Electric Blue Accent) */}
           <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-heading font-black uppercase tracking-tight leading-snug mt-2.5 sm:mt-3">
-            <span className="text-[#0F1114]">BUILT ON TRUST, </span>
-            <span className="text-[#1E63D8]">ENGINEERED FOR EXCELLENCE</span>
+            <span className="text-slate-200">BUILT ON TRUST, </span>
+            <span className="text-[#3B82F6]">ENGINEERED FOR EXCELLENCE</span>
           </h3>
 
           {/* Subtitle */}
-          <p className="mt-4 sm:mt-5 text-[#64748B] text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl sm:max-w-3xl mx-auto font-normal">
+          <p className="mt-4 sm:mt-5 text-slate-400 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl sm:max-w-3xl mx-auto font-normal">
             At Auzie Steel, we deliver more than just steel frames — we deliver peace
             of mind, quality and direct value. Here&apos;s why you can count on us:
           </p>
@@ -108,37 +112,37 @@ export default function BuiltOnTrust() {
           {cards.map((card) => (
             <div
               key={card.number}
-              className="group bg-white rounded-[14px] border border-[#CBD5E1] p-6 sm:p-7 md:p-8 flex flex-col justify-between shadow-[0_4px_20px_rgba(15,17,20,0.04)] hover:shadow-[0_16px_40px_rgba(30,99,216,0.12)] hover:border-[#1E63D8] transition-all duration-300"
+              className="group bg-slate-900/85 backdrop-blur-md rounded-[16px] border border-slate-800/90 p-6 sm:p-7 md:p-8 flex flex-col justify-between shadow-[0_12px_32px_rgba(0,0,0,0.45)] hover:shadow-[0_20px_50px_rgba(30,99,216,0.25)] hover:border-[#3B82F6] hover:-translate-y-1 transition-all duration-300"
             >
               {/* Card Top: Icon, Step Number, Heading & Paragraph */}
               <div>
                 {/* Header row: Icon Badge + Heading */}
                 <div className="flex items-center gap-4 mb-5">
-                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-[#EEF0F2] text-[#1E63D8] border border-[#CBD5E1] flex items-center justify-center shrink-0 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:bg-[#1E63D8] group-hover:text-white">
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-xl bg-slate-800/90 text-[#3B82F6] border border-slate-700/80 flex items-center justify-center shrink-0 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:bg-[#1E63D8] group-hover:text-white group-hover:border-blue-400">
                     {card.icon}
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs sm:text-[13px] font-mono font-bold text-[#1E63D8] tracking-wider">
+                      <span className="text-xs sm:text-[13px] font-mono font-bold text-[#3B82F6] tracking-wider">
                         {card.number}
                       </span>
-                      <span className="w-6 h-[1.5px] bg-[#CBD5E1]" />
+                      <span className="w-6 h-[1.5px] bg-slate-700 group-hover:bg-[#3B82F6] transition-colors" />
                     </div>
-                    <h4 className="font-sans font-bold text-base sm:text-lg uppercase text-[#0F1114] tracking-tight leading-tight mt-0.5 group-hover:text-[#1E63D8] transition-colors">
+                    <h4 className="font-sans font-bold text-base sm:text-lg uppercase text-white tracking-tight leading-tight mt-0.5 group-hover:text-[#3B82F6] transition-colors">
                       {card.title}
                     </h4>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-[#64748B] text-[13.5px] sm:text-[14px] leading-relaxed font-normal">
+                <p className="text-slate-300 text-[13.5px] sm:text-[14px] leading-relaxed font-normal">
                   {card.description}
                 </p>
               </div>
 
               {/* Card Bottom: Rounded Image */}
               <div className="mt-7 pt-1">
-                <div className="relative w-full aspect-[16/10.1] rounded-[10px] overflow-hidden bg-[#EEF0F2] border border-[#CBD5E1]/60 shadow-sm">
+                <div className="relative w-full aspect-[16/10.1] rounded-[10px] overflow-hidden bg-slate-800 border border-slate-700/60 shadow-inner">
                   <Image
                     src={card.image}
                     alt={card.alt}
@@ -146,6 +150,7 @@ export default function BuiltOnTrust() {
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
                 </div>
               </div>
             </div>

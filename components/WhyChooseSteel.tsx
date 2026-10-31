@@ -200,10 +200,10 @@ export default function WhyChooseSteel() {
             id: "whySteelDualStreamTrigger",
             trigger: section,
             start: "top top",
-            end: "+=3600",
+            end: "+=2200",
             pin: pinWrapper, // Pin inner wrapper to prevent DOM tree mutation on section
             pinSpacing: true,
-            scrub: 1.15,
+            scrub: 0.75,
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {

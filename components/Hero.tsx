@@ -273,7 +273,7 @@ export default function Hero() {
     <section
       id="hero-section"
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden bg-[#0A0C10] text-white select-none"
+      className="relative w-full h-screen overflow-hidden bg-slate-950 text-white select-none"
     >
       {/* Fullscreen HTML5 High-Performance Canvas */}
       <canvas
