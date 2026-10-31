@@ -35,12 +35,6 @@ export default function Home() {
       {/* 6. Flagship Systems Section (Minimal White Architectural Luxury Aesthetic) */}
       <section className="py-24 sm:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-[#C9CED4]/60">
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20 space-y-3">
-          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#EEF0F2] border border-[#C9CED4]">
-            <span className="text-[11px] font-bold font-label tracking-widest text-[#0F1114]">
-              OUR CORE INNOVATIONS
-            </span>
-          </div>
-
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.14]">
             BUILT FOR BUILDERS WHO DEMAND PRECISION
           </h2>

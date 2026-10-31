@@ -122,11 +122,6 @@ export default function WhyChooseSteelFrames() {
                     {/* Left Column: Information & Specs (50% on Desktop) */}
                     <div className="lg:col-span-6 p-6 sm:p-9 lg:p-11 xl:p-12 flex flex-col justify-between">
                       <div>
-                        {/* Category Tag */}
-                        <span className="inline-block text-xs font-mono font-bold tracking-widest uppercase text-[#1E63D8] mb-2.5">
-                          {service.pill}
-                        </span>
-
                         {/* Title */}
                         <h3 className="font-heading font-black text-2xl sm:text-3xl lg:text-[34px] text-[#0F1114] uppercase leading-tight mb-3">
                           {service.title}

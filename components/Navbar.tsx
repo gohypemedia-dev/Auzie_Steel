@@ -106,9 +106,6 @@ export default function Navbar() {
                     }`}
                   >
                     {item.name}
-                    {isSelected && (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-[#1E63D8] rounded-full shadow-sm" />
-                    )}
                   </Link>
                 );
               })}
