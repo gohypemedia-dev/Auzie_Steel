@@ -488,14 +488,6 @@ export default function WhyChooseSteel() {
               ref={centerTypographyRef}
               className="max-w-md xl:max-w-lg space-y-4 will-change-transform"
             >
-              
-              {/* Category Pill (Enlarged & Blue Dot Removed) */}
-              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white border border-[#CBD5E1] shadow-sm pointer-events-auto">
-                <span className="text-xs sm:text-sm font-bold font-heading tracking-wider text-[#0F1114] uppercase">
-                  WHY LIGHT GAUGE STEEL
-                </span>
-              </div>
-
               {/* Center Main Editorial Heading */}
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.06]">
                 Why light
@@ -588,12 +580,6 @@ export default function WhyChooseSteel() {
         
         {/* Mobile Header */}
         <div className="text-center max-w-xl mx-auto space-y-3">
-          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white border border-[#CBD5E1] shadow-sm">
-            <span className="text-xs sm:text-sm font-bold font-heading tracking-wider text-[#0F1114] uppercase">
-              WHY LIGHT GAUGE STEEL
-            </span>
-          </div>
-
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.14]">
             Why light <span className="text-[#1E63D8]">gauge steel?</span>
           </h2>

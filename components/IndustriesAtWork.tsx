@@ -133,13 +133,7 @@ export default function IndustriesAtWork() {
 
   return (
     <section className="relative w-full bg-[#323232] text-white pt-12 sm:pt-16 lg:pt-24 pb-14 sm:pb-20 lg:pb-28 select-none">
-      {/* ===================================================================
-          0. STEPPED NOTCH (Exact Varco Pruden 50% Right Overhang into #f7f4f0)
-          =================================================================== */}
-      <div
-        className="hidden md:block absolute top-0 right-0 w-1/2 h-[60px] xl:h-[80px] -translate-y-full bg-[#323232] pointer-events-none z-10"
-        aria-hidden="true"
-      />
+
 
       <div className="w-full max-w-[1520px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
         

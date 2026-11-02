@@ -17,7 +17,7 @@ export default function BuiltOnTrust() {
   const blocks: FeatureBlock[] = [
     {
       number: "01",
-      title: "End-to-End Service",
+      title: "END-TO-END SERVICE",
       description:
         "We offer a specialised, all-encompassing design to delivery service that gives you peace of mind that your frame will be delivered on site within your timeframes. We make this a priority, as we have a long-standing depth of experience in the local building industry.",
       image: "/vp_pemb.jpg",
@@ -27,7 +27,7 @@ export default function BuiltOnTrust() {
     },
     {
       number: "02",
-      title: "Australian Standards",
+      title: "AUSTRALIAN STANDARDS",
       description:
         "Every steel frame we produce is manufactured to exceed Australian Standards.",
       image: "/vp_hybrid.jpg",
@@ -37,7 +37,7 @@ export default function BuiltOnTrust() {
     },
     {
       number: "03",
-      title: "Direct from Manufacturer",
+      title: "DIRECT FROM MANUFACTURER",
       description:
         "When you work with us, you deal directly with the manufacturer. This minimises delays and unnecessary costs.",
       image: "/vp_retrofit.jpg",
@@ -81,7 +81,7 @@ export default function BuiltOnTrust() {
                   }`}
                 >
                   {/* Title (Exact Varco Pruden h3 style) */}
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] font-sans font-medium text-[#202020] leading-[1.12] tracking-tight mb-4 sm:mb-6">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] font-sans font-medium uppercase text-[#202020] leading-[1.12] tracking-tight mb-4 sm:mb-6">
                     {block.title}
                   </h3>
 

@@ -175,10 +175,10 @@ export default function WhyChooseSteelFrames() {
             ================================================================= */}
         <div className="w-full max-w-[1520px] mx-auto flex items-center justify-between z-20 pb-2 sm:pb-4">
           <h2
-            className="text-[21px] sm:text-[25px] md:text-[32px] lg:text-[38px] font-sans font-[540] tracking-tight text-white leading-tight"
+            className="text-[21px] sm:text-[25px] md:text-[32px] lg:text-[38px] font-sans font-[540] tracking-tight text-white uppercase leading-tight"
             style={{ fontWeight: 540 }}
           >
-            Why choose steel frames for your next project
+            WHY CHOOSE STEEL FRAME
           </h2>
         </div>
 
@@ -268,13 +268,7 @@ export default function WhyChooseSteelFrames() {
         </div>
       </div>
 
-      {/* ===================================================================
-          3. ASYMMETRIC BOTTOM SHELF EXTENSION (Exact Varco Pruden .fixed-headline-slider--bottom-notch:after)
-          =================================================================== */}
-      <div
-        className="absolute -bottom-[60px] xl:-bottom-[80px] right-0 w-1/2 xl:w-[44.4%] h-[60px] xl:h-[80px] bg-[#3168ff] z-20 pointer-events-none"
-        aria-hidden="true"
-      />
+
     </section>
   );
 }

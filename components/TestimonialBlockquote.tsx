@@ -92,22 +92,21 @@ export default function TestimonialBlockquote() {
 
   return (
     <section
-      className="relative w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-28 select-none overflow-hidden"
+      className="relative w-full bg-white text-slate-900 select-none overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
-        
+      <div className="w-full">
         {/* ===================================================================
-            TWO-COLUMN STEPPED BLOCKQUOTE COMPOSITION (Exact Varco Pruden)
+            TWO-COLUMN FULL-WIDTH BLOCKQUOTE COMPOSITION (Edge-to-Edge)
             =================================================================== */}
-        <div className="relative flex flex-col-reverse md:flex-row items-stretch">
+        <div className="relative flex flex-col-reverse md:flex-row items-stretch w-full min-h-[440px] lg:min-h-[520px]">
           
           {/* ===================================================================
               LEFT COLUMN: Electric Blue Speech Bubble (#3168ff)
-              Starts 80px lower on desktop to create the signature stepped silhouette
+              Full-width 50% left half with comfortable inner padding
               =================================================================== */}
-          <div className="relative w-full md:w-1/2 bg-[#3168ff] text-white p-8 sm:p-10 lg:p-14 md:mt-16 lg:mt-20 z-10 flex flex-col justify-between min-h-[380px] sm:min-h-[420px] lg:min-h-[480px] shadow-sm">
+          <div className="relative w-full md:w-1/2 bg-[#3168ff] text-white p-8 sm:p-12 lg:p-16 xl:p-20 z-10 flex flex-col justify-between shadow-sm">
             
             {/* Main Blockquote (Smooth opacity crossfade matching VP .fade-in / .fade-out) */}
             <div className="relative min-h-[160px] sm:min-h-[180px] lg:min-h-[200px] flex items-center">
@@ -162,26 +161,13 @@ export default function TestimonialBlockquote() {
               </div>
 
             </div>
-
-            {/* Speech Bubble Pointer Triangle (Right edge, pointing at Builder portrait) */}
-            <div
-              className="hidden md:block absolute right-0 bottom-8 lg:bottom-10 translate-x-full w-0 h-0 border-y-[10px] lg:border-y-[12px] border-y-transparent border-l-[14px] lg:border-l-[18px] border-l-[#3168ff] z-20 pointer-events-none"
-              aria-hidden="true"
-            />
           </div>
 
           {/* ===================================================================
               RIGHT COLUMN: Photographic Builder Portrait
-              Starts at the top with architectural corner cut-outs & cubic-bezier glide
+              Full-width 50% right half, perfectly matched in height
               =================================================================== */}
-          <div className="relative w-full md:w-1/2 aspect-square min-h-[360px] sm:min-h-[440px] lg:min-h-[560px] overflow-hidden bg-slate-100">
-            
-            {/* Top-Left White Corner Cut-out (Creates the stepped gap above blue box) */}
-            <div
-              className="hidden md:block absolute top-0 left-0 w-16 lg:w-20 h-16 lg:h-20 bg-white z-20 pointer-events-none"
-              aria-hidden="true"
-            />
-
+          <div className="relative w-full md:w-1/2 min-h-[360px] sm:min-h-[440px] lg:min-h-[520px] overflow-hidden bg-slate-100">
             {/* Builder Portrait Images (Exact Varco Pruden translateY glide & opacity curve) */}
             {testimonials.map((t, idx) => {
               const isActive = idx === activeIdx;
@@ -216,23 +202,25 @@ export default function TestimonialBlockquote() {
               );
             })}
 
-            {/* Bottom-Right White Cut-out Containing Slider Arrows (Exact Screenshot Match) */}
-            <div className="absolute bottom-0 right-0 w-36 sm:w-44 lg:w-56 h-16 sm:h-20 lg:h-24 bg-white z-20 flex items-center justify-center gap-6 shadow-sm">
+            {/* Bottom-Right Floating Navigation Arrows (Clean floating pill, no cutouts on photo) */}
+            <div className="absolute bottom-6 right-6 z-20 flex items-center gap-3 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-full shadow-lg border border-slate-200/80">
               <button
                 onClick={handlePrev}
                 aria-label="Previous testimonial"
                 className="p-1 text-[#202020] hover:text-[#3168ff] transition-all hover:scale-110 active:scale-95 cursor-pointer"
               >
                 <svg
-                  className="w-7 h-7 sm:w-8 sm:h-8"
+                  className="w-5 h-5 sm:w-6 sm:h-6"
                   viewBox="0 0 32 32"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth={1.8}
+                  strokeWidth={2}
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M26 16H6M13 9L6 16l7 7" />
                 </svg>
               </button>
+
+              <div className="w-[1px] h-4 bg-slate-300" />
 
               <button
                 onClick={handleNext}
@@ -240,11 +228,11 @@ export default function TestimonialBlockquote() {
                 className="p-1 text-[#202020] hover:text-[#3168ff] transition-all hover:scale-110 active:scale-95 cursor-pointer"
               >
                 <svg
-                  className="w-7 h-7 sm:w-8 sm:h-8"
+                  className="w-5 h-5 sm:w-6 sm:h-6"
                   viewBox="0 0 32 32"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth={1.8}
+                  strokeWidth={2}
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 16h20M19 9l7 7-7 7" />
                 </svg>
