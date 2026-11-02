@@ -54,7 +54,7 @@ export default function ContactCallToAction() {
               
               {/* Header */}
               <div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black text-[#0F1114] tracking-tight leading-[1.14]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium uppercase text-[#0F1114] tracking-tight leading-[1.14]">
                   Call Today To Enquire
                 </h2>
 
@@ -65,15 +65,15 @@ export default function ContactCallToAction() {
 
               {/* Action Buttons (Call Us · Get a Quote) */}
               <div className="pt-1 flex flex-wrap items-center gap-4">
-                {/* Call Us Button (Same background color as footer: bg-slate-950) */}
+                {/* Call Us Button (White background with brand blue text) */}
                 <a
-                  href="tel:1300647833"
-                  className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-slate-950 hover:bg-slate-900 text-white font-bold font-label text-xs sm:text-sm uppercase tracking-wider border border-slate-800 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  href="tel:+61434287537"
+                  className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-white hover:bg-blue-50/60 text-[#1E63D8] font-bold font-label text-xs sm:text-sm uppercase tracking-wider border border-[#1E63D8]/40 hover:border-[#1E63D8] shadow-md shadow-blue-900/5 hover:scale-[1.02] active:scale-[0.98] transition-all"
                 >
-                  <svg className="w-4 h-4 text-[#60A5FA]" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-[#1E63D8]" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" />
                   </svg>
-                  <span>CALL US (1300 647 833)</span>
+                  <span>CALL US (+61 434 287 537)</span>
                 </a>
 
                 {/* Get a Quote Button */}

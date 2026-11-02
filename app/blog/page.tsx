@@ -86,7 +86,7 @@ export default function BlogPage() {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.12]">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.12]">
               THE AUZIE STEEL <span className="text-[#1E63D8]">KNOWLEDGE HUB</span>
             </h1>
 
@@ -126,7 +126,7 @@ export default function BlogPage() {
                 <span>5 MIN READ</span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl font-heading font-black uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug">
+              <h2 className="text-2xl sm:text-3xl font-sans font-medium uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug">
                 Steel Framing vs Timber: Complete Builder Cost &amp; Durability Breakdown
               </h2>
 
@@ -149,7 +149,7 @@ export default function BlogPage() {
           =================================================================== */}
       <section className="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-[#CBD5E1]">
         <div className="mb-12">
-          <h2 className="text-2xl sm:text-3xl font-heading font-black uppercase tracking-tight text-[#0F1114]">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.14]">
             LATEST <span className="text-[#1E63D8]">TECHNICAL ARTICLES</span>
           </h2>
         </div>
@@ -180,7 +180,7 @@ export default function BlogPage() {
                   <span>{article.readTime}</span>
                 </div>
 
-                <h3 className="font-sans font-bold text-base sm:text-[17px] uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug mb-3">
+                <h3 className="font-sans font-medium text-base sm:text-[17px] uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug mb-3">
                   {article.title}
                 </h3>
 
@@ -205,7 +205,7 @@ export default function BlogPage() {
       <section className="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="bg-slate-950 text-white rounded-[16px] p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto space-y-5">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight leading-tight">
               Have A Custom Project <span className="text-[#3B82F6]">In Mind</span>?
             </h2>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">

@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -74,8 +73,6 @@ export default function WhatWeDo() {
   const viewRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  const [activeIdx, setActiveIdx] = useState(0);
-
   useEffect(() => {
     const section = sectionRef.current;
     const svc = svcRef.current;
@@ -142,18 +139,14 @@ export default function WhatWeDo() {
               pin: true,
               scrub: isPhone ? true : 1,
               invalidateOnRefresh: true,
-              onUpdate: (self) => {
-                const t = self.progress * (count + 0.2) - 1;
-                setActiveIdx(Math.max(0, Math.min(count - 1, Math.round(t))));
-              },
             },
           });
 
-          // Phase A: Scale up viewport from 0.55 into fullscreen
+          // Phase A: Scale up viewport from 0.65 into fullscreen
           tl.fromTo(
             view,
             {
-              scale: isPhone ? 1 : 0.55,
+              scale: isPhone ? 1 : 0.65,
               borderRadius: isPhone ? "0px" : "28px",
             },
             {
@@ -165,9 +158,9 @@ export default function WhatWeDo() {
             0
           );
 
-          // Phase B: Content & counter reveal
+          // Phase B: Content reveal
           tl.fromTo(
-            ".svc__label p, .svc__count",
+            ".svc__label p",
             { opacity: isPhone ? 1 : 0 },
             { opacity: 1, duration: 0.35 },
             0.7
@@ -210,8 +203,8 @@ export default function WhatWeDo() {
       {/* ===================================================================
           1. INTRO HEADER (Royal Rising Split Slide-in Animation)
           =================================================================== */}
-      <div className="svc-intro w-full px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-16 sm:pb-20 text-center flex flex-col items-center overflow-hidden">
-        <h2 className="title font-heading font-black uppercase tracking-tight text-[#0F1114] text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-5 sm:mb-6">
+      <div className="svc-intro w-full px-4 sm:px-6 lg:px-8 pt-32 sm:pt-40 lg:pt-44 pb-4 sm:pb-6 text-center flex flex-col items-center overflow-hidden">
+        <h2 className="title font-sans font-medium uppercase tracking-tight text-[#0F1114] text-2xl sm:text-3xl md:text-4xl lg:text-[44px] mb-5 sm:mb-6">
           OUR <span className="text-[#1E63D8]">SERVICES</span>
         </h2>
         <p className="para text-slate-600 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-normal">
@@ -226,7 +219,7 @@ export default function WhatWeDo() {
           =================================================================== */}
       <div
         ref={svcRef}
-        className="svc relative w-full h-screen overflow-hidden bg-[#FAF9F6]"
+        className="svc relative w-full h-screen overflow-hidden bg-[#FAF9F6] -mt-10 sm:-mt-16 lg:-mt-20"
       >
         <div
           ref={viewRef}
@@ -261,17 +254,8 @@ export default function WhatWeDo() {
 
                 {/* Floating Centered Service Card Information */}
                 <div className="svc__label absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-4 sm:px-8 gap-4 sm:gap-6 text-white">
-                  {/* Circular Arrow Badge */}
-                  <Link
-                    href={service.href}
-                    className="svc__arrow w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/70 bg-white/10 backdrop-blur-md flex items-center justify-center text-white text-xl transition-all duration-300 hover:scale-110 hover:bg-[#1E63D8] hover:border-transparent hover:text-white shadow-xl"
-                    aria-label={`Learn more about ${service.title}`}
-                  >
-                    →
-                  </Link>
-
                   {/* Title */}
-                  <h3 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-tight text-white max-w-4xl leading-[1.05] drop-shadow-lg">
+                  <h3 className="font-sans font-medium text-2xl sm:text-3xl md:text-4xl lg:text-[48px] uppercase tracking-tight text-white max-w-4xl leading-[1.08] drop-shadow-lg">
                     {service.title}
                   </h3>
 
@@ -279,25 +263,9 @@ export default function WhatWeDo() {
                   <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-2xl font-light leading-relaxed drop-shadow-md">
                     {service.description}
                   </p>
-
-                  {/* View Details Link */}
-                  <Link
-                    href={service.href}
-                    className="mt-2 text-xs sm:text-sm font-mono font-bold tracking-widest uppercase text-white/80 hover:text-white underline underline-offset-4 transition-colors"
-                  >
-                    Explore {service.title} →
-                  </Link>
                 </div>
               </article>
             ))}
-          </div>
-
-          {/* Floating Live Slide Counter at Bottom-Right */}
-          <div
-            className="svc__count absolute bottom-8 right-6 sm:bottom-10 sm:right-12 z-20 font-mono text-xs sm:text-sm tracking-widest text-white/90 bg-slate-950/70 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full shadow-xl pointer-events-none"
-            aria-hidden="true"
-          >
-            {String(activeIdx + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
           </div>
         </div>
       </div>

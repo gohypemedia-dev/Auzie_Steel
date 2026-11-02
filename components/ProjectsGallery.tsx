@@ -195,7 +195,7 @@ export default function ProjectsGallery() {
 
           <h2
             ref={headingRef}
-            className="text-3xl sm:text-4xl md:text-5xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.08]"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.08]"
           >
             <span className="block overflow-hidden pb-1">
               <span className="gallery-title-line block">
@@ -248,7 +248,7 @@ export default function ProjectsGallery() {
                     {project.category}
                   </span>
 
-                  <h3 className="text-base sm:text-lg font-heading uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug">
+                  <h3 className="text-base sm:text-lg font-sans font-medium uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug">
                     {project.title}
                   </h3>
 

@@ -1,0 +1,29 @@
+.cmp-two-columns-cta{overflow:hidden}
+.cmp-two-columns-cta .button,.cmp-two-columns-cta p:has([class*=btn-]){white-space:nowrap;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content}
+.cmp-two-columns-cta .button,.cmp-two-columns-cta p:has([class*=btn-]){order:3}
+.cmp-two-columns-cta .rte-content>:not(p,ul,ol){max-width:300px}
+.cmp-two-columns-cta__rule{background-color:#fff;display:flex;opacity:.3;padding-bottom:20px;padding-top:6px}
+.cmp-two-columns-cta__rule{padding-top:26px}
+.cmp-two-columns-cta__rule{padding-top:44px}
+.cmp-two-columns-cta__columns{display:grid;grid-template-columns:repeat(1,minmax(0,1fr))}
+.cmp-two-columns-cta__column{box-sizing:border-box;color:#fff;padding:44px 0 60px;position:relative}
+.cmp-two-columns-cta__column{padding-bottom:98px;padding-top:5pc}
+.cmp-two-columns-cta__column--left{background-color:#0044b4}
+.cmp-two-columns-cta__column--left:after{background-color:#0044b4;content:"";height:100%;position:absolute;top:0;transform:translateX(100%);width:100%}
+.cmp-two-columns-cta__column--left:before{background-color:#0044b4;content:"";height:100%;position:absolute;top:0;transform:translateX(-100%);width:100%}
+.cmp-two-columns-cta__column--left{padding-right:3pc}
+.cmp-two-columns-cta__column--left{padding-right:5pc}
+.cmp-two-columns-cta__column--right{background-color:#3168ff;z-index:1}
+.cmp-two-columns-cta__column--right:after{background-color:#3168ff;content:"";height:100%;position:absolute;right:24px;top:0;transform:translateX(100%);width:100%;z-index:-1}
+.cmp-two-columns-cta__column--right:before{background-color:#3168ff;content:"";height:100%;position:absolute;top:0;transform:translateX(-100%);width:100%}
+.cmp-two-columns-cta__column--right:before{display:none}
+.cmp-two-columns-cta__column--right{padding-left:3pc}
+.cmp-two-columns-cta__column--right:after{right:3pc}
+.cmp-two-columns-cta__column--right{padding-left:5pc}
+.cmp-two-columns-cta__column--right:after{right:5pc}
+.cmp-two-columns-cta__column-inner{display:flex;flex-direction:column;gap:24px;height:100%;justify-content:flex-start}
+.cmp-two-columns-cta__column-inner{align-items:center;flex-direction:row;flex-wrap:wrap;gap:40px;justify-content:space-between}
+.cmp-two-columns-cta__column-inner-row{display:flex;flex-direction:column;gap:24px}
+.cmp-two-columns-cta__column-inner-row{align-items:center;flex-direction:row;justify-content:space-between}
+.cmp-two-columns-cta__columns{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cmp-two-columns-cta__column{min-height:25pc}

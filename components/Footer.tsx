@@ -1,295 +1,434 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setSubmitted(true);
+  };
+
   return (
-    <footer className="w-full bg-slate-950 text-slate-300 rounded-t-[32px] sm:rounded-t-[48px] border-t border-slate-800/90 relative overflow-hidden shadow-2xl pt-16 sm:pt-20 pb-6 sm:pb-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* ===================================================================
-            TOP NAVIGATION GRID: 5 COLUMNS (Matching Reference Design)
-            =================================================================== */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 pb-12 sm:pb-16">
-          
-          {/* Column 1: Company */}
-          <div className="space-y-4">
-            <h3 className="text-sm sm:text-base font-semibold text-white tracking-wide">
-              Company
-            </h3>
-            <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-slate-400">
-              <li>
-                <Link href="/about" className="hover:text-white transition-colors duration-200">
-                  About us
-                </Link>
-              </li>
-              <li>
-                <Link href="/#why-choose-steel" className="hover:text-white transition-colors duration-200">
-                  Why Choose Steel
-                </Link>
-              </li>
-              <li>
-                <Link href="/#projects-gallery" className="hover:text-white transition-colors duration-200">
-                  Projects Gallery
-                </Link>
-              </li>
-              <li>
-                <Link href="/careers" className="hover:text-white transition-colors duration-200">
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link href="/faqs" className="hover:text-white transition-colors duration-200">
-                  FAQs
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-white transition-colors duration-200">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
+    <footer className="w-full flex flex-col font-sans select-none overflow-visible">
+      {/* =====================================================================
+          1. TWO COLUMNS CTA: "Let's connect." & "Let’s build." (Exact Reference Style)
+          ===================================================================== */}
+      <section className="w-full overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* LEFT COLUMN: Deep Blue (#0044b4) - Phone Call Option */}
+          <div className="bg-[#0044b4] text-white px-8 sm:px-12 lg:px-16 xl:px-24 py-16 sm:py-20 lg:py-24 flex flex-col justify-between min-h-[420px] lg:min-h-[460px]">
+            {/* Top Row: Heading on Left, Call Button on Right */}
+            <div className="flex items-start justify-between gap-6">
+              <h2 className="!font-sans font-normal text-white text-4xl sm:text-5xl lg:text-[54px] xl:text-[58px] leading-[1.08] tracking-tight">
+                Let&apos;s
+                <br />
+                connect.
+              </h2>
+              <a
+                href="tel:+61434287537"
+                className="bg-white hover:bg-neutral-100 text-[#1a1a1a] !font-sans px-8 py-3.5 text-sm font-medium rounded-[2px] transition-colors whitespace-nowrap shadow-sm mt-1"
+              >
+                Call +61 434 287 537
+              </a>
+            </div>
 
-          {/* Column 2: Products & Systems */}
-          <div className="space-y-4">
-            <h3 className="text-sm sm:text-base font-semibold text-white tracking-wide">
-              Products
-            </h3>
-            <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-slate-400">
-              <li>
-                <Link href="/steel-frames" className="hover:text-white transition-colors duration-200">
-                  Prefabricated Wall Frames
-                </Link>
-              </li>
-              <li>
-                <Link href="/steel-frames" className="hover:text-white transition-colors duration-200">
-                  Engineered Roof Trusses
-                </Link>
-              </li>
-              <li>
-                <Link href="/alpha-floor" className="hover:text-white transition-colors duration-200">
-                  Alpha Floor Joist Systems
-                </Link>
-              </li>
-              <li>
-                <Link href="/alpha-floor" className="hover:text-white transition-colors duration-200">
-                  Acoustic Floor Solutions
-                </Link>
-              </li>
-              <li>
-                <Link href="/steel-frames" className="hover:text-white transition-colors duration-200">
-                  Custom CAD/BIM Detailing
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 3: Resources */}
-          <div className="space-y-4">
-            <h3 className="text-sm sm:text-base font-semibold text-white tracking-wide">
-              Resources
-            </h3>
-            <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-slate-400">
-              <li>
-                <Link href="/blog" className="hover:text-white transition-colors duration-200">
-                  Blog &amp; News
-                </Link>
-              </li>
-              <li>
-                <Link href="/steel-frames" className="hover:text-white transition-colors duration-200">
-                  Technical Specifications
-                </Link>
-              </li>
-              <li>
-                <Link href="/#projects-gallery" className="hover:text-white transition-colors duration-200">
-                  Media &amp; Case Studies
-                </Link>
-              </li>
-              <li>
-                <Link href="/steel-frames" className="hover:text-white transition-colors duration-200">
-                  Truecore® 50-Yr Warranty
-                </Link>
-              </li>
-              <li>
-                <Link href="/steel-frames" className="hover:text-white transition-colors duration-200">
-                  AS/NZS 4600 &amp; NCC 2022
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 4: Legal */}
-          <div className="space-y-4">
-            <h3 className="text-sm sm:text-base font-semibold text-white tracking-wide">
-              Legal
-            </h3>
-            <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-slate-400">
-              <li>
-                <Link href="/privacy" className="hover:text-white transition-colors duration-200">
-                  Privacy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="hover:text-white transition-colors duration-200">
-                  Security
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="hover:text-white transition-colors duration-200">
-                  Terms of use
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="hover:text-white transition-colors duration-200">
-                  Acceptance policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="hover:text-white transition-colors duration-200">
-                  Cookies
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 5: Contact */}
-          <div className="space-y-4 col-span-2 sm:col-span-1">
-            <h3 className="text-sm sm:text-base font-semibold text-white tracking-wide">
-              Contact
-            </h3>
-            <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-slate-400">
-              <li>
-                <a
-                  href="mailto:sales@ogsteel.com.au"
-                  className="hover:text-white transition-colors duration-200 break-all"
-                >
-                  sales@ogsteel.com.au
-                </a>
-              </li>
-              <li>
-                <a
-                  href="tel:1300647833"
-                  className="hover:text-white transition-colors duration-200 font-mono text-sm"
-                >
-                  1300 647 833
-                </a>
-              </li>
-              <li className="text-slate-400">
-                <span>07000-AUZIESTEEL</span>
-              </li>
-              <li className="pt-1 text-slate-400 text-xs">
-                <span>Adelaide, South Australia</span>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-
-        {/* ===================================================================
-            DIVIDER LINE
-            =================================================================== */}
-        <div className="w-full h-px bg-slate-800/90 mb-8 sm:mb-10" />
-
-        {/* ===================================================================
-            ADDRESS, COPYRIGHT & SOCIAL ICONS ROW
-            =================================================================== */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 sm:pb-12">
-          
-          {/* Address & Copyright */}
-          <div className="space-y-2 text-xs sm:text-sm text-slate-400">
-            <p className="text-slate-300 font-medium">
-              Auzie Steel HQ, 14 Bishopstone Road, Davoren Park, South Australia 5113.
-            </p>
-            <p className="text-slate-500 text-xs">
-              © 2026 Auzie Steel. All rights reserved. · Website by{" "}
-              <span className="text-slate-300 font-semibold">Go Hype Media</span>
+            {/* Bottom Row: Descriptive Paragraph */}
+            <p className="text-white/95 !font-sans text-sm sm:text-base leading-[1.65] font-normal max-w-lg mt-10 sm:mt-14">
+              Speak directly with our Adelaide engineering and estimating team. Give us a call on +61 434 287 537 to talk through what you need.
             </p>
           </div>
 
-          {/* Social Media Circular Icon Pills (Matching Reference Icons) */}
-          <div className="flex items-center gap-3">
-            {/* LinkedIn */}
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white text-white hover:text-slate-950 flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-105"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-              </svg>
-            </a>
+          {/* RIGHT COLUMN: Bright Electric Blue (#3168ff) - Form Fill Option */}
+          <div className="bg-[#3168ff] text-white px-8 sm:px-12 lg:px-16 xl:px-24 py-16 sm:py-20 lg:py-24 flex flex-col justify-between min-h-[420px] lg:min-h-[460px]">
+            {/* Top Row: Heading on Left, Form Fill Button on Right */}
+            <div className="flex items-start justify-between gap-6">
+              <h2 className="!font-sans font-normal text-white text-4xl sm:text-5xl lg:text-[54px] xl:text-[58px] leading-[1.08] tracking-tight">
+                Let’s
+                <br />
+                build.
+              </h2>
+              <Link
+                href="/contact"
+                className="bg-white hover:bg-neutral-100 text-[#1a1a1a] !font-sans px-8 py-3.5 text-sm font-medium rounded-[2px] transition-colors whitespace-nowrap shadow-sm mt-1"
+              >
+                Fill Out Form
+              </Link>
+            </div>
 
-            {/* X (formerly Twitter) */}
-            <a
-              href="https://x.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="X"
-              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white text-white hover:text-slate-950 flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-105"
-            >
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-            </a>
+            {/* Bottom Row: Descriptive Paragraph */}
+            <p className="text-white/95 !font-sans text-sm sm:text-base leading-[1.65] font-normal max-w-lg mt-10 sm:mt-14">
+              Submit your project details or upload architectural plans for a fast, millimeter-accurate framing takeoff quote from our South Australian team.
+            </p>
+          </div>
+        </div>
+      </section>
 
-            {/* Instagram */}
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white text-white hover:text-slate-950 flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-105"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-              </svg>
-            </a>
+      {/* =====================================================================
+          2. SUBSCRIBE TO INSIGHTS COMPONENT
+             (Exact Overlap: Right steel image hangs down 120px into the blue footer!)
+          ===================================================================== */}
+      <section className="relative w-full bg-white text-[#202020] border-b border-neutral-200 z-20 overflow-visible">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-2 items-stretch min-h-[380px] lg:min-h-[420px]">
+          {/* Left Column: Form Content (50% on desktop) */}
+          <div className="flex flex-col justify-center px-8 sm:px-14 lg:px-16 xl:px-24 py-14 sm:py-16 lg:py-20 z-10">
+            <div className="w-full max-w-[540px]">
+              <h2 className="text-2xl sm:text-3xl lg:text-[34px] !font-sans font-normal text-[#202020] tracking-tight mb-8">
+                Subscribe to insights.
+              </h2>
 
-            {/* Facebook */}
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white text-white hover:text-slate-950 flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-105"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
-              </svg>
-            </a>
+              {submitted ? (
+                <div className="p-4 bg-blue-50 border border-blue-200 text-[#0044b4] text-sm rounded-[2px] !font-sans">
+                  Thank you! You have successfully subscribed to Auzie Steel updates.
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Outlined Email Input Box */}
+                  <div className="border border-[#767676] bg-white px-5 py-4 focus-within:border-[#202020] transition-colors">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email *"
+                      required
+                      className="w-full bg-transparent text-[#202020] placeholder-[#767676] text-base !font-sans focus:outline-none"
+                    />
+                  </div>
+
+                  {/* Row below input: Disclaimer on Left + Submit Button on Right */}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 pt-1">
+                    <p className="text-xs text-[#666666] leading-relaxed max-w-sm !font-sans">
+                      By submitting, I agree to receive news and project updates from Auzie Steel. I understand I can unsubscribe at any time. See our{" "}
+                      <Link
+                        href="/contact"
+                        className="underline hover:text-[#202020]"
+                      >
+                        Privacy Policy
+                      </Link>
+                      .
+                    </p>
+
+                    <button
+                      type="submit"
+                      className="bg-[#323232] hover:bg-black text-white px-10 py-3.5 text-sm !font-sans font-medium rounded-[2px] transition-colors whitespace-nowrap shadow-sm shrink-0 self-start sm:self-auto cursor-pointer"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
           </div>
 
+          {/* Right Column: Steel Studs Visual (50% on desktop)
+              Extends bottom-[-120px] into the blue footer below */}
+          <div className="relative w-full min-h-[300px] lg:min-h-full">
+            <div className="relative lg:absolute lg:inset-x-0 lg:top-0 lg:bottom-[-120px] xl:bottom-[-135px] h-[340px] lg:h-auto z-30 overflow-hidden shadow-sm">
+              <Image
+                src="/vp-footer-subscribe.jpg"
+                alt="Galvanized light gauge steel framing studs with pre-punched service holes"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+                className="object-cover object-center"
+              />
+            </div>
+          </div>
         </div>
+      </section>
 
-      </div>
+      {/* =====================================================================
+          3. MAIN FOOTER: ELECTRIC BLUE (#3168ff) (Exact Reference Layout)
+             Left side shows Auzie Steel brand identity opposite the 120px overlapping steel image,
+             and navigation columns start below the overlapping image!
+          ===================================================================== */}
+      <section className="relative z-10 w-full bg-[#3168ff] text-white pt-10 sm:pt-12 lg:pt-14 pb-10 sm:pb-14">
+        <div className="w-full max-w-[1520px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
+          {/* Top Row: Auzie Steel Brand Header on Left (Columns 1-6),
+              Columns 7-12 is the 120px space occupied by the overlapping steel photo from above! */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 mb-8 lg:mb-10 items-center min-h-[80px] lg:min-h-[120px]">
+            <div className="lg:col-span-6 flex flex-col justify-center">
+              <Link href="/" className="inline-block group">
+                <span className="text-3xl sm:text-4xl font-sans font-medium tracking-tight text-white uppercase block leading-none">
+                  AUZIE STEEL
+                </span>
+                <span className="block text-white/95 text-xs sm:text-[13px] !font-sans font-medium tracking-wide mt-2">
+                  Auzie Steel — Light Gauge Steel
+                </span>
+              </Link>
+              <p className="text-white/85 text-xs sm:text-sm !font-sans font-normal mt-1.5 max-w-lg">
+                We are the builder&apos;s choice in steel framing.
+              </p>
+            </div>
 
-      {/* ===================================================================
-          GIANT BRAND WATERMARK (End-to-End Across Full Width, Symmetrical & Fully Uncut)
-          =================================================================== */}
-      <div className="relative w-full overflow-hidden select-none pointer-events-none pt-2 sm:pt-4 -mb-1 sm:-mb-2 px-2 sm:px-4">
-        <svg
-          viewBox="0 0 1100 135"
-          className="w-full h-auto block select-none pointer-events-none"
-          preserveAspectRatio="none"
-        >
-          <text
-            x="550"
-            y="118"
-            textAnchor="middle"
-            className="font-heading font-black fill-white/[0.08] uppercase"
-            style={{
-              fontFamily: "var(--font-archivo-black), sans-serif",
-              fontSize: "130px",
-            }}
-            textLength="1040"
-            lengthAdjust="spacingAndGlyphs"
-          >
-            AUZIE STEEL
-          </text>
-        </svg>
-      </div>
+            {/* Empty space reserved on desktop for the overlapping steel photo hanging down from above */}
+            <div className="hidden lg:block lg:col-span-6 h-[120px] pointer-events-none" />
+          </div>
 
+          {/* 5 Clean Columns Grid (Underneath the Overlap) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 pt-2">
+            {/* Column 1: Systems (Col 1-2) */}
+            <div className="lg:col-span-2 space-y-3.5">
+              <h3 className="text-base !font-sans font-medium text-white tracking-tight">
+                Steel Systems
+              </h3>
+              <ul className="space-y-2 text-sm text-white/95 !font-sans">
+                <li>
+                  <Link href="/steel-frames" className="hover:underline transition-colors block">
+                    Light Gauge Steel Frames
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/alpha-floor" className="hover:underline transition-colors block">
+                    Alpha Floor System
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/steel-frames" className="hover:underline transition-colors block">
+                    Roof Trusses
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/steel-frames" className="hover:underline transition-colors block">
+                    Wall Framing
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 2: Capabilities (Col 3-4) */}
+            <div className="lg:col-span-2 space-y-3.5">
+              <h3 className="text-base !font-sans font-medium text-white tracking-tight">
+                Capabilities
+              </h3>
+              <ul className="space-y-2 text-sm text-white/95 !font-sans">
+                <li>
+                  <Link href="/steel-frames" className="hover:underline transition-colors block">
+                    CAD/BIM Custom Engineering
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/steel-frames" className="hover:underline transition-colors block">
+                    Automated CNC Fabrication
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="hover:underline transition-colors block">
+                    Rapid On-Site Delivery
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/steel-frames" className="hover:underline transition-colors block">
+                    Australian Standards Certified
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 3: Contact Details & Factory Address (Col 5-8, 4 columns wide) */}
+            <div className="lg:col-span-4 space-y-3.5">
+              <h3 className="text-base !font-sans font-medium text-white tracking-tight">
+                Contact &amp; Factory
+              </h3>
+              <div className="space-y-3 text-sm text-white/95 !font-sans">
+                {/* Phone */}
+                <div>
+                  <span className="block text-xs uppercase tracking-wider text-white/70 font-semibold mb-0.5">
+                    Phone
+                  </span>
+                  <a
+                    href="tel:+61434287537"
+                    className="hover:underline text-base font-bold text-white tracking-wide block"
+                  >
+                    +61 434 287 537
+                  </a>
+                </div>
+
+                {/* Email */}
+                <div>
+                  <span className="block text-xs uppercase tracking-wider text-white/70 font-semibold mb-0.5">
+                    Email
+                  </span>
+                  <a
+                    href="mailto:sales@ogsteel.com.au"
+                    className="hover:underline text-white block break-all font-medium"
+                  >
+                    sales@ogsteel.com.au
+                  </a>
+                </div>
+
+                {/* Address */}
+                <div>
+                  <span className="block text-xs uppercase tracking-wider text-white/70 font-semibold mb-0.5">
+                    Factory &amp; Office
+                  </span>
+                  <p className="text-white/90 leading-snug font-normal">
+                    23B Humphries Tce,
+                    <br />
+                    Kilkenny SA 5009, Australia
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Column 4: Quick Links (Col 9-10 - Directly below the steel photo!) */}
+            <div className="lg:col-span-2 space-y-3.5">
+              <h3 className="text-base !font-sans font-medium text-white tracking-tight">
+                Quick Links
+              </h3>
+              <ul className="space-y-2 text-sm text-white/95 !font-sans">
+                <li>
+                  <Link href="/#why-choose-steel" className="hover:underline transition-colors block">
+                    Why Choose Steel
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/#why-choose-auzie-steel" className="hover:underline transition-colors block">
+                    Why Auzie Steel
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/steel-frames" className="hover:underline transition-colors block">
+                    Engineering Specs
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="hover:underline transition-colors block">
+                    Builder Support
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 5: Enquiries (Col 11-12 - Directly below the steel photo!) */}
+            <div className="lg:col-span-2 space-y-3.5">
+              <h3 className="text-base !font-sans font-medium text-white tracking-tight">
+                Enquiries
+              </h3>
+              <ul className="space-y-2 text-sm text-white/95 !font-sans">
+                <li>
+                  <Link href="/contact" className="hover:underline transition-colors block">
+                    Request a Quote
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="hover:underline transition-colors block">
+                    Speak with Engineering
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href="tel:+61434287537"
+                    className="hover:underline transition-colors block font-semibold text-white"
+                  >
+                    Direct: +61 434 287 537
+                  </a>
+                </li>
+                <li>
+                  <Link href="/contact" className="hover:underline transition-colors block">
+                    Contact Us
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* ===================================================================
+              4. DIVIDER & BOTTOM ROW (Exact Copyright, Credits & Social Media)
+              =================================================================== */}
+          <div className="w-full h-px bg-white/20 mt-16 sm:mt-20 mb-8 sm:mb-10" />
+
+          <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 sm:gap-8 text-xs text-white/90 !font-sans">
+            {/* Left: Copyright + Website Credits + Legal Links */}
+            <div className="flex flex-col md:flex-row flex-wrap items-start md:items-center gap-3 sm:gap-4 md:gap-5">
+              {/* Copyright */}
+              <span className="font-medium text-white">
+                © 2026 Auzie Steel. All rights reserved.
+              </span>
+
+              <span className="hidden md:inline text-white/40">|</span>
+
+              {/* Website Credits */}
+              <span className="text-white/85">
+                Website by <strong className="text-white font-semibold">Go Hype Media</strong>
+              </span>
+
+              <span className="hidden md:inline text-white/40">|</span>
+
+              {/* Pipe Separated Legal Links */}
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-white/80">
+                <Link
+                  href="/contact"
+                  className="hover:underline hover:text-white transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+                <span className="text-white/40">|</span>
+                <Link
+                  href="/contact"
+                  className="hover:underline hover:text-white transition-colors"
+                >
+                  Terms &amp; Conditions
+                </Link>
+                <span className="text-white/40">|</span>
+                <Link
+                  href="/contact"
+                  className="hover:underline hover:text-white transition-colors"
+                >
+                  Contact Us
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: Circular Social Media Icons (Facebook, Instagram, LinkedIn) */}
+            <div className="flex items-center gap-3 shrink-0 self-end xl:self-auto">
+              {/* Facebook */}
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="w-8 h-8 rounded-full border border-white/80 hover:bg-white hover:text-[#3168ff] text-white flex items-center justify-center transition-colors shadow-sm"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                </svg>
+              </a>
+
+              {/* Instagram */}
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-8 h-8 rounded-full border border-white/80 hover:bg-white hover:text-[#3168ff] text-white flex items-center justify-center transition-colors shadow-sm"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="w-8 h-8 rounded-full border border-white/80 hover:bg-white hover:text-[#3168ff] text-white flex items-center justify-center transition-colors shadow-sm"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c-.92 0-1.66-.74-1.66-1.66 0-.92.74-1.66 1.66-1.66.92 0 1.66.74 1.66 1.66 0 .92-.74 1.66-1.66 1.66m1.39 9.74v-8.37H5.07v8.37h2.78z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </footer>
   );
 }

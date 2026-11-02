@@ -17,7 +17,7 @@
   --color-brand-blue: #1E63D8;
   --color-brand-blue-hover: #1650B5;
   --font-sans: var(--font-inter), sans-serif;
-  --font-heading: var(--font-archivo-black), sans-serif;
+  --font-heading: var(--font-inter), sans-serif;
   --font-label: var(--font-montserrat), sans-serif;
   --font-serif: var(--font-playfair), "Times New Roman", Times, Georgia, serif;
 }
@@ -32,7 +32,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Headings: Archivo Black default, can be overridden by utility classes */
+  /* Headings: Inter font-medium (500) matching CUSTOM DESIGNS style globally */
   h1,
   h2,
   h3,
@@ -40,8 +40,9 @@
   h5,
   h6,
   .font-heading {
-    font-family: var(--font-archivo-black), sans-serif;
-    letter-spacing: -0.015em;
+    font-family: var(--font-inter), sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.02em;
     color: #0F1114;
   }
 }
@@ -153,4 +154,32 @@ nav a {
 
 .animate-infinite-marquee:hover {
   animation-play-state: paused;
+}
+
+/* Lenis Smooth Scroll Core Rules */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-autoToggle {
+  transition-property: overflow;
+  transition-duration: 1ms;
+  transition-behavior: allow-discrete;
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo_Black, Inter, Montserrat, Playfair_Display } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 const archivoBlack = Archivo_Black({
@@ -46,6 +47,7 @@ export default function RootLayout({
       className={`${archivoBlack.variable} ${inter.variable} ${montserrat.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-[#0F1114] font-sans">
+        <SmoothScroll />
         <Navbar />
         <div className="flex-1">{children}</div>
         <Footer />

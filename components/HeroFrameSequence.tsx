@@ -527,7 +527,7 @@ export default function HeroFrameSequence({ className = "" }: HeroFrameSequenceP
           {/* Header */}
           <div className="flex items-center justify-between text-white pb-4 border-b border-white/15">
             <div className="flex items-center gap-3">
-              <h3 className="font-heading uppercase tracking-tight text-lg sm:text-xl">
+              <h3 className="font-sans font-medium uppercase tracking-tight text-lg sm:text-xl">
                 AUZIE STEEL · 3D STRUCTURAL ASSEMBLY
               </h3>
               <span className="text-xs font-mono text-white/50 hidden sm:inline">

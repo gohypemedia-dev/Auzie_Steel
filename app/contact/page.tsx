@@ -34,7 +34,7 @@ export default function ContactPage() {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.12]">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.12]">
               CONTACT <span className="text-[#1E63D8]">AUZIE STEEL</span>
             </h1>
 
@@ -58,7 +58,7 @@ export default function ContactPage() {
                 <span className="text-xs font-mono font-bold text-[#1E63D8] uppercase tracking-wider block mb-1">
                   DIRECT ACCESS
                 </span>
-                <h2 className="text-xl sm:text-2xl font-heading font-black uppercase tracking-tight text-[#0F1114]">
+                <h2 className="text-xl sm:text-2xl font-sans font-medium uppercase tracking-tight text-[#0F1114]">
                   SOUTH AUSTRALIA OFFICE
                 </h2>
               </div>
@@ -72,8 +72,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="text-xs font-semibold uppercase text-slate-500 block">Phone</span>
-                    <a href="tel:1300000000" className="text-base font-bold text-[#0F1114] hover:text-[#1E63D8] transition-colors">
-                      1300 AUZIE STEEL
+                    <a href="tel:+61434287537" className="text-base font-bold text-[#0F1114] hover:text-[#1E63D8] transition-colors">
+                      +61 434 287 537
                     </a>
                     <span className="text-xs text-slate-500 block mt-0.5">Mon–Fri: 7:00 AM – 5:00 PM ACST</span>
                   </div>
@@ -102,9 +102,9 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <span className="text-xs font-semibold uppercase text-slate-500 block">Manufacturing Plant</span>
+                    <span className="text-xs font-semibold uppercase text-slate-500 block">Manufacturing Plant &amp; Office</span>
                     <span className="text-base font-bold text-[#0F1114] block">
-                      Adelaide, South Australia
+                      23B Humphries Tce, Kilkenny SA 5009, Australia
                     </span>
                     <span className="text-xs text-slate-500 block mt-0.5">Serving Greater Adelaide &amp; Regional SA</span>
                   </div>
@@ -146,7 +146,7 @@ export default function ContactPage() {
                   <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 border border-emerald-300 flex items-center justify-center mx-auto text-2xl font-bold">
                     ✓
                   </div>
-                  <h3 className="text-2xl font-heading font-black uppercase text-[#0F1114]">
+                  <h3 className="text-2xl font-sans font-medium uppercase text-[#0F1114]">
                     PLANS RECEIVED
                   </h3>
                   <p className="text-slate-600 text-sm max-w-md mx-auto leading-relaxed">
@@ -162,7 +162,7 @@ export default function ContactPage() {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <h2 className="text-2xl sm:text-3xl font-heading font-black uppercase tracking-tight text-[#0F1114]">
+                    <h2 className="text-2xl sm:text-3xl font-sans font-medium uppercase tracking-tight text-[#0F1114]">
                       REQUEST A FRAMING ESTIMATE
                     </h2>
                     <p className="mt-1.5 text-xs sm:text-sm text-slate-600">

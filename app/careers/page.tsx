@@ -44,7 +44,7 @@ export default function CareersPage() {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.12]">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.12]">
               BUILD YOUR CAREER IN <span className="text-[#1E63D8]">STEEL INNOVATION</span>
             </h1>
 
@@ -58,7 +58,7 @@ export default function CareersPage() {
       {/* Current Openings */}
       <section className="py-20 sm:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
-          <h2 className="text-2xl sm:text-3xl font-heading font-black uppercase tracking-tight text-[#0F1114]">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.14]">
             CURRENT <span className="text-[#1E63D8]">OPENINGS</span>
           </h2>
         </div>
@@ -73,7 +73,7 @@ export default function CareersPage() {
                 <span className="text-xs font-mono font-bold text-[#1E63D8] uppercase tracking-wider block">
                   {job.type}
                 </span>
-                <h3 className="font-sans font-bold text-lg sm:text-xl uppercase text-[#0F1114]">
+                <h3 className="font-sans font-medium text-lg sm:text-xl uppercase text-[#0F1114]">
                   {job.role}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">

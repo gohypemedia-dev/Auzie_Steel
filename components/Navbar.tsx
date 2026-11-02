@@ -114,7 +114,7 @@ export default function Navbar() {
             {/* Right Action / Phone Button + Get a Quote */}
             <div className="hidden md:flex items-center gap-3">
               <a
-                href="tel:1300647833"
+                href="tel:+61434287537"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold font-label text-xs tracking-wider border border-white/20 transition-all hover:scale-[1.02] backdrop-blur-sm shadow-sm"
               >
                 <svg
@@ -124,7 +124,7 @@ export default function Navbar() {
                 >
                   <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" />
                 </svg>
-                <span>1300 647 833</span>
+                <span>+61 434 287 537</span>
               </a>
 
               <Link
@@ -183,10 +183,10 @@ export default function Navbar() {
             })}
             <div className="pt-3 border-t border-slate-800 flex flex-col gap-2">
               <a
-                href="tel:1300647833"
+                href="tel:+61434287537"
                 className="text-center py-2.5 rounded-lg text-xs font-bold text-white bg-white/10 uppercase tracking-wider"
               >
-                📞 1300 647 833
+                📞 +61 434 287 537
               </a>
               <Link
                 href="/contact"

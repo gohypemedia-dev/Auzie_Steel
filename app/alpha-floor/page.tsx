@@ -68,7 +68,7 @@ export default function AlphaFloorPage() {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.12]">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.12]">
               THE ALPHA FLOOR <span className="text-[#1E63D8]">JOIST SYSTEM</span>
             </h1>
 
@@ -80,7 +80,7 @@ export default function AlphaFloorPage() {
           {/* Quick Metrics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-8 border-t border-[#CBD5E1]/70">
             <div>
-              <span className="text-2xl sm:text-3xl font-heading font-black text-[#1E63D8] block">
+              <span className="text-2xl sm:text-3xl font-sans font-medium text-[#1E63D8] block">
                 7.8M
               </span>
               <span className="text-xs sm:text-sm font-sans text-slate-600 font-medium">
@@ -88,7 +88,7 @@ export default function AlphaFloorPage() {
               </span>
             </div>
             <div>
-              <span className="text-2xl sm:text-3xl font-heading font-black text-[#0F1114] block">
+              <span className="text-2xl sm:text-3xl font-sans font-medium text-[#0F1114] block">
                 ZERO
               </span>
               <span className="text-xs sm:text-sm font-sans text-slate-600 font-medium">
@@ -96,7 +96,7 @@ export default function AlphaFloorPage() {
               </span>
             </div>
             <div>
-              <span className="text-2xl sm:text-3xl font-heading font-black text-[#0F1114] block">
+              <span className="text-2xl sm:text-3xl font-sans font-medium text-[#0F1114] block">
                 220mm
               </span>
               <span className="text-xs sm:text-sm font-sans text-slate-600 font-medium">
@@ -104,7 +104,7 @@ export default function AlphaFloorPage() {
               </span>
             </div>
             <div>
-              <span className="text-2xl sm:text-3xl font-heading font-black text-[#1E63D8] block">
+              <span className="text-2xl sm:text-3xl font-sans font-medium text-[#1E63D8] block">
                 2-MAN
               </span>
               <span className="text-xs sm:text-sm font-sans text-slate-600 font-medium">
@@ -125,7 +125,7 @@ export default function AlphaFloorPage() {
               STRUCTURAL ADVANTAGES
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.14]">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.14]">
             BUILT FOR SILENT, <span className="text-[#1E63D8]">UNCOMPROMISED FLOORS</span>
           </h2>
           <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
@@ -153,7 +153,7 @@ export default function AlphaFloorPage() {
                   </div>
                 </div>
 
-                <h3 className="font-sans font-bold text-lg sm:text-[19px] uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug mb-2.5">
+                <h3 className="font-sans font-medium text-lg sm:text-[19px] uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug mb-2.5">
                   {item.title}
                 </h3>
 
@@ -181,7 +181,7 @@ export default function AlphaFloorPage() {
       <section className="py-20 sm:py-24 bg-[#FAF9F6] border-b border-[#CBD5E1] px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.14]">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.14]">
               ALPHA FLOOR <span className="text-[#1E63D8]">TECHNICAL DATA</span>
             </h2>
             <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
@@ -190,7 +190,7 @@ export default function AlphaFloorPage() {
           </div>
 
           <div className="bg-white rounded-[14px] border border-[#CBD5E1] shadow-sm overflow-hidden">
-            <div className="grid grid-cols-4 bg-[#EEF0F2] border-b border-[#CBD5E1] p-4 text-xs font-heading font-black uppercase text-[#0F1114]">
+            <div className="grid grid-cols-4 bg-[#EEF0F2] border-b border-[#CBD5E1] p-4 text-xs font-sans font-medium uppercase text-[#0F1114]">
               <div>Joist Profile</div>
               <div>Typical Span</div>
               <div>Weight</div>
@@ -225,7 +225,7 @@ export default function AlphaFloorPage() {
       <section className="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="bg-slate-950 text-white rounded-[16px] p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto space-y-5">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-black uppercase tracking-tight leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight leading-tight">
               Upgrade Your Next Build To <span className="text-[#3B82F6]">Alpha Floor</span>
             </h2>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">

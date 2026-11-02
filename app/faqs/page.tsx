@@ -47,7 +47,7 @@ export default function FaqsPage() {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-heading font-black uppercase tracking-tight text-[#0F1114] leading-[1.12]">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.12]">
               QUESTIONS &amp; <span className="text-[#1E63D8]">ANSWERS</span>
             </h1>
 
@@ -66,7 +66,7 @@ export default function FaqsPage() {
               key={idx}
               className="bg-white rounded-[14px] border border-[#CBD5E1] p-6 sm:p-8 shadow-[0_4px_20px_rgba(15,17,20,0.03)] hover:border-[#1E63D8] transition-colors"
             >
-              <h2 className="font-sans font-bold text-base sm:text-lg uppercase tracking-tight text-[#0F1114] mb-3 flex items-start gap-3">
+              <h2 className="font-sans font-medium text-base sm:text-lg uppercase tracking-tight text-[#0F1114] mb-3 flex items-start gap-3">
                 <span className="text-[#1E63D8] font-mono">Q.</span>
                 <span>{faq.q}</span>
               </h2>
@@ -79,7 +79,7 @@ export default function FaqsPage() {
 
         {/* Still have questions */}
         <div className="mt-16 text-center bg-[#FAF9F6] rounded-[16px] border border-[#CBD5E1] p-8 sm:p-10">
-          <h3 className="font-heading font-black text-xl uppercase text-[#0F1114] mb-2">
+          <h3 className="font-sans font-medium text-xl uppercase text-[#0F1114] mb-2">
             STILL HAVE QUESTIONS?
           </h3>
           <p className="text-sm text-slate-600 max-w-md mx-auto mb-6">

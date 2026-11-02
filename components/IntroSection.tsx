@@ -280,65 +280,58 @@ export default function IntroSection() {
           </div>
 
           {/* ================================================================
-              WHO WE ARE PAGE CONTENT (Revealed slow-slow behind split doors)
+              WHO WE ARE PAGE CONTENT (Revealed behind split doors)
               ================================================================ */}
-          {/* Background Architectural Steel Frame (Light Sky & Crisp Steel) */}
+          {/* Background Architectural Steel Frame (Vibrant Blue Sky & Crisp Steel Structure) */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <Image
-              src="/who-we-are-light-hero.jpg"
+              src="/who-we-are-clean-hero.jpg"
               alt="Auzie Steel - Precision Light Gauge Steel Framing"
               fill
               priority
               sizes="100vw"
               className="object-cover object-right-bottom select-none"
             />
-            {/* Luminous Light Gradient Overlay to soften the background and keep text crisp */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 sm:via-white/70 to-transparent z-[1]" />
-            <div className="absolute inset-0 bg-white/10 z-[1]" />
+            {/* Clean left-only gradient scrim so text is sharp & readable while the blue sky & steel house on the right remain 100% vivid & clear */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-transparent z-[1] w-full md:w-[68%] lg:w-[58%]" />
           </div>
 
-          {/* Foreground Information: Left-Aligned with ample padding for fixed navbar */}
+          {/* Foreground Information: Left-Aligned shifted upwards as requested */}
           <div
             ref={whoWeAreContentRef}
-            className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full flex flex-col justify-center pt-16 sm:pt-20 will-change-transform"
+            className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full flex flex-col justify-center -mt-6 sm:-mt-10 lg:-mt-14 will-change-transform"
           >
-            {/* Left Aligned Content Column */}
-            <div className="max-w-xl xl:max-w-2xl text-left space-y-4 sm:space-y-5">
+            {/* Left Aligned Content Column with clean vertical rhythm */}
+            <div className="max-w-xl xl:max-w-[620px] text-left">
               {/* Main Heading: WHO WE ARE */}
               <h2
                 ref={headingRef}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-heading font-black tracking-tight text-[#0F1114] uppercase drop-shadow-[0_2px_10px_rgba(255,255,255,0.95)]"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium tracking-tight text-[#0F1114] uppercase leading-tight mb-4 sm:mb-5"
               >
                 WHO WE ARE
               </h2>
 
-              {/* Secondary Heading: Black (#0F1114) and Blue (#1E63D8) */}
+              {/* Secondary Heading */}
               <h3
                 ref={subheadingRef}
-                className="text-lg sm:text-xl md:text-2xl lg:text-[30px] font-heading font-black tracking-tight text-[#0F1114] leading-[1.18] drop-shadow-[0_1px_4px_rgba(255,255,255,0.85)]"
+                className="text-base sm:text-lg md:text-xl lg:text-[22px] font-sans font-medium tracking-tight text-[#0F1114] leading-[1.3] mb-5 sm:mb-6"
               >
                 Our comprehensive,{" "}
                 <span className="text-[#1E63D8]">design to delivery</span> service
                 is what sets us apart.
               </h3>
 
-              {/* Formatted Text Blocks */}
+              {/* Formatted Text Paragraphs with clear spacing */}
               <div
                 ref={textBlocksRef}
-                className="space-y-4 text-sm sm:text-base md:text-[16px] leading-relaxed"
+                className="space-y-4 sm:space-y-5 text-xs sm:text-sm lg:text-[15px] text-[#475569] leading-[1.7] font-normal"
               >
-                <p className="font-medium text-[#0F1114]">
-                  Auzie Steel is the leading manufacturer of customisable steel
-                  frames for the local building industry. Based in Adelaide, we
-                  rely on the latest technologies to produce housing frames made
-                  from light gauge steel.
+                <p>
+                  Auzie Steel is Adelaide’s leading manufacturer of customisable steel frames for the South Australian building industry. We rely on advanced CAD/BIM technologies to engineer and roll-form housing frames made from premium high-tensile BlueScope Truecore® steel.
                 </p>
 
-                <p className="font-normal text-[#0F1114]">
-                  We take care of every aspect of steel frame construction, from
-                  manufacturing the frame to delivery directly to site, to keep
-                  your project moving. We understand the importance of precision,
-                  efficiency and budget in every domestic building project.
+                <p>
+                  We take care of every aspect of steel frame construction, from manufacturing the frame to delivery directly to site, to keep your project moving. We understand the importance of precision, efficiency and budget in every domestic building project.
                 </p>
               </div>
             </div>
