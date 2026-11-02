@@ -1,158 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setSubmitted(true);
-  };
-
   return (
     <footer className="w-full flex flex-col font-sans select-none overflow-visible">
       {/* =====================================================================
-          1. TWO COLUMNS CTA: "Let's connect." & "Let’s build." (Exact Reference Style)
+          MAIN FOOTER: ELECTRIC BLUE (#3168ff)
           ===================================================================== */}
-      <section className="w-full overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* LEFT COLUMN: Deep Blue (#0044b4) - Phone Call Option */}
-          <div className="bg-[#0044b4] text-white px-8 sm:px-12 lg:px-16 xl:px-24 py-16 sm:py-20 lg:py-24 flex flex-col justify-between min-h-[420px] lg:min-h-[460px]">
-            {/* Top Row: Heading on Left, Call Button on Right */}
-            <div className="flex items-start justify-between gap-6">
-              <h2 className="!font-sans font-normal text-white text-4xl sm:text-5xl lg:text-[54px] xl:text-[58px] leading-[1.08] tracking-tight">
-                Let&apos;s
-                <br />
-                connect.
-              </h2>
-              <a
-                href="tel:+61434287537"
-                className="bg-white hover:bg-neutral-100 text-[#1a1a1a] !font-sans px-8 py-3.5 text-sm font-medium rounded-[2px] transition-colors whitespace-nowrap shadow-sm mt-1"
-              >
-                Call +61 434 287 537
-              </a>
-            </div>
-
-            {/* Bottom Row: Descriptive Paragraph */}
-            <p className="text-white/95 !font-sans text-sm sm:text-base leading-[1.65] font-normal max-w-lg mt-10 sm:mt-14">
-              Speak directly with our Adelaide engineering and estimating team. Give us a call on +61 434 287 537 to talk through what you need.
-            </p>
-          </div>
-
-          {/* RIGHT COLUMN: Bright Electric Blue (#3168ff) - Form Fill Option */}
-          <div className="bg-[#3168ff] text-white px-8 sm:px-12 lg:px-16 xl:px-24 py-16 sm:py-20 lg:py-24 flex flex-col justify-between min-h-[420px] lg:min-h-[460px]">
-            {/* Top Row: Heading on Left, Form Fill Button on Right */}
-            <div className="flex items-start justify-between gap-6">
-              <h2 className="!font-sans font-normal text-white text-4xl sm:text-5xl lg:text-[54px] xl:text-[58px] leading-[1.08] tracking-tight">
-                Let’s
-                <br />
-                build.
-              </h2>
-              <Link
-                href="/contact"
-                className="bg-white hover:bg-neutral-100 text-[#1a1a1a] !font-sans px-8 py-3.5 text-sm font-medium rounded-[2px] transition-colors whitespace-nowrap shadow-sm mt-1"
-              >
-                Fill Out Form
-              </Link>
-            </div>
-
-            {/* Bottom Row: Descriptive Paragraph */}
-            <p className="text-white/95 !font-sans text-sm sm:text-base leading-[1.65] font-normal max-w-lg mt-10 sm:mt-14">
-              Submit your project details or upload architectural plans for a fast, millimeter-accurate framing takeoff quote from our South Australian team.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================================
-          2. SUBSCRIBE TO INSIGHTS COMPONENT
-             (Exact Overlap: Right steel image hangs down 120px into the blue footer!)
-          ===================================================================== */}
-      <section className="relative w-full bg-white text-[#202020] border-b border-neutral-200 z-20 overflow-visible">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-2 items-stretch min-h-[380px] lg:min-h-[420px]">
-          {/* Left Column: Form Content (50% on desktop) */}
-          <div className="flex flex-col justify-center px-8 sm:px-14 lg:px-16 xl:px-24 py-14 sm:py-16 lg:py-20 z-10">
-            <div className="w-full max-w-[540px]">
-              <h2 className="text-2xl sm:text-3xl lg:text-[34px] !font-sans font-normal text-[#202020] tracking-tight mb-8">
-                Subscribe to insights.
-              </h2>
-
-              {submitted ? (
-                <div className="p-4 bg-blue-50 border border-blue-200 text-[#0044b4] text-sm rounded-[2px] !font-sans">
-                  Thank you! You have successfully subscribed to Auzie Steel updates.
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Outlined Email Input Box */}
-                  <div className="border border-[#767676] bg-white px-5 py-4 focus-within:border-[#202020] transition-colors">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email *"
-                      required
-                      className="w-full bg-transparent text-[#202020] placeholder-[#767676] text-base !font-sans focus:outline-none"
-                    />
-                  </div>
-
-                  {/* Row below input: Disclaimer on Left + Submit Button on Right */}
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 pt-1">
-                    <p className="text-xs text-[#666666] leading-relaxed max-w-sm !font-sans">
-                      By submitting, I agree to receive news and project updates from Auzie Steel. I understand I can unsubscribe at any time. See our{" "}
-                      <Link
-                        href="/contact"
-                        className="underline hover:text-[#202020]"
-                      >
-                        Privacy Policy
-                      </Link>
-                      .
-                    </p>
-
-                    <button
-                      type="submit"
-                      className="bg-[#323232] hover:bg-black text-white px-10 py-3.5 text-sm !font-sans font-medium rounded-[2px] transition-colors whitespace-nowrap shadow-sm shrink-0 self-start sm:self-auto cursor-pointer"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
-          </div>
-
-          {/* Right Column: Steel Studs Visual (50% on desktop)
-              Extends bottom-[-120px] into the blue footer below */}
-          <div className="relative w-full min-h-[300px] lg:min-h-full">
-            <div className="relative lg:absolute lg:inset-x-0 lg:top-0 lg:bottom-[-120px] xl:bottom-[-135px] h-[340px] lg:h-auto z-30 overflow-hidden shadow-sm">
-              <Image
-                src="/vp-footer-subscribe.jpg"
-                alt="Galvanized light gauge steel framing studs with pre-punched service holes"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                priority
-                className="object-cover object-center"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================================
-          3. MAIN FOOTER: ELECTRIC BLUE (#3168ff) (Exact Reference Layout)
-             Left side shows Auzie Steel brand identity opposite the 120px overlapping steel image,
-             and navigation columns start below the overlapping image!
-          ===================================================================== */}
-      <section className="relative z-10 w-full bg-[#3168ff] text-white pt-10 sm:pt-12 lg:pt-14 pb-10 sm:pb-14">
+      <section className="relative z-10 w-full bg-[#3168ff] text-white pt-14 sm:pt-16 lg:pt-18 pb-12 sm:pb-16">
         <div className="w-full max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
           {/* Top Row: Auzie Steel Brand Header on Left (Columns 1-6),
               Columns 7-12 is the 120px space occupied by the overlapping steel photo from above! */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 mb-8 lg:mb-10 items-center min-h-[80px] lg:min-h-[120px]">
-            <div className="lg:col-span-6 flex flex-col justify-center">
+          <div className="mb-10 sm:mb-12">
+            <div className="flex flex-col justify-center">
               <Link href="/" className="inline-block group">
                 <span className="text-3xl sm:text-4xl font-sans font-medium tracking-tight text-white uppercase block leading-none">
                   AUZIE STEEL
@@ -167,8 +28,7 @@ export default function Footer() {
             </div>
 
             {/* Empty space reserved on desktop for the overlapping steel photo hanging down from above */}
-            <div className="hidden lg:block lg:col-span-6 h-[120px] pointer-events-none" />
-          </div>
+            </div>
 
           {/* 5 Clean Columns Grid (Underneath the Overlap) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-6 xl:gap-10 pt-2">
