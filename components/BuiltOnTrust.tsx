@@ -115,7 +115,7 @@ export default function BuiltOnTrust() {
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       quality={90}
                       priority={idx === 0}
-                      className="object-cover object-center transition-transform duration-700 hover:scale-[1.03]"
+                      className="object-cover object-center scale-[1.03]"
                     />
                   </div>
                 </div>

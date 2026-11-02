@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 interface Testimonial {
@@ -43,18 +43,30 @@ const testimonials: Testimonial[] = [
 ];
 
 export default function TestimonialBlockquote() {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [isFading, setIsFading] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(0); // Starts at Ammon Bingham (Slide 0)
+  const [displayQuoteIdx, setDisplayQuoteIdx] = useState(0);
+  const [isQuoteFading, setIsQuoteFading] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const isTransitioningRef = useRef(false);
 
-  const current = testimonials[activeIdx];
-
+  // Smooth synchronized slide transition matching Varco Pruden cubic-bezier curves
   const changeSlide = (newIdx: number) => {
-    if (newIdx === activeIdx) return;
-    setIsFading(true);
+    if (newIdx === activeIdx || isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
+
+    // 1. Trigger quote text fade-out
+    setIsQuoteFading(true);
+    setActiveIdx(newIdx);
+
+    // 2. Midway through image glide, switch quote text and fade-in
     setTimeout(() => {
-      setActiveIdx(newIdx);
-      setIsFading(false);
-    }, 250);
+      setDisplayQuoteIdx(newIdx);
+      setIsQuoteFading(false);
+    }, 220);
+
+    setTimeout(() => {
+      isTransitioningRef.current = false;
+    }, 650);
   };
 
   const handlePrev = () => {
@@ -67,123 +79,183 @@ export default function TestimonialBlockquote() {
     changeSlide(nextIdx);
   };
 
+  // Autoplay every 8 seconds, smoothly pauses when user hovers or interacts
   useEffect(() => {
+    if (isPaused) return;
+
     const timer = setInterval(() => {
       handleNext();
     }, 8000);
+
     return () => clearInterval(timer);
-  }, [activeIdx]);
+  }, [activeIdx, isPaused]);
 
   return (
-    <section className="relative w-full bg-[#3168ff] text-white py-16 sm:py-20 lg:py-24 select-none overflow-hidden">
-      <div className="w-full max-w-[1520px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
+    <section
+      className="relative w-full bg-white text-slate-900 py-16 sm:py-20 lg:py-28 select-none overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
+        
+        {/* ===================================================================
+            TWO-COLUMN STEPPED BLOCKQUOTE COMPOSITION (Exact Varco Pruden)
+            =================================================================== */}
+        <div className="relative flex flex-col-reverse md:flex-row items-stretch">
           
           {/* ===================================================================
-              LEFT COLUMN (Col 1 to 7): Large Blockquote + Builder Feedback Icon + Attribution
+              LEFT COLUMN: Electric Blue Speech Bubble (#3168ff)
+              Starts 80px lower on desktop to create the signature stepped silhouette
               =================================================================== */}
-          <div className="lg:col-span-7 flex flex-col justify-between min-h-[360px] sm:min-h-[400px]">
-            {/* Quote content with smooth fade transition */}
-            <div
-              className={`transition-opacity duration-300 ${
-                isFading ? "opacity-0 translate-y-1" : "opacity-100 translate-y-0"
-              }`}
-            >
-              <blockquote className="font-sans font-normal text-white text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] leading-[1.25] tracking-tight">
-                {current.quote}
+          <div className="relative w-full md:w-1/2 bg-[#3168ff] text-white p-8 sm:p-10 lg:p-14 md:mt-16 lg:mt-20 z-10 flex flex-col justify-between min-h-[380px] sm:min-h-[420px] lg:min-h-[480px] shadow-sm">
+            
+            {/* Main Blockquote (Smooth opacity crossfade matching VP .fade-in / .fade-out) */}
+            <div className="relative min-h-[160px] sm:min-h-[180px] lg:min-h-[200px] flex items-center">
+              <blockquote
+                className="font-sans font-normal text-white text-xl sm:text-2xl lg:text-[27px] leading-[1.38] tracking-tight will-change-[opacity]"
+                style={{
+                  opacity: isQuoteFading ? 0 : 1,
+                  transition: "opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                }}
+              >
+                {testimonials[displayQuoteIdx].quote}
               </blockquote>
             </div>
 
-            {/* Author Attribution, Hardhat Icon & Slider Controls */}
-            <div className="pt-10 sm:pt-14 flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-t border-white/20 mt-8">
+            {/* Bottom Row: Hardhat Icon on Left, Sliding Attribution Wheel on Right */}
+            <div className="pt-8 sm:pt-12 flex items-end justify-between gap-6 border-t border-white/15">
               
-              {/* Builder Icon + Author Name */}
-              <div className="flex items-center gap-4">
-                {/* Yellow Builder Hardhat Icon (Exact Varco Pruden Icon) */}
-                <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-sm border border-white/25 flex items-center justify-center shrink-0 p-2.5">
-                  <Image
-                    src="/builder-feedback-icon.svg"
-                    alt="Builder Feedback"
-                    width={28}
-                    height={28}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-
-                <div
-                  className={`transition-opacity duration-300 ${
-                    isFading ? "opacity-0" : "opacity-100"
-                  }`}
-                >
-                  <span className="block font-sans font-bold text-base sm:text-lg text-white leading-tight">
-                    {current.author}
-                  </span>
-                  <span className="block font-sans font-normal text-xs sm:text-sm text-white/85 mt-0.5">
-                    {current.position}
-                  </span>
-                </div>
+              {/* Builder Hardhat Icon */}
+              <div className="w-6 h-6 shrink-0 relative opacity-95">
+                <Image
+                  src="/builder-feedback-icon.svg"
+                  alt="Builder Icon"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6"
+                />
               </div>
 
-              {/* Slider Controls (Exact Varco Pruden Circle Arrows + Step Indicator) */}
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-mono text-white/70 mr-1 tracking-wider">
-                  0{activeIdx + 1} / 0{testimonials.length}
-                </span>
-
-                <button
-                  onClick={handlePrev}
-                  aria-label="Previous testimonial"
-                  className="w-10 h-10 rounded-full border border-white/35 hover:border-white hover:bg-white hover:text-[#3168ff] flex items-center justify-center transition-all active:scale-95 text-white"
+              {/* Attribution Vertical Sliding Wheel (Exact Varco Pruden .list-quote-attribution-inner) */}
+              <div className="overflow-hidden h-12 sm:h-14 relative text-right">
+                <div
+                  className="flex flex-col will-change-transform"
+                  style={{
+                    transform: `translateY(-${(activeIdx * 100) / testimonials.length}%)`,
+                    transition: "transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                  }}
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-
-                <button
-                  onClick={handleNext}
-                  aria-label="Next testimonial"
-                  className="w-10 h-10 rounded-full border border-white/35 hover:border-white hover:bg-white hover:text-[#3168ff] flex items-center justify-center transition-all active:scale-95 text-white"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
+                  {testimonials.map((t) => (
+                    <div
+                      key={t.id}
+                      className="h-12 sm:h-14 flex flex-col justify-center text-right shrink-0"
+                    >
+                      <div className="font-sans font-medium text-white text-sm sm:text-base leading-snug">
+                        {t.author}
+                      </div>
+                      <div className="font-sans font-normal text-white/80 text-xs sm:text-sm leading-snug mt-0.5">
+                        {t.position}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
             </div>
+
+            {/* Speech Bubble Pointer Triangle (Right edge, pointing at Builder portrait) */}
+            <div
+              className="hidden md:block absolute right-0 bottom-8 lg:bottom-10 translate-x-full w-0 h-0 border-y-[10px] lg:border-y-[12px] border-y-transparent border-l-[14px] lg:border-l-[18px] border-l-[#3168ff] z-20 pointer-events-none"
+              aria-hidden="true"
+            />
           </div>
 
           {/* ===================================================================
-              RIGHT COLUMN (Col 8 to 12): Photographic Builder Headshot
+              RIGHT COLUMN: Photographic Builder Portrait
+              Starts at the top with architectural corner cut-outs & cubic-bezier glide
               =================================================================== */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[420px] aspect-[4/5] rounded-[6px] overflow-hidden bg-blue-900/40 border border-white/20 shadow-2xl">
-              {testimonials.map((t, idx) => (
+          <div className="relative w-full md:w-1/2 aspect-square min-h-[360px] sm:min-h-[440px] lg:min-h-[560px] overflow-hidden bg-slate-100">
+            
+            {/* Top-Left White Corner Cut-out (Creates the stepped gap above blue box) */}
+            <div
+              className="hidden md:block absolute top-0 left-0 w-16 lg:w-20 h-16 lg:h-20 bg-white z-20 pointer-events-none"
+              aria-hidden="true"
+            />
+
+            {/* Builder Portrait Images (Exact Varco Pruden translateY glide & opacity curve) */}
+            {testimonials.map((t, idx) => {
+              const isActive = idx === activeIdx;
+              const isPast = idx < activeIdx;
+
+              return (
                 <div
                   key={t.id}
-                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                    idx === activeIdx ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                  }`}
+                  style={{
+                    opacity: isActive ? 1 : 0,
+                    transform: isActive
+                      ? "translateY(0%)"
+                      : isPast
+                      ? "translateY(-15%)"
+                      : "translateY(25%)",
+                    transition:
+                      "opacity 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                    zIndex: isActive ? 10 : 0,
+                    pointerEvents: isActive ? "auto" : "none",
+                  }}
+                  className="absolute inset-0 will-change-transform"
                 >
                   <Image
                     src={t.imageSrc}
                     alt={t.imageAlt}
                     fill
-                    sizes="(max-width: 1024px) 100vw, 420px"
-                    className="object-cover object-top"
-                    priority={idx === 0}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover object-center"
+                    priority={idx === 0 || idx === 1}
                   />
-                  {/* Subtle inner shadow overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
                 </div>
-              ))}
+              );
+            })}
+
+            {/* Bottom-Right White Cut-out Containing Slider Arrows (Exact Screenshot Match) */}
+            <div className="absolute bottom-0 right-0 w-36 sm:w-44 lg:w-56 h-16 sm:h-20 lg:h-24 bg-white z-20 flex items-center justify-center gap-6 shadow-sm">
+              <button
+                onClick={handlePrev}
+                aria-label="Previous testimonial"
+                className="p-1 text-[#202020] hover:text-[#3168ff] transition-all hover:scale-110 active:scale-95 cursor-pointer"
+              >
+                <svg
+                  className="w-7 h-7 sm:w-8 sm:h-8"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.8}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M26 16H6M13 9L6 16l7 7" />
+                </svg>
+              </button>
+
+              <button
+                onClick={handleNext}
+                aria-label="Next testimonial"
+                className="p-1 text-[#202020] hover:text-[#3168ff] transition-all hover:scale-110 active:scale-95 cursor-pointer"
+              >
+                <svg
+                  className="w-7 h-7 sm:w-8 sm:h-8"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.8}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 16h20M19 9l7 7-7 7" />
+                </svg>
+              </button>
             </div>
+
           </div>
 
         </div>
+
       </div>
     </section>
   );
 }
-

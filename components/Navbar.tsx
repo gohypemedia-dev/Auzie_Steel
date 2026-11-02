@@ -71,8 +71,8 @@ export default function Navbar() {
             : "bg-slate-950/75 backdrop-blur-md border-b border-slate-800/70 text-white"
         }`}
       >
-        {/* Main Navbar */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Navbar (End to End full width) */}
+        <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16">
           <div className="flex items-center justify-between h-20">
             {/* Brand Logo */}
             <Link
@@ -86,7 +86,7 @@ export default function Navbar() {
                 width={200}
                 height={117}
                 priority
-                className="h-14 sm:h-16 md:h-[68px] w-auto object-contain transition-transform duration-200 group-hover:scale-105 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
+                className="h-14 sm:h-16 md:h-[68px] w-auto object-contain transition-transform duration-200 group-hover:scale-105"
               />
             </Link>
 

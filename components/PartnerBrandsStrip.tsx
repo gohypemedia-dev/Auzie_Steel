@@ -11,10 +11,10 @@ export default function PartnerBrandsStrip() {
     const track = trackRef.current;
     if (!track) return;
 
-    // Guaranteed GSAP infinite continuous horizontal autoplay marquee (Smooth & leisurely pace)
+    // Guaranteed GSAP infinite continuous horizontal autoplay marquee (Smooth & brisk pace)
     const tween = gsap.to(track, {
       xPercent: -50,
-      duration: 65,
+      duration: 38,
       ease: "none",
       repeat: -1,
     });

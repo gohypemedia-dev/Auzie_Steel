@@ -148,7 +148,7 @@ export default function Footer() {
              and navigation columns start below the overlapping image!
           ===================================================================== */}
       <section className="relative z-10 w-full bg-[#3168ff] text-white pt-10 sm:pt-12 lg:pt-14 pb-10 sm:pb-14">
-        <div className="w-full max-w-[1520px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
+        <div className="w-full max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
           {/* Top Row: Auzie Steel Brand Header on Left (Columns 1-6),
               Columns 7-12 is the 120px space occupied by the overlapping steel photo from above! */}
           <div className="grid grid-cols-1 lg:grid-cols-12 mb-8 lg:mb-10 items-center min-h-[80px] lg:min-h-[120px]">
@@ -171,9 +171,9 @@ export default function Footer() {
           </div>
 
           {/* 5 Clean Columns Grid (Underneath the Overlap) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-6 xl:gap-10 pt-2">
             {/* Column 1: Systems (Col 1-2) */}
-            <div className="lg:col-span-2 space-y-3.5">
+            <div className="space-y-3.5">
               <h3 className="text-base !font-sans font-medium text-white tracking-tight">
                 Steel Systems
               </h3>
@@ -202,7 +202,7 @@ export default function Footer() {
             </div>
 
             {/* Column 2: Capabilities (Col 3-4) */}
-            <div className="lg:col-span-2 space-y-3.5">
+            <div className="space-y-3.5">
               <h3 className="text-base !font-sans font-medium text-white tracking-tight">
                 Capabilities
               </h3>
@@ -231,7 +231,7 @@ export default function Footer() {
             </div>
 
             {/* Column 3: Contact Details & Factory Address (Col 5-8, 4 columns wide) */}
-            <div className="lg:col-span-4 space-y-3.5">
+            <div className="space-y-3.5">
               <h3 className="text-base !font-sans font-medium text-white tracking-tight">
                 Contact &amp; Factory
               </h3>
@@ -277,7 +277,7 @@ export default function Footer() {
             </div>
 
             {/* Column 4: Quick Links (Col 9-10 - Directly below the steel photo!) */}
-            <div className="lg:col-span-2 space-y-3.5">
+            <div className="space-y-3.5">
               <h3 className="text-base !font-sans font-medium text-white tracking-tight">
                 Quick Links
               </h3>
@@ -306,7 +306,7 @@ export default function Footer() {
             </div>
 
             {/* Column 5: Enquiries (Col 11-12 - Directly below the steel photo!) */}
-            <div className="lg:col-span-2 space-y-3.5">
+            <div className="space-y-3.5">
               <h3 className="text-base !font-sans font-medium text-white tracking-tight">
                 Enquiries
               </h3>

@@ -51,7 +51,7 @@ export default function IntroSection() {
       gsap.set(card, {
         scale: initialScale,
         borderRadius: initialRadius,
-        boxShadow: "0 35px 100px -10px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.22)",
+        boxShadow: "0 25px 70px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(15, 23, 42, 0.08)",
         transformOrigin: "center center",
       });
 
@@ -201,12 +201,12 @@ export default function IntroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-slate-950 select-none"
+      className="relative w-full bg-[#FAF9F6] select-none"
     >
       {/* Pinned Viewport Container */}
       <div
         ref={pinWrapperRef}
-        className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-slate-950"
+        className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-[#FAF9F6]"
       >
         {/* Floating Architectural Card */}
         <div
@@ -214,7 +214,7 @@ export default function IntroSection() {
           style={{
             transform: "scale(0.34)",
             borderRadius: "28px",
-            boxShadow: "0 35px 100px -10px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.18)",
+            boxShadow: "0 25px 70px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(15, 23, 42, 0.08)",
             transformOrigin: "center center",
           }}
           className="relative w-full h-full overflow-hidden bg-white flex items-center will-change-transform transform-gpu"
@@ -229,7 +229,7 @@ export default function IntroSection() {
             {/* Left Door Half (Width: 50%, slides to xPercent: -100) */}
             <div
               ref={doorLeftRef}
-              className="absolute top-0 left-0 w-1/2 h-full overflow-hidden will-change-transform bg-slate-950"
+              className="absolute top-0 left-0 w-1/2 h-full overflow-hidden will-change-transform bg-[#FAF9F6]"
             >
               <div className="relative w-[200%] h-full">
                 <Image
@@ -248,7 +248,7 @@ export default function IntroSection() {
             {/* Right Door Half (Width: 50%, slides to xPercent: 100) */}
             <div
               ref={doorRightRef}
-              className="absolute top-0 right-0 w-1/2 h-full overflow-hidden will-change-transform bg-slate-950"
+              className="absolute top-0 right-0 w-1/2 h-full overflow-hidden will-change-transform bg-[#FAF9F6]"
             >
               <div
                 className="relative w-[200%] h-full"
