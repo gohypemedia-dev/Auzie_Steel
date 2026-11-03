@@ -8,8 +8,8 @@ export default function Footer() {
       {/* =====================================================================
           MAIN FOOTER: ELECTRIC BLUE (#3168ff)
           ===================================================================== */}
-      <section className="relative z-10 w-full bg-[#3168ff] text-white pt-14 sm:pt-16 lg:pt-18 pb-12 sm:pb-16">
-        <div className="w-full max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
+      <section className="relative z-10 w-full bg-[#3168ff] text-white pt-14 sm:pt-16 lg:pt-18 pb-8 sm:pb-10 overflow-hidden">
+        <div className="w-full max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
           {/* Top Row: Auzie Steel Brand Header on Left (Columns 1-6),
               Columns 7-12 is the 120px space occupied by the overlapping steel photo from above! */}
           <div className="mb-10 sm:mb-12">
@@ -115,10 +115,10 @@ export default function Footer() {
                     Email
                   </span>
                   <a
-                    href="mailto:sales@ogsteel.com.au"
+                    href="mailto:sales@auziesteel.com.au"
                     className="hover:underline text-white block break-all font-medium"
                   >
-                    sales@ogsteel.com.au
+                    sales@auziesteel.com.au
                   </a>
                 </div>
 
@@ -136,36 +136,36 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Column 4: Quick Links (Col 9-10 - Directly below the steel photo!) */}
+            {/* Column 4: Quick Links / Pages */}
             <div className="space-y-3.5">
               <h3 className="text-base !font-sans font-medium text-white tracking-tight">
                 Quick Links
               </h3>
               <ul className="space-y-2 text-sm text-white/95 !font-sans">
                 <li>
-                  <Link href="/#why-choose-steel" className="hover:underline transition-colors block">
-                    Why Choose Steel
+                  <Link href="/about" className="hover:underline transition-colors block">
+                    About Us
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#why-choose-auzie-steel" className="hover:underline transition-colors block">
-                    Why Auzie Steel
+                  <Link href="/faqs" className="hover:underline transition-colors block">
+                    FAQs
                   </Link>
                 </li>
                 <li>
-                  <Link href="/steel-frames" className="hover:underline transition-colors block">
-                    Engineering Specs
+                  <Link href="/blog" className="hover:underline transition-colors block">
+                    News &amp; Blog
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="hover:underline transition-colors block">
-                    Builder Support
+                  <Link href="/careers" className="hover:underline transition-colors block">
+                    Careers
                   </Link>
                 </li>
               </ul>
             </div>
 
-            {/* Column 5: Enquiries (Col 11-12 - Directly below the steel photo!) */}
+            {/* Column 5: Enquiries */}
             <div className="space-y-3.5">
               <h3 className="text-base !font-sans font-medium text-white tracking-tight">
                 Enquiries
@@ -178,16 +178,8 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link href="/contact" className="hover:underline transition-colors block">
-                    Speak with Engineering
+                    Engineering Consultation
                   </Link>
-                </li>
-                <li>
-                  <a
-                    href="tel:+61434287537"
-                    className="hover:underline transition-colors block font-semibold text-white"
-                  >
-                    Direct: +61 434 287 537
-                  </a>
                 </li>
                 <li>
                   <Link href="/contact" className="hover:underline transition-colors block">
@@ -197,11 +189,44 @@ export default function Footer() {
               </ul>
             </div>
           </div>
+        </div>
 
-          {/* ===================================================================
-              4. DIVIDER & BOTTOM ROW (Exact Copyright, Credits & Social Media)
-              =================================================================== */}
-          <div className="w-full h-px bg-white/20 mt-16 sm:mt-20 mb-8 sm:mb-10" />
+        {/* ===================================================================
+            4. FULL-WIDTH TRUE END-TO-END WATERMARK: "AUZIE STEEL"
+            (Spans 100% of screen width from far left edge to right edge, with 'L' 5px from screen edge)
+            =================================================================== */}
+        <div
+          className="w-full overflow-hidden select-none pointer-events-none mt-10 sm:mt-14 mb-6 sm:mb-8 pr-[5px]"
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 1000 125"
+            className="w-full h-auto block overflow-visible"
+          >
+            <text
+              x="0"
+              y="108"
+              textLength="1000"
+              lengthAdjust="spacingAndGlyphs"
+              className="font-sans font-black uppercase"
+              fill="rgba(255, 255, 255, 0.085)"
+              style={{
+                fontSize: "135px",
+                fontWeight: 900,
+                fontFamily: "var(--font-inter), sans-serif",
+              }}
+            >
+              AUZIE STEEL
+            </text>
+          </svg>
+        </div>
+
+        {/* ===================================================================
+            5. DIVIDER & BOTTOM ROW (Exact Copyright, Credits & Social Media)
+            Placed below the watermark as requested
+            =================================================================== */}
+        <div className="w-full max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
+          <div className="w-full h-px bg-white/20 mb-6 sm:mb-8" />
 
           <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 sm:gap-8 text-xs text-white/90 !font-sans">
             {/* Left: Copyright + Website Credits + Legal Links */}
@@ -246,7 +271,7 @@ export default function Footer() {
             </div>
 
             {/* Right: Circular Social Media Icons (Facebook, Instagram, LinkedIn) */}
-            <div className="flex items-center gap-3 shrink-0 self-end xl:self-auto">
+            <div className="flex items-center gap-3 shrink-0 self-start sm:self-auto pt-2 sm:pt-0">
               {/* Facebook */}
               <a
                 href="https://facebook.com"

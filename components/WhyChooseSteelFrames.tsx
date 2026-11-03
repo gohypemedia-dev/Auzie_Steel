@@ -83,6 +83,8 @@ export default function WhyChooseSteelFrames() {
   const stickyRef = useRef<HTMLDivElement>(null);
   const [activeIdx, setActiveIdx] = useState(0);
   const isProgrammaticScroll = useRef(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
 
   const totalSlides = services.length;
 
@@ -106,7 +108,7 @@ export default function WhyChooseSteelFrames() {
     isProgrammaticScroll.current = true;
     const lenis = (window as unknown as { lenis?: { scrollTo: (target: number, opts?: Record<string, unknown>) => void } }).lenis;
     if (lenis) {
-      lenis.scrollTo(targetScroll, { duration: 1.0 });
+      lenis.scrollTo(targetScroll, { duration: 0.8 });
     } else {
       window.scrollTo({
         top: targetScroll,
@@ -116,8 +118,38 @@ export default function WhyChooseSteelFrames() {
 
     setTimeout(() => {
       isProgrammaticScroll.current = false;
-    }, 1000);
+    }, 850);
   }, [totalSlides]);
+
+  // Touch Swipe Gesture Support for mobile phones
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+
+    // If swipe is horizontal and greater than 35px threshold
+    if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX < 0) {
+        // Swipe left -> next slide
+        if (activeIdx < totalSlides - 1) {
+          goToSlide(activeIdx + 1);
+        }
+      } else {
+        // Swipe right -> prev slide
+        if (activeIdx > 0) {
+          goToSlide(activeIdx - 1);
+        }
+      }
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
 
   useEffect(() => {
     const container = containerRef.current;
@@ -125,21 +157,21 @@ export default function WhyChooseSteelFrames() {
     if (!container || !sticky) return;
 
     const ctx = gsap.context(() => {
-      // Pinned timeline driving the Varco Pruden slide sync
+      // Pinned timeline driving the slide sync
       ScrollTrigger.create({
         trigger: container,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.5,
+        scrub: 0.6,
         onUpdate: (self) => {
           if (isProgrammaticScroll.current) return;
-          // Progress 0 to 1 maps to slides 0 to totalSlides - 1
           const progress = self.progress;
-          const newIdx = Math.min(
-            totalSlides - 1,
-            Math.floor(progress * totalSlides)
+          // Smooth progressive index mapping with hysteresis
+          const newIdx = Math.max(
+            0,
+            Math.min(totalSlides - 1, Math.round(progress * (totalSlides - 1)))
           );
-          setActiveIdx(newIdx);
+          setActiveIdx((prev) => (prev !== newIdx ? newIdx : prev));
         },
       });
     }, container);
@@ -154,8 +186,6 @@ export default function WhyChooseSteelFrames() {
     };
   }, [totalSlides]);
 
-  const activeService = services[activeIdx];
-
   return (
     <section
       id="why-choose-steel-frames"
@@ -168,14 +198,14 @@ export default function WhyChooseSteelFrames() {
           =================================================================== */}
       <div
         ref={stickyRef}
-        className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden px-4 sm:px-8 lg:px-14 xl:px-20 py-8 sm:py-12 lg:py-14"
+        className="sticky top-0 h-[100dvh] w-full flex flex-col justify-between overflow-hidden px-4 sm:px-8 lg:px-14 xl:px-20 py-4 sm:py-8 lg:py-14"
       >
         {/* =================================================================
             1. MAIN SECTION HEADING
             ================================================================= */}
-        <div className="w-full max-w-[1520px] mx-auto flex items-center justify-between z-20 pb-2 sm:pb-4">
+        <div className="w-full max-w-[1520px] mx-auto flex items-center justify-between z-20 pb-2 sm:pb-3">
           <h2
-            className="text-[21px] sm:text-[25px] md:text-[32px] lg:text-[38px] font-sans font-[540] tracking-tight text-white uppercase leading-tight"
+            className="text-[19px] sm:text-[25px] md:text-[32px] lg:text-[38px] font-sans font-[540] tracking-tight text-white uppercase leading-tight"
             style={{ fontWeight: 540 }}
           >
             WHY CHOOSE STEEL FRAME
@@ -183,44 +213,44 @@ export default function WhyChooseSteelFrames() {
         </div>
 
         {/* =================================================================
-            2. MAIN SLIDER BODY: 2 COLUMNS + CENTER VERTICAL PAGINATION
+            2. MAIN SLIDER BODY: Responsive 2 Columns + Center Pagination
+            On mobile (< lg): Compact image on top, text below, no vertical overflow
+            Touch swipe enabled for butter-smooth mobile navigation
             ================================================================= */}
-        <div className="w-full max-w-[1520px] mx-auto my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center z-10">
-          {/* LEFT COLUMN: Slide Content & Information (Col 1 to 6) */}
-          <div className="lg:col-span-6 flex flex-col justify-center">
-            {/* Slide Title with smooth transition (Slightly smaller than main heading) */}
-            <div key={activeService.id} className="animate-fade-in-up">
-              <h3 className="font-sans font-medium text-lg sm:text-xl md:text-2xl lg:text-[28px] text-white uppercase leading-[1.2] tracking-tight max-w-[560px] mb-3 sm:mb-4">
-                {activeService.title}
-              </h3>
-
-              {/* Tagline / Subhead */}
-              {activeService.tagline && (
-                <p className="text-sm sm:text-base font-medium text-white/95 leading-snug mb-3 sm:mb-4">
-                  {activeService.tagline}
-                </p>
-              )}
-
-              {/* Description Paragraph (Exact font size & font weight from reference) */}
-              <p className="text-sm sm:text-base lg:text-[16px] font-sans font-normal text-white/90 leading-[1.65] max-w-[560px] mb-6 sm:mb-8">
-                {activeService.description}
-              </p>
-
-              {/* Action Link Button */}
-              <div className="flex items-center gap-4">
-                <Link
-                  href={activeService.href}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#3168ff] hover:bg-white/90 font-medium text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-md active:scale-95"
-                >
-                  <span>{activeService.linkText}</span>
-                  <span aria-hidden="true">→</span>
-                </Link>
+        <div
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          className="w-full max-w-[1520px] mx-auto my-auto grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 lg:gap-12 xl:gap-16 items-center z-10 touch-pan-y"
+        >
+          
+          {/* MOBILE IMAGE / DESKTOP RIGHT COLUMN (Order 1 on mobile, Order 2 on desktop) */}
+          <div className="lg:order-2 lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="w-full max-w-[460px] sm:max-w-[500px] lg:max-w-[540px] aspect-[16/9] sm:aspect-[16/10] lg:aspect-square overflow-hidden relative bg-[#2555dc] rounded-md lg:rounded-none shadow-md">
+              {/* Vertical Stack Track translating Y */}
+              <div
+                className="w-full h-full will-change-transform transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                style={{
+                  transform: `translate3d(0, -${activeIdx * 100}%, 0)`,
+                }}
+              >
+                {services.map((service) => (
+                  <div key={service.id} className="relative w-full h-full">
+                    <Image
+                      src={service.imageSrc}
+                      alt={service.imageAlt}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 540px"
+                      className="object-cover object-center"
+                      priority
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* CENTER COLUMN: Vertical Pagination Bullets (Col 7 on XL / Hidden on small) */}
-          <div className="hidden lg:flex lg:col-span-1 justify-center items-center">
+          {/* CENTER COLUMN: Vertical Pagination Bullets (Desktop only) */}
+          <div className="hidden lg:flex lg:order-2 lg:col-span-1 justify-center items-center">
             <div className="flex flex-col items-center gap-3 py-4">
               {services.map((service, idx) => {
                 const isActive = idx === activeIdx;
@@ -229,7 +259,7 @@ export default function WhyChooseSteelFrames() {
                     key={service.id}
                     onClick={() => goToSlide(idx)}
                     aria-label={`Go to slide ${idx + 1}`}
-                    className={`rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    className={`rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer ${
                       isActive
                         ? "w-[2.5px] h-16 bg-white shadow-md shadow-white/40"
                         : "w-[2.5px] h-3 bg-white/35 hover:bg-white/70"
@@ -240,31 +270,72 @@ export default function WhyChooseSteelFrames() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Vertical Image Viewport Window (Col 8 to 12) */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="w-full max-w-[460px] sm:max-w-[500px] lg:max-w-[540px] aspect-square overflow-hidden relative bg-[#2555dc]">
-              {/* Vertical Stack Track translating Y */}
-              <div
-                className="w-full h-full will-change-transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                style={{
-                  transform: `translate3d(0, -${activeIdx * 100}%, 0)`,
-                }}
-              >
-                {services.map((service, idx) => (
-                  <div key={service.id} className="relative w-full h-full">
-                    <Image
-                      src={service.imageSrc}
-                      alt={service.imageAlt}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 540px"
-                      className="object-cover object-center"
-                      priority={idx === 0}
-                    />
+          {/* LEFT COLUMN: Slide Content & Information with Smooth Crossfade */}
+          <div className="lg:order-1 lg:col-span-6 flex flex-col justify-center">
+            {/* Stable Crossfade Container: All slides exist in DOM for smooth transition */}
+            <div className="relative min-h-[160px] sm:min-h-[190px] lg:min-h-[240px]">
+              {services.map((service, idx) => {
+                const isActive = idx === activeIdx;
+                return (
+                  <div
+                    key={service.id}
+                    className={`transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                      isActive
+                        ? "opacity-100 translate-y-0 relative z-10 pointer-events-auto"
+                        : "opacity-0 translate-y-3 absolute inset-0 pointer-events-none"
+                    }`}
+                  >
+                    <h3 className="font-sans font-medium text-base sm:text-xl md:text-2xl lg:text-[28px] text-white uppercase leading-[1.2] tracking-tight max-w-[560px] mb-1 sm:mb-3">
+                      {service.title}
+                    </h3>
+
+                    {/* Tagline / Subhead */}
+                    {service.tagline && (
+                      <p className="text-xs sm:text-sm md:text-base font-medium text-white/95 leading-snug mb-1.5 sm:mb-3">
+                        {service.tagline}
+                      </p>
+                    )}
+
+                    {/* Description Paragraph */}
+                    <p className="text-xs sm:text-sm lg:text-[16px] font-sans font-normal text-white/90 leading-[1.55] sm:leading-[1.65] max-w-[560px] mb-3 sm:mb-5 line-clamp-3 sm:line-clamp-none">
+                      {service.description}
+                    </p>
+
+                    {/* Action Link Button */}
+                    <div className="pt-0.5">
+                      <Link
+                        href={service.href}
+                        className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-white text-[#3168ff] hover:bg-white/90 font-medium text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-md active:scale-95"
+                      >
+                        <span>{service.linkText}</span>
+                        <span aria-hidden="true">→</span>
+                      </Link>
+                    </div>
                   </div>
-                ))}
-              </div>
+                );
+              })}
+            </div>
+
+            {/* Mobile Horizontal Bullets: Positioned stably below the content */}
+            <div className="flex lg:hidden items-center justify-end gap-2 pt-3">
+              {services.map((service, idx) => {
+                const isActive = idx === activeIdx;
+                return (
+                  <button
+                    key={service.id}
+                    onClick={() => goToSlide(idx)}
+                    aria-label={`Go to slide ${idx + 1}`}
+                    className={`transition-all duration-300 rounded-full cursor-pointer ${
+                      isActive
+                        ? "w-7 h-2 bg-white shadow-sm"
+                        : "w-2.5 h-2 bg-white/40 hover:bg-white/70"
+                    }`}
+                  />
+                );
+              })}
             </div>
           </div>
+
         </div>
       </div>
 

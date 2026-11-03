@@ -134,7 +134,7 @@ export default function WhatWeDo() {
             defaults: { ease: "none" },
             scrollTrigger: {
               trigger: svc,
-              start: isPhone ? "center center" : "top top",
+              start: "top top",
               end: () => `+=${window.innerHeight * (count + 0.6)}`,
               pin: true,
               scrub: isPhone ? true : 1,
@@ -142,12 +142,12 @@ export default function WhatWeDo() {
             },
           });
 
-          // Phase A: Scale up viewport from 0.65 into fullscreen
+          // Phase A: Scale up viewport from 0.92 (mobile) / 0.65 (desktop) into fullscreen
           tl.fromTo(
             view,
             {
-              scale: isPhone ? 1 : 0.65,
-              borderRadius: isPhone ? "0px" : "28px",
+              scale: isPhone ? 0.92 : 0.65,
+              borderRadius: isPhone ? "16px" : "28px",
             },
             {
               scale: 1,
@@ -203,11 +203,11 @@ export default function WhatWeDo() {
       {/* ===================================================================
           1. INTRO HEADER (Royal Rising Split Slide-in Animation)
           =================================================================== */}
-      <div className="svc-intro w-full px-4 sm:px-6 lg:px-8 pt-32 sm:pt-40 lg:pt-44 pb-4 sm:pb-6 text-center flex flex-col items-center overflow-hidden">
-        <h2 className="title font-sans font-medium uppercase tracking-tight text-[#0F1114] text-2xl sm:text-3xl md:text-4xl lg:text-[44px] mb-5 sm:mb-6">
+      <div className="svc-intro w-full px-4 sm:px-6 lg:px-8 pt-16 sm:pt-28 lg:pt-44 pb-10 sm:pb-16 lg:pb-20 text-center flex flex-col items-center overflow-hidden">
+        <h2 className="title font-sans font-medium uppercase tracking-tight text-[#0F1114] text-xl sm:text-3xl md:text-4xl lg:text-[44px] mb-3 sm:mb-6">
           OUR <span className="text-[#1E63D8]">SERVICES</span>
         </h2>
-        <p className="para text-slate-600 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-normal">
+        <p className="para text-slate-600 text-xs sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-normal">
           Working across disciplines of light gauge steel architecture, precision CAD/BIM engineering,
           automated roll-forming, and rapid on-site logistics, the dedicated team at Auzie Steel
           conceives, details, and delivers robust structural framing projects under one roof.
@@ -219,7 +219,7 @@ export default function WhatWeDo() {
           =================================================================== */}
       <div
         ref={svcRef}
-        className="svc relative w-full h-screen overflow-hidden bg-[#FAF9F6] -mt-10 sm:-mt-16 lg:-mt-20"
+        className="svc relative w-full h-screen overflow-hidden bg-[#FAF9F6] mt-2 sm:-mt-8 lg:-mt-12"
       >
         <div
           ref={viewRef}
@@ -245,7 +245,7 @@ export default function WhatWeDo() {
                     fill
                     sizes="100vw"
                     className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                    priority={service.id === "custom-designs"}
+                    priority
                   />
                 </div>
 

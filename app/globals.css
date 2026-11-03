@@ -157,9 +157,17 @@ nav a {
 }
 
 /* Lenis Smooth Scroll Core Rules */
+html {
+  scroll-behavior: auto !important;
+}
+
 html.lenis,
 html.lenis body {
   height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
 .lenis:not(.lenis-autoToggle).lenis-stopped {

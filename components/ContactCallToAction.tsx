@@ -33,7 +33,7 @@ export default function ContactCallToAction() {
               LEFT COLUMN: ARCHITECTURAL STEEL FRAME SITE PHOTOGRAPHY
               (Full-bleed real construction site steel framing photo)
               =============================================================== */}
-          <div className="lg:col-span-5 relative min-h-[360px] sm:min-h-[440px] lg:min-h-[600px] overflow-hidden border-b lg:border-b-0 lg:border-r border-[#CBD5E1] bg-slate-900 group">
+          <div className="lg:col-span-5 relative min-h-[220px] sm:min-h-[340px] lg:min-h-[600px] overflow-hidden border-b lg:border-b-0 lg:border-r border-[#CBD5E1] bg-slate-900 group">
             <Image
               src="/call-to-enquire-steel-site.jpg"
               alt="Auzie Steel Precision Framework Construction Site"
@@ -49,7 +49,7 @@ export default function ContactCallToAction() {
           {/* ===============================================================
               RIGHT COLUMN: CLEAN WHITE CALL TO ACTION & FORM SIDE
               =============================================================== */}
-          <div className="lg:col-span-7 bg-white p-8 sm:p-10 md:p-12 flex flex-col justify-center">
+          <div className="lg:col-span-7 bg-white p-5 sm:p-8 md:p-12 flex flex-col justify-center">
             <div className="space-y-6">
               
               {/* Header */}
@@ -58,19 +58,19 @@ export default function ContactCallToAction() {
                   Call Today To Enquire
                 </h2>
 
-                <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-normal max-w-xl">
+                <p className="mt-2.5 sm:mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-normal max-w-xl">
                   Give us a call today to find out how we can help you deliver your next project on time and on budget. We are the builder&apos;s choice in steel framing.
                 </p>
               </div>
 
               {/* Action Buttons (Call Us · Get a Quote) */}
-              <div className="pt-1 flex flex-wrap items-center gap-4">
+              <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                 {/* Call Us Button (White background with brand blue text) */}
                 <a
                   href="tel:+61434287537"
-                  className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-white hover:bg-blue-50/60 text-[#1E63D8] font-bold font-label text-xs sm:text-sm uppercase tracking-wider border border-[#1E63D8]/40 hover:border-[#1E63D8] shadow-md shadow-blue-900/5 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white hover:bg-blue-50/60 text-[#1E63D8] font-bold font-label text-xs sm:text-sm uppercase tracking-wider border border-[#1E63D8]/40 hover:border-[#1E63D8] shadow-md shadow-blue-900/5 hover:scale-[1.02] active:scale-[0.98] transition-all text-center"
                 >
-                  <svg className="w-4 h-4 text-[#1E63D8]" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-[#1E63D8] shrink-0" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" />
                   </svg>
                   <span>CALL US (+61 434 287 537)</span>
@@ -79,10 +79,10 @@ export default function ContactCallToAction() {
                 {/* Get a Quote Button */}
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#1E63D8] hover:bg-[#1650B5] text-white font-bold font-label text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-blue-600/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#1E63D8] hover:bg-[#1650B5] text-white font-bold font-label text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-blue-600/20 hover:scale-[1.02] active:scale-[0.98] transition-all text-center"
                 >
                   <span>GET A QUOTE</span>
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
                 </Link>
@@ -171,19 +171,13 @@ export default function ContactCallToAction() {
                       />
                     </div>
 
-                    <div className="pt-3 flex flex-wrap items-center justify-between gap-4">
+                    <div className="pt-3">
                       <button
                         type="submit"
-                        className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-slate-950 hover:bg-slate-900 text-white font-bold font-label text-xs sm:text-sm uppercase tracking-wider border border-slate-800 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer group"
+                        className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#1E63D8] hover:bg-[#1650B5] text-white font-bold font-label text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-blue-600/20 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
                       >
                         <span>SUBMIT MESSAGE</span>
-                        <svg className="w-3.5 h-3.5 text-white group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg>
                       </button>
-                      <span className="text-[11px] font-mono text-slate-400">
-                        AVERAGE RESPONSE: &lt; 2 HRS
-                      </span>
                     </div>
                   </form>
                 )}

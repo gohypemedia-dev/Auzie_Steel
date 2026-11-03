@@ -56,6 +56,22 @@ export default function Hero() {
           },
         });
       }
+
+      // Pause video when offscreen to preserve GPU memory & maximize scroll smoothness
+      const video = videoRef.current;
+      if (video && "IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              video.play().catch(() => {});
+            } else {
+              video.pause();
+            }
+          },
+          { threshold: 0.05 }
+        );
+        observer.observe(video);
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -75,7 +91,7 @@ export default function Hero() {
     <section
       id="hero-section"
       ref={containerRef}
-      className="relative w-full h-screen min-h-[640px] overflow-hidden bg-slate-950 text-white select-none"
+      className="relative w-full min-h-[100dvh] h-screen overflow-hidden bg-slate-950 text-white select-none"
     >
       {/* Background High-Impact Video (Pure 1:1 Sharp Video, No Blur, No Scrim) */}
       <video
@@ -94,7 +110,7 @@ export default function Hero() {
         ref={contentRef}
         className="relative z-20 w-full h-full flex flex-col justify-center pt-20 sm:pt-24 lg:pt-28"
       >
-        <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-14">
+        <div className="w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 xl:px-14">
           <div className="max-w-xl sm:max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-5 text-left">
             {/* Main Editorial Headline (Reduced Font Size, Clean & Sharp) */}
             <h1
@@ -109,7 +125,7 @@ export default function Hero() {
             {/* Subheadline: Clean & Balanced */}
             <div
               ref={subtitleRef}
-              className="flex flex-wrap items-center gap-2 pt-1 text-xs sm:text-sm md:text-base font-normal text-white tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
+              className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1 text-xs sm:text-sm md:text-base font-normal text-white tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
             >
               <span className="text-white font-medium">
                 Light Gauge Steel Manufacturer
@@ -123,18 +139,18 @@ export default function Hero() {
             {/* Call-to-Action Buttons */}
             <div
               ref={buttonsRef}
-              className="pt-2 sm:pt-3 flex flex-wrap items-center gap-4 pointer-events-auto"
+              className="pt-2 sm:pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pointer-events-auto w-full sm:w-auto"
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wider text-white bg-[#1E63D8] hover:bg-[#1551b8] shadow-lg shadow-blue-600/30 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                className="inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wider text-white bg-[#1E63D8] hover:bg-[#1551b8] shadow-lg shadow-blue-600/30 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 text-center"
               >
                 Get a Quote
               </Link>
 
               <Link
                 href="/steel-frames"
-                className="inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wider text-white bg-slate-900/80 hover:bg-slate-900 border border-white/20 backdrop-blur-md shadow-lg shadow-slate-950/40 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                className="inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wider text-white bg-slate-900/80 hover:bg-slate-900 border border-white/20 backdrop-blur-md shadow-lg shadow-slate-950/40 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 text-center"
               >
                 Our Services
               </Link>

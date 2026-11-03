@@ -16,7 +16,7 @@ const testimonials: Testimonial[] = [
   {
     id: "ammon-bingham",
     quote:
-      "“Our industry and the relationships within our industry are complex, which can be frustrating, but can also be very rewarding. Working with Varco Pruden makes a tough business a little bit easier.”",
+      "“Our industry and the relationships within our industry are complex, which can be frustrating, but can also be very rewarding. Working with Auzie Steel makes a tough business a little bit easier.”",
     author: "Ammon Bingham,",
     position: "Teton West Construction",
     imageSrc: "/builder-ammon-bingham.jpg",
@@ -25,7 +25,7 @@ const testimonials: Testimonial[] = [
   {
     id: "ryan-klosterman",
     quote:
-      "“VP offers the best service and communication of any manufacturer that I've ever worked with. I can't find a better design build partner than them.”",
+      "“Auzie Steel offers the best service and communication of any manufacturer that I've ever worked with. I can't find a better design build partner than them.”",
     author: "Ryan Klosterman,",
     position: "Image Building Systems",
     imageSrc: "/builder-ryan-klosterman.jpg",
@@ -34,7 +34,7 @@ const testimonials: Testimonial[] = [
   {
     id: "david-demaio",
     quote:
-      "“It's a true partnership. Varco Pruden never shies away from a challenge. They find the right solution. VP goes beyond steel and the value of VP technology can't be matched.”",
+      "“It's a true partnership. Auzie Steel never shies away from a challenge. They find the right solution. Auzie Steel goes beyond steel and the value of precision engineering can't be matched.”",
     author: "David DeMaio,",
     position: "Pat Munger Construction Company",
     imageSrc: "/builder-david-demaio.jpg",
@@ -92,26 +92,29 @@ export default function TestimonialBlockquote() {
 
   return (
     <section
-      className="relative w-full bg-white text-slate-900 select-none overflow-hidden"
+      className="relative w-full min-h-screen md:h-screen min-h-[100dvh] bg-white text-slate-900 select-none overflow-hidden flex flex-col justify-center"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="w-full">
+      <div className="w-full h-full flex-1 flex flex-col">
         {/* ===================================================================
-            TWO-COLUMN FULL-WIDTH BLOCKQUOTE COMPOSITION (Edge-to-Edge)
+            TWO-COLUMN FULL-WIDTH FULL-SCREEN BLOCKQUOTE (100vh Edge-to-Edge)
             =================================================================== */}
-        <div className="relative flex flex-col-reverse md:flex-row items-stretch w-full min-h-[440px] lg:min-h-[520px]">
+        <div className="relative flex flex-col-reverse md:flex-row items-stretch w-full h-full flex-1 min-h-[100dvh]">
           
           {/* ===================================================================
               LEFT COLUMN: Electric Blue Speech Bubble (#3168ff)
-              Full-width 50% left half with comfortable inner padding
+              Full-width 50% left half with full viewport height & centered quote
               =================================================================== */}
-          <div className="relative w-full md:w-1/2 bg-[#3168ff] text-white p-8 sm:p-12 lg:p-16 xl:p-20 z-10 flex flex-col justify-between shadow-sm">
+          <div className="relative w-full md:w-1/2 bg-[#3168ff] text-white p-6 sm:p-10 md:p-14 lg:p-16 xl:p-20 2xl:p-24 z-10 flex flex-col justify-between shadow-sm min-h-[360px] sm:min-h-[440px] md:min-h-0">
             
+            {/* Top / Spacer */}
+            <div className="hidden md:block" />
+
             {/* Main Blockquote (Smooth opacity crossfade matching VP .fade-in / .fade-out) */}
-            <div className="relative min-h-[160px] sm:min-h-[180px] lg:min-h-[200px] flex items-center">
+            <div className="relative my-auto py-4 sm:py-6 lg:py-10 flex items-center">
               <blockquote
-                className="font-sans font-normal text-white text-xl sm:text-2xl lg:text-[27px] leading-[1.38] tracking-tight will-change-[opacity]"
+                className="font-sans font-normal text-white text-lg sm:text-xl md:text-2xl lg:text-[28px] xl:text-[34px] 2xl:text-[38px] leading-[1.34] tracking-tight will-change-[opacity]"
                 style={{
                   opacity: isQuoteFading ? 0 : 1,
                   transition: "opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
@@ -122,16 +125,16 @@ export default function TestimonialBlockquote() {
             </div>
 
             {/* Bottom Row: Hardhat Icon on Left, Sliding Attribution Wheel on Right */}
-            <div className="pt-8 sm:pt-12 flex items-end justify-between gap-6 border-t border-white/15">
+            <div className="pt-4 sm:pt-6 lg:pt-10 flex items-end justify-between gap-6 border-t border-white/15">
               
               {/* Builder Hardhat Icon */}
-              <div className="w-6 h-6 shrink-0 relative opacity-95">
+              <div className="w-6 h-6 sm:w-7 sm:h-7 shrink-0 relative opacity-95">
                 <Image
                   src="/builder-feedback-icon.svg"
                   alt="Builder Icon"
-                  width={24}
-                  height={24}
-                  className="w-6 h-6"
+                  width={28}
+                  height={28}
+                  className="w-6 h-6 sm:w-7 sm:h-7"
                 />
               </div>
 
@@ -149,7 +152,7 @@ export default function TestimonialBlockquote() {
                       key={t.id}
                       className="h-12 sm:h-14 flex flex-col justify-center text-right shrink-0"
                     >
-                      <div className="font-sans font-medium text-white text-sm sm:text-base leading-snug">
+                      <div className="font-sans font-medium text-white text-sm sm:text-base lg:text-lg leading-snug">
                         {t.author}
                       </div>
                       <div className="font-sans font-normal text-white/80 text-xs sm:text-sm leading-snug mt-0.5">
@@ -165,9 +168,9 @@ export default function TestimonialBlockquote() {
 
           {/* ===================================================================
               RIGHT COLUMN: Photographic Builder Portrait
-              Full-width 50% right half, perfectly matched in height
+              Full-width 50% right half, full viewport height (100vh)
               =================================================================== */}
-          <div className="relative w-full md:w-1/2 min-h-[360px] sm:min-h-[440px] lg:min-h-[520px] overflow-hidden bg-slate-100">
+          <div className="relative w-full md:w-1/2 min-h-[260px] sm:min-h-[340px] md:min-h-0 h-[280px] sm:h-[360px] md:h-auto overflow-hidden bg-slate-100">
             {/* Builder Portrait Images (Exact Varco Pruden translateY glide & opacity curve) */}
             {testimonials.map((t, idx) => {
               const isActive = idx === activeIdx;
@@ -203,7 +206,7 @@ export default function TestimonialBlockquote() {
             })}
 
             {/* Bottom-Right Floating Navigation Arrows (Clean floating pill, no cutouts on photo) */}
-            <div className="absolute bottom-6 right-6 z-20 flex items-center gap-3 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-full shadow-lg border border-slate-200/80">
+            <div className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 z-20 flex items-center gap-2.5 sm:gap-3 bg-white/95 backdrop-blur-md px-3.5 sm:px-5 py-2 sm:py-3 rounded-full shadow-xl border border-slate-200/80">
               <button
                 onClick={handlePrev}
                 aria-label="Previous testimonial"

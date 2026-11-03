@@ -135,23 +135,23 @@ export default function IndustriesAtWork() {
     <section className="relative w-full bg-[#323232] text-white pt-12 sm:pt-16 lg:pt-24 pb-14 sm:pb-20 lg:pb-28 select-none">
 
 
-      <div className="w-full max-w-[1520px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
+      <div className="w-full max-w-[1520px] mx-auto px-4 sm:px-10 lg:px-16 xl:px-20">
         
         {/* ===================================================================
             1. SECTION HEADLINE & "VIEW ALL PROJECTS" (Exact Varco Pruden)
             =================================================================== */}
-        <div className="flex items-center justify-between gap-6 mb-10 sm:mb-14 lg:mb-16">
-          <h2 className="text-white text-3xl sm:text-4xl lg:text-[44px] font-sans font-medium tracking-tight leading-tight">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between items-start gap-3 sm:gap-6 mb-8 sm:mb-14 lg:mb-16">
+          <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium tracking-tight leading-tight">
             Industries at work.
           </h2>
 
           <Link
             href="/steel-frames"
-            className="text-white hover:opacity-75 font-sans font-medium text-base sm:text-lg lg:text-[20px] flex items-center gap-2 group transition-opacity shrink-0"
+            className="text-white hover:opacity-75 font-sans font-medium text-sm sm:text-base lg:text-[20px] flex items-center gap-2 group transition-opacity shrink-0"
           >
             <span>View All Projects</span>
             <svg
-              className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1"
+              className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 group-hover:translate-x-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

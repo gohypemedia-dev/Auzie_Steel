@@ -398,10 +398,6 @@ export default function WhyChooseSteel() {
                   <div className="absolute top-3 right-3 w-9 h-9 rounded-lg bg-white/95 backdrop-blur-md text-[#1E63D8] border border-white/60 shadow-md flex items-center justify-center">
                     {item.icon}
                   </div>
-                  {/* Step Chip */}
-                  <div className="absolute bottom-3 left-3 px-2.5 py-0.5 rounded-md bg-[#0F1114]/85 backdrop-blur-sm text-white text-[11px] font-mono font-bold tracking-wider shadow-sm">
-                    {item.step}
-                  </div>
                 </div>
 
                 {/* Content Details */}
@@ -544,10 +540,6 @@ export default function WhyChooseSteel() {
                   <div className="absolute top-3 right-3 w-9 h-9 rounded-lg bg-white/95 backdrop-blur-md text-[#1E63D8] border border-white/60 shadow-md flex items-center justify-center">
                     {item.icon}
                   </div>
-                  {/* Step Chip */}
-                  <div className="absolute bottom-3 left-3 px-2.5 py-0.5 rounded-md bg-[#0F1114]/85 backdrop-blur-sm text-white text-[11px] font-mono font-bold tracking-wider shadow-sm">
-                    {item.step}
-                  </div>
                 </div>
 
                 {/* Content Details */}
@@ -606,9 +598,6 @@ export default function WhyChooseSteel() {
                 />
                 <div className="absolute top-3 right-3 w-9 h-9 rounded-lg bg-white/95 backdrop-blur-md text-[#1E63D8] shadow-md flex items-center justify-center">
                   {item.icon}
-                </div>
-                <div className="absolute bottom-3 left-3 px-2.5 py-0.5 rounded-md bg-[#0F1114]/85 backdrop-blur-sm text-white text-[11px] font-mono font-bold shadow-sm">
-                  {item.step}
                 </div>
               </div>
 

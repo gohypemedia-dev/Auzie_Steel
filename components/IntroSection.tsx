@@ -267,10 +267,10 @@ export default function IntroSection() {
               <div className="absolute top-0 left-0 w-[1px] h-full bg-white/40 shadow-[0_0_12px_rgba(255,255,255,0.8)]" />
             </div>
 
-            {/* Floating Badge on Initial Small Card */}
+            {/* Floating Badge on Initial Small Card (Hidden on phone view) */}
             <div
               ref={badgeRef}
-              className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-30 px-4 sm:px-5 py-2 rounded-full bg-slate-950/90 backdrop-blur-md border border-white/20 text-white flex items-center space-x-2.5 shadow-2xl pointer-events-none whitespace-nowrap"
+              className="hidden sm:flex absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-30 px-4 sm:px-5 py-2 rounded-full bg-slate-950/90 backdrop-blur-md border border-white/20 text-white items-center space-x-2.5 shadow-2xl pointer-events-none whitespace-nowrap"
             >
               <span className="w-2 h-2 rounded-full bg-[#1E63D8] animate-pulse" />
               <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest uppercase">
@@ -292,21 +292,21 @@ export default function IntroSection() {
               sizes="100vw"
               className="object-cover object-right-bottom select-none"
             />
-            {/* Clean left-only gradient scrim so text is sharp & readable while the blue sky & steel house on the right remain 100% vivid & clear */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-transparent z-[1] w-full md:w-[68%] lg:w-[58%]" />
+            {/* Responsive scrim: on mobile, a subtle gradient preserves the vivid blue sky & steel framing while maintaining crisp text readability; on desktop, clean left-only gradient */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/45 to-white/70 sm:bg-transparent sm:bg-gradient-to-r sm:from-white sm:via-white/85 sm:to-transparent z-[1] w-full md:w-[68%] lg:w-[58%]" />
           </div>
 
-          {/* Foreground Information: Left-Aligned shifted upwards as requested */}
+          {/* Foreground Information: Left-Aligned with responsive spacing */}
           <div
             ref={whoWeAreContentRef}
-            className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full flex flex-col justify-center -mt-6 sm:-mt-10 lg:-mt-14 will-change-transform"
+            className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 w-full flex flex-col justify-center my-auto will-change-transform"
           >
             {/* Left Aligned Content Column with clean vertical rhythm */}
             <div className="max-w-xl xl:max-w-[620px] text-left">
               {/* Main Heading: WHO WE ARE */}
               <h2
                 ref={headingRef}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium tracking-tight text-[#0F1114] uppercase leading-tight mb-4 sm:mb-5"
+                className="text-xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium tracking-tight text-[#0F1114] uppercase leading-tight mb-3 sm:mb-5"
               >
                 WHO WE ARE
               </h2>
@@ -314,7 +314,7 @@ export default function IntroSection() {
               {/* Secondary Heading */}
               <h3
                 ref={subheadingRef}
-                className="text-base sm:text-lg md:text-xl lg:text-[22px] font-sans font-medium tracking-tight text-[#0F1114] leading-[1.3] mb-5 sm:mb-6"
+                className="text-sm sm:text-lg md:text-xl lg:text-[22px] font-sans font-medium tracking-tight text-[#0F1114] leading-[1.3] mb-3 sm:mb-6"
               >
                 Our comprehensive,{" "}
                 <span className="text-[#1E63D8]">design to delivery</span> service
@@ -324,7 +324,7 @@ export default function IntroSection() {
               {/* Formatted Text Paragraphs with clear spacing */}
               <div
                 ref={textBlocksRef}
-                className="space-y-4 sm:space-y-5 text-xs sm:text-sm lg:text-[15px] text-[#475569] leading-[1.7] font-normal"
+                className="space-y-3 sm:space-y-5 text-xs sm:text-sm lg:text-[15px] text-slate-800 sm:text-[#475569] leading-[1.65] font-normal"
               >
                 <p>
                   Auzie Steel is Adelaide’s leading manufacturer of customisable steel frames for the South Australian building industry. We rely on advanced CAD/BIM technologies to engineer and roll-form housing frames made from premium high-tensile BlueScope Truecore® steel.

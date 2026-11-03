@@ -15,7 +15,9 @@ const navItems: NavItem[] = [
   { name: "STEEL FRAMES", href: "/steel-frames" },
   { name: "ALPHA FLOOR", href: "/alpha-floor" },
   { name: "ABOUT", href: "/about" },
+  { name: "FAQS", href: "/faqs" },
   { name: "BLOG", href: "/blog" },
+  { name: "CAREERS", href: "/careers" },
   { name: "CONTACT", href: "/contact" },
 ];
 
@@ -91,7 +93,7 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
+            <nav className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 2xl:space-x-2">
               {navItems.map((item) => {
                 const isSelected = clickedItem === item.name || (pathname === item.href && !clickedItem);
                 return (
@@ -99,9 +101,9 @@ export default function Navbar() {
                     key={item.name}
                     href={item.href}
                     onClick={() => setClickedItem(item.name)}
-                    className={`relative px-3.5 py-2 rounded-md text-xs font-bold font-label tracking-widest uppercase transition-all duration-200 ${
+                    className={`relative px-2 xl:px-3 py-1.5 rounded-md text-[11px] xl:text-xs font-bold font-label tracking-wider uppercase transition-all duration-200 ${
                       isSelected
-                        ? "text-white font-extrabold"
+                        ? "text-white font-extrabold bg-white/10"
                         : "text-white/70 hover:text-white hover:bg-white/10"
                     }`}
                   >
@@ -112,10 +114,10 @@ export default function Navbar() {
             </nav>
 
             {/* Right Action / Phone Button + Get a Quote */}
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-2 xl:gap-3">
               <a
                 href="tel:+61434287537"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold font-label text-xs tracking-wider border border-white/20 transition-all hover:scale-[1.02] backdrop-blur-sm shadow-sm"
+                className="hidden xl:inline-flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold font-label text-xs tracking-wider border border-white/20 transition-all hover:scale-[1.02] backdrop-blur-sm shadow-sm"
               >
                 <svg
                   className="w-3.5 h-3.5 text-[#1E63D8]"
@@ -129,7 +131,7 @@ export default function Navbar() {
 
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#1E63D8] hover:bg-blue-600 text-white font-bold font-label text-xs tracking-wider uppercase shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="inline-flex items-center justify-center px-4 xl:px-5 py-2.5 rounded-full bg-[#1E63D8] hover:bg-blue-600 text-white font-bold font-label text-xs tracking-wider uppercase shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
                 GET A QUOTE
               </Link>
@@ -160,7 +162,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Dropdown */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-b border-slate-800 bg-slate-950/98 backdrop-blur-md px-4 pt-3 pb-6 space-y-2 shadow-none">
+          <div className="lg:hidden border-t border-b border-slate-800 bg-slate-950/98 backdrop-blur-md px-4 pt-3 pb-6 space-y-1.5 shadow-none max-h-[calc(100dvh-5rem)] overflow-y-auto">
             {navItems.map((item) => {
               const isSelected = clickedItem === item.name || (pathname === item.href && !clickedItem);
               return (

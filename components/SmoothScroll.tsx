@@ -18,15 +18,13 @@ export default function SmoothScroll() {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Initialize Lenis with high-performance architectural smooth scroll curves
+    // Initialize Lenis with optimal buttery lerp inertia (Apple / Awwwards standard)
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Luxurious exponential deceleration
-      orientation: "vertical",
-      gestureOrientation: "vertical",
+      lerp: 0.085, // Silky smooth linear interpolation
       smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.5,
+      wheelMultiplier: 0.95,
+      touchMultiplier: 1.0,
+      autoResize: true,
     });
 
     lenisRef.current = lenis;
@@ -36,6 +34,7 @@ export default function SmoothScroll() {
 
     // Synchronize Lenis scrolling with GSAP ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
+    window.addEventListener("resize", () => ScrollTrigger.refresh());
 
     // Integrate Lenis raf loop directly into GSAP's ticker for zero-jitter, 60/120fps scrubbing
     const updateTicker = (time: number) => {
@@ -43,12 +42,12 @@ export default function SmoothScroll() {
     };
 
     gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(500, 33); // Smooth over frame drops without abrupt jumping
 
     // Refresh triggers once Lenis is bound
     const refreshTimer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 150);
+    }, 200);
 
     return () => {
       clearTimeout(refreshTimer);

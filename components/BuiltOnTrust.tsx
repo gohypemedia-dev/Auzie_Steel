@@ -50,13 +50,13 @@ export default function BuiltOnTrust() {
   return (
     <section
       id="why-choose-auzie-steel"
-      className="w-full bg-[#f7f4f0] text-[#202020] py-20 sm:py-24 lg:py-28 select-none overflow-hidden"
+      className="w-full bg-[#f7f4f0] text-[#202020] py-14 sm:py-20 lg:py-28 select-none overflow-hidden"
     >
-      <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-12 lg:px-20">
+      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-20">
         {/* ===================================================================
             1. SECTION HEADER: Centered Main Heading
             =================================================================== */}
-        <div className="text-center max-w-4xl mx-auto mb-16 sm:mb-20 lg:mb-24">
+        <div className="text-center max-w-4xl mx-auto mb-10 sm:mb-16 lg:mb-24">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-sans font-medium uppercase tracking-tight text-[#0F1114] leading-[1.1]">
             WHY CHOOSE AUZIE STEEL?
           </h2>
@@ -65,14 +65,14 @@ export default function BuiltOnTrust() {
         {/* ===================================================================
             2. THREE ALTERNATING VISUAL BLOCKS (Exact Varco Pruden Left-Right)
             =================================================================== */}
-        <div className="space-y-20 sm:space-y-24 lg:space-y-32">
+        <div className="space-y-12 sm:space-y-20 lg:space-y-32">
           {blocks.map((block, idx) => {
             const isReverse = idx % 2 === 1;
 
             return (
               <div
                 key={block.number}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 lg:gap-16 xl:gap-20 items-center"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-14 lg:gap-16 xl:gap-20 items-center"
               >
                 {/* Content Column (50% on desktop) */}
                 <div
@@ -81,12 +81,12 @@ export default function BuiltOnTrust() {
                   }`}
                 >
                   {/* Title (Exact Varco Pruden h3 style) */}
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] font-sans font-medium uppercase text-[#202020] leading-[1.12] tracking-tight mb-4 sm:mb-6">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[42px] font-sans font-medium uppercase text-[#202020] leading-[1.14] tracking-tight mb-3 sm:mb-5">
                     {block.title}
                   </h3>
 
                   {/* Description Paragraph */}
-                  <p className="text-base sm:text-lg text-[#4b5563] leading-[1.68] font-normal mb-8 max-w-xl">
+                  <p className="text-sm sm:text-base lg:text-lg text-[#4b5563] leading-[1.65] font-normal mb-6 sm:mb-8 max-w-xl">
                     {block.description}
                   </p>
 
@@ -94,7 +94,7 @@ export default function BuiltOnTrust() {
                   <div>
                     <Link
                       href={block.href}
-                      className="inline-flex items-center justify-center px-8 py-3.5 rounded-full border border-[#202020] text-[#202020] hover:bg-[#202020] hover:text-white font-medium text-sm tracking-wide transition-all duration-200 active:scale-95 shadow-sm"
+                      className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-3.5 rounded-full border border-[#202020] text-[#202020] hover:bg-[#202020] hover:text-white font-medium text-xs sm:text-sm tracking-wide transition-all duration-200 active:scale-95 shadow-sm"
                     >
                       <span>{block.linkText}</span>
                     </Link>
