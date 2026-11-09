@@ -15,9 +15,7 @@ const navItems: NavItem[] = [
   { name: "STEEL FRAMES", href: "/steel-frames" },
   { name: "ALPHA FLOOR", href: "/alpha-floor" },
   { name: "ABOUT", href: "/about" },
-  { name: "FAQS", href: "/faqs" },
   { name: "BLOG", href: "/blog" },
-  { name: "CAREERS", href: "/careers" },
   { name: "CONTACT", href: "/contact" },
 ];
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
@@ -10,336 +10,335 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-interface FeatureService {
+interface SplitFeature {
   id: string;
   step: string;
-  title: React.ReactNode;
-  tagline: string;
-  description: string;
-  specs: string[];
+  title: string;
+  quote: string;
+  text: string;
   imageSrc: string;
   imageAlt: string;
   linkText: string;
   href: string;
+  reverse: boolean;
 }
 
-const services: FeatureService[] = [
+const features: SplitFeature[] = [
   {
     id: "customisable",
     step: "01",
-    title: "Thinking beyond the expected",
-    tagline: "Customisable: We manufacture any design created by an architect.",
-    description:
-      "Before anything gets drawn, locked in or priced, we sit down with the builder and the design team to work through what the project actually needs. We manufacture bespoke light gauge steel frames directly from CAD/BIM models with extreme millimeter accuracy. Build cantilevers, double-height ceiling voids, and expansive open-plan spans with complete structural confidence.",
-    specs: ["Architectural Freedom", "CAD/BIM Direct", "Millimeter Precision"],
+    title: "CUSTOMISABLE",
+    quote: "We can manufacture any design created by an architect.",
+    text: "Before anything gets drawn, locked in or priced, we work closely with your builder and design team to fabricate custom light gauge steel frames directly from CAD/BIM models with extreme millimeter accuracy — enabling cantilevers, double-height ceiling voids, and expansive open-plan spans with complete structural confidence.",
     imageSrc: "/why-choose-customisable-main.jpg",
-    imageAlt: "Auzie Steel Customisable Steel Frames",
-    linkText: "View Customisable Specs",
+    imageAlt: "Auzie Steel Customisable Steel Framing",
+    linkText: "View Custom Specs",
     href: "/steel-frames",
+    reverse: false,
   },
   {
     id: "durable",
     step: "02",
-    title: "Technology built into how we work",
-    tagline: "Durable: Steel frames will not rot, warp, twist or attract termites.",
-    description:
-      "Proprietary digital roll-forming technology connects every stage from CAD engineering to automated fabrication. Manufactured from high-tensile BlueScope Truecore® steel, our structural framing will not rot, warp, twist, shrink or sag over decades of building life. 100% immune to termite infestation, moisture, and fungal decay.",
-    specs: ["50-Year Warranty*", "Zero Wood Rot", "100% Termite Proof"],
+    title: "DURABLE",
+    quote: "Our steel frames will not rot, warp, twist or attract termites.",
+    text: "Manufactured exclusively from premium high-tensile BlueScope Truecore® steel, our structural framing will not shrink or sag over decades of building life, providing 100% immunity to moisture, termite infestation, and fungal decay.",
     imageSrc: "/why-choose-durable-main.jpg",
     imageAlt: "Durable Termite Proof Steel Frames",
     linkText: "View Durability Specs",
     href: "/steel-frames",
+    reverse: true,
   },
   {
     id: "fire-retardant",
     step: "03",
-    title: "Built around what your project needs",
-    tagline: "Fire retardant: Naturally non-combustible material for Australian builds.",
-    description:
-      "Steel is inherently non-combustible and will not ignite or fuel flames. It is the premier structural framing choice for Australian domestic builds, especially across bushfire-prone zones complying with strict Australian building regulations and AS 3959 BAL-FZ standards.",
-    specs: ["Non-Combustible", "BAL-FZ FlameZone", "AS 3959 Compliant"],
+    title: "FIRE RETARDANT",
+    quote: "Steel is a naturally non-combustible material, ideal for housing frames, especially in fire-prone areas.",
+    text: "Inherently non-combustible, it will not ignite or fuel flames, making it the premier structural framing choice for Australian domestic builds complying with strict AS 3959 BAL-FZ standards.",
     imageSrc: "/why-choose-fire-main.jpg",
     imageAlt: "Non Combustible Fire Retardant Framing",
     linkText: "View Fire Resistance Specs",
     href: "/steel-frames",
+    reverse: false,
   },
   {
     id: "transportation",
     step: "04",
-    title: "Pride built into every project",
-    tagline: "Transportation: Easy to transport, minimal manpower, rapid erection.",
-    description:
-      "Sequenced, colour-coded framing packs arrive directly to site with complete crane-truck logistics. Installation requires significantly less crane time, smaller onsite crews, and minimal manual lifting, keeping your construction weeks ahead of schedule.",
-    specs: ["Lightweight Packs", "Minimal Manual Labour", "Rapid Site Assembly"],
+    title: "TRANSPORTATION",
+    quote: "Our lightweight steel frames are easy to transport, and installation needs less manpower and minimal manual labour.",
+    text: "Sequenced, colour-coded framing packs arrive directly to site with complete crane-truck logistics, keeping your construction weeks ahead of schedule and eliminating on-site cutting waste.",
     imageSrc: "/why-choose-transport-main.jpg",
     imageAlt: "Lightweight High Speed Site Transportation",
     linkText: "View Transportation Specs",
     href: "/contact",
+    reverse: true,
   },
 ];
 
+function SplitStoryItem({ item }: { item: SplitFeature }) {
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const section = itemRef.current;
+    if (!section) return;
+
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      // =====================================================================
+      // 1. MOBILE RESPONSIVE ANIMATION (<960px)
+      // =====================================================================
+      mm.add("(max-width: 960px) and (prefers-reduced-motion: no-preference)", () => {
+        const media = section.querySelector(".split__media");
+        const textCol = section.querySelector(".split__text");
+        const textElements = section.querySelectorAll(".split__text > *");
+
+        if (media) {
+          gsap.fromTo(
+            media,
+            { xPercent: item.reverse ? 100 : -100 },
+            {
+              xPercent: 0,
+              duration: 1.1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 95%",
+                once: true,
+              },
+            }
+          );
+        }
+
+        if (textCol && textElements.length > 0) {
+          gsap.from(textElements, {
+            x: item.reverse ? -24 : 24,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.06,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: textCol,
+              start: "top 92%",
+              once: true,
+            },
+          });
+        }
+      });
+
+      // =====================================================================
+      // 2. DESKTOP ANIMATION (min-width: 961px): Exact Royal Rising Smooth Split (No Scroll Trapping)
+      // =====================================================================
+      mm.add("(min-width: 961px) and (prefers-reduced-motion: no-preference)", () => {
+        const media = section.querySelector(".split__media");
+        const img = section.querySelector(".split__img");
+        const textCol = section.querySelector(".split__text");
+        const textChildren = section.querySelectorAll(".split__text > *");
+
+        // 1. Media clip-path unmask scrub (wipes open gracefully as card approaches viewport)
+        if (media) {
+          gsap.fromTo(
+            media,
+            { clipPath: item.reverse ? "inset(0% 0% 0% 100%)" : "inset(0% 100% 0% 0%)" },
+            {
+              clipPath: "inset(0% 0% 0% 0%)",
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 85%",
+                end: "top 25%",
+                scrub: 0.6,
+              },
+            }
+          );
+        }
+
+        // 2. Parallax image subtle drift
+        if (img) {
+          gsap.fromTo(
+            img,
+            { yPercent: 6, scale: 1.05 },
+            {
+              yPercent: -6,
+              scale: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: section,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+              },
+            }
+          );
+        }
+
+        // 3. Stagger text elements into view immediately as section enters (Zero delay/lag)
+        if (textCol && textChildren.length > 0) {
+          gsap.from(textChildren, {
+            y: 36,
+            opacity: 0,
+            duration: 1.1,
+            ease: "power3.out",
+            stagger: 0.07,
+            scrollTrigger: {
+              trigger: textCol,
+              start: "top 78%",
+              once: true,
+            },
+          });
+        }
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, [item.reverse]);
+
+  return (
+    <div
+      ref={itemRef}
+      className={`split relative w-full min-h-[100svh] flex flex-col lg:flex-row items-stretch bg-[#FAF9F6] text-[#0F1114] overflow-hidden select-none border-b border-[#E2E8F0] ${
+        item.reverse ? "split--rev" : ""
+      }`}
+    >
+      {/* ===================================================================
+          1. MEDIA COLUMN (50% desktop, full width mobile)
+          Alternates left / right across features
+          =================================================================== */}
+      <div
+        className={`split__media will-change-[clip-path] relative w-full lg:w-1/2 h-[50vh] lg:h-auto min-h-[300px] lg:min-h-[100svh] overflow-hidden bg-[#EEF0F2] flex-none z-10 ${
+          item.reverse ? "lg:order-2" : "lg:order-1"
+        }`}
+      >
+        <div className="split__img absolute inset-0 lg:inset-[-8%_0] w-full h-full lg:h-[116%] will-change-transform">
+          <Image
+            src={item.imageSrc}
+            alt={item.imageAlt}
+            fill
+            sizes="(max-width: 960px) 100vw, 50vw"
+            priority={true}
+            quality={90}
+            className="object-cover object-center"
+          />
+        </div>
+      </div>
+
+      {/* ===================================================================
+          2. TEXT COLUMN (Clean Architectural Layout)
+          Feature Title -> Tagline -> Paragraph -> Pill CTA
+          =================================================================== */}
+      <div
+        className={`split__text relative z-10 w-full lg:w-1/2 min-h-auto lg:min-h-[100svh] flex flex-col justify-center items-start gap-4 sm:gap-5 lg:gap-6 px-6 sm:px-12 lg:px-16 xl:px-24 py-12 sm:py-16 lg:py-0 box-border ${
+          item.reverse ? "lg:order-1" : "lg:order-2"
+        }`}
+      >
+        {/* Feature Heading */}
+        <h3 className="title text-[#1E63D8] font-sans font-medium uppercase tracking-tight text-[clamp(2.1rem,3.2vw,3.4rem)] leading-[1.08]">
+          {item.title}
+        </h3>
+
+        {/* Lead-in Tagline (clean, no quotation marks) */}
+        <p className="quote text-[#0F1114] font-light text-[clamp(1.18rem,1.55vw,1.6rem)] leading-[1.35] max-w-[34ch]">
+          {item.quote}
+        </p>
+
+        {/* Detailed Explanation Paragraph */}
+        <p className="para text-slate-600 font-light text-[clamp(14px,0.98vw,15.5px)] leading-[1.75] max-w-[48ch]">
+          {item.text}
+        </p>
+
+        {/* Signature Rounded Pill CTA Button */}
+        <div className="split__action pt-2">
+          <Link
+            href={item.href}
+            className="pill inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#1E63D8] hover:bg-[#1650B5] text-white text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 shadow-md shadow-[#1E63D8]/25 hover:-translate-y-0.5 active:translate-y-0"
+          >
+            <span>{item.linkText}</span>
+            <span aria-hidden="true" className="text-base font-bold">↗</span>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function WhyChooseSteelFrames() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
-  const [activeIdx, setActiveIdx] = useState(0);
-  const isProgrammaticScroll = useRef(false);
-  const touchStartX = useRef<number | null>(null);
-  const touchStartY = useRef<number | null>(null);
-
-  const totalSlides = services.length;
-
-  // Scroll to a specific slide smoothly
-  const goToSlide = useCallback((index: number) => {
-    const clampedIndex = Math.max(0, Math.min(totalSlides - 1, index));
-    setActiveIdx(clampedIndex);
-
-    if (typeof window === "undefined" || !containerRef.current) return;
-    const container = containerRef.current;
-    const rect = container.getBoundingClientRect();
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const containerTop = rect.top + scrollTop;
-    const scrollDistance = container.offsetHeight - window.innerHeight;
-
-    if (scrollDistance <= 0) return;
-
-    // Target scroll position for the selected slide
-    const targetScroll = containerTop + (clampedIndex / (totalSlides - 1)) * scrollDistance;
-
-    isProgrammaticScroll.current = true;
-    const lenis = (window as unknown as { lenis?: { scrollTo: (target: number, opts?: Record<string, unknown>) => void } }).lenis;
-    if (lenis) {
-      lenis.scrollTo(targetScroll, { duration: 0.8 });
-    } else {
-      window.scrollTo({
-        top: targetScroll,
-        behavior: "smooth",
-      });
-    }
-
-    setTimeout(() => {
-      isProgrammaticScroll.current = false;
-    }, 850);
-  }, [totalSlides]);
-
-  // Touch Swipe Gesture Support for mobile phones
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-    touchStartY.current = e.touches[0].clientY;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null || touchStartY.current === null) return;
-    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
-    const deltaY = e.changedTouches[0].clientY - touchStartY.current;
-
-    // If swipe is horizontal and greater than 35px threshold
-    if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX < 0) {
-        // Swipe left -> next slide
-        if (activeIdx < totalSlides - 1) {
-          goToSlide(activeIdx + 1);
-        }
-      } else {
-        // Swipe right -> prev slide
-        if (activeIdx > 0) {
-          goToSlide(activeIdx - 1);
-        }
-      }
-    }
-
-    touchStartX.current = null;
-    touchStartY.current = null;
-  };
 
   useEffect(() => {
     const container = containerRef.current;
-    const sticky = stickyRef.current;
-    if (!container || !sticky) return;
+    if (!container) return;
 
     const ctx = gsap.context(() => {
-      // Pinned timeline driving the slide sync
-      ScrollTrigger.create({
-        trigger: container,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.6,
-        onUpdate: (self) => {
-          if (isProgrammaticScroll.current) return;
-          const progress = self.progress;
-          // Smooth progressive index mapping with hysteresis
-          const newIdx = Math.max(
-            0,
-            Math.min(totalSlides - 1, Math.round(progress * (totalSlides - 1)))
-          );
-          setActiveIdx((prev) => (prev !== newIdx ? newIdx : prev));
-        },
-      });
+      const offset = window.innerWidth <= 768 ? "12vw" : "18vw";
+
+      // 1. Intro Title: slides in from left (-18vw)
+      gsap.fromTo(
+        ".why-intro .why-title",
+        { x: `-${offset}`, opacity: 0 },
+        {
+          x: "0vw",
+          opacity: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".why-intro",
+            start: "top 82%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // 2. Intro Paragraph: slides in from right (+18vw)
+      gsap.fromTo(
+        ".why-intro .why-para",
+        { x: offset, opacity: 0 },
+        {
+          x: "0vw",
+          opacity: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".why-intro",
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
     }, container);
 
-    const refreshTimer = setTimeout(() => {
+    const timer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 200);
+    }, 250);
 
     return () => {
-      clearTimeout(refreshTimer);
+      clearTimeout(timer);
       ctx.revert();
     };
-  }, [totalSlides]);
+  }, []);
 
   return (
     <section
       id="why-choose-steel-frames"
       ref={containerRef}
-      className="relative z-20 w-full bg-[#3168ff] text-white select-none"
-      style={{ height: "320vh" }}
+      className="story-stack relative w-full bg-[#FAF9F6]"
     >
       {/* ===================================================================
-          STICKY FULLSCREEN VIEWPORT (Exact Varco Pruden Container)
+          1. INTRO HEADER (Matching "OUR SERVICES" slide-in animation & generous spacing)
           =================================================================== */}
-      <div
-        ref={stickyRef}
-        className="sticky top-0 h-[100dvh] w-full flex flex-col justify-between overflow-hidden px-4 sm:px-8 lg:px-14 xl:px-20 py-4 sm:py-8 lg:py-14"
-      >
-        {/* =================================================================
-            1. MAIN SECTION HEADING
-            ================================================================= */}
-        <div className="w-full max-w-[1520px] mx-auto flex items-center justify-between z-20 pb-2 sm:pb-3">
-          <h2
-            className="text-[19px] sm:text-[25px] md:text-[32px] lg:text-[38px] font-sans font-[540] tracking-tight text-white uppercase leading-tight"
-            style={{ fontWeight: 540 }}
-          >
-            WHY CHOOSE STEEL FRAME
-          </h2>
-        </div>
-
-        {/* =================================================================
-            2. MAIN SLIDER BODY: Responsive 2 Columns + Center Pagination
-            On mobile (< lg): Compact image on top, text below, no vertical overflow
-            Touch swipe enabled for butter-smooth mobile navigation
-            ================================================================= */}
-        <div
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          className="w-full max-w-[1520px] mx-auto my-auto grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 lg:gap-12 xl:gap-16 items-center z-10 touch-pan-y"
-        >
-          
-          {/* MOBILE IMAGE / DESKTOP RIGHT COLUMN (Order 1 on mobile, Order 2 on desktop) */}
-          <div className="lg:order-2 lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="w-full max-w-[460px] sm:max-w-[500px] lg:max-w-[540px] aspect-[16/9] sm:aspect-[16/10] lg:aspect-square overflow-hidden relative bg-[#2555dc] rounded-md lg:rounded-none shadow-md">
-              {/* Vertical Stack Track translating Y */}
-              <div
-                className="w-full h-full will-change-transform transition-transform duration-600 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                style={{
-                  transform: `translate3d(0, -${activeIdx * 100}%, 0)`,
-                }}
-              >
-                {services.map((service) => (
-                  <div key={service.id} className="relative w-full h-full">
-                    <Image
-                      src={service.imageSrc}
-                      alt={service.imageAlt}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 540px"
-                      className="object-cover object-center"
-                      priority
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* CENTER COLUMN: Vertical Pagination Bullets (Desktop only) */}
-          <div className="hidden lg:flex lg:order-2 lg:col-span-1 justify-center items-center">
-            <div className="flex flex-col items-center gap-3 py-4">
-              {services.map((service, idx) => {
-                const isActive = idx === activeIdx;
-                return (
-                  <button
-                    key={service.id}
-                    onClick={() => goToSlide(idx)}
-                    aria-label={`Go to slide ${idx + 1}`}
-                    className={`rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer ${
-                      isActive
-                        ? "w-[2.5px] h-16 bg-white shadow-md shadow-white/40"
-                        : "w-[2.5px] h-3 bg-white/35 hover:bg-white/70"
-                    }`}
-                  />
-                );
-              })}
-            </div>
-          </div>
-
-          {/* LEFT COLUMN: Slide Content & Information with Smooth Crossfade */}
-          <div className="lg:order-1 lg:col-span-6 flex flex-col justify-center">
-            {/* Stable Crossfade Container: All slides exist in DOM for smooth transition */}
-            <div className="relative min-h-[160px] sm:min-h-[190px] lg:min-h-[240px]">
-              {services.map((service, idx) => {
-                const isActive = idx === activeIdx;
-                return (
-                  <div
-                    key={service.id}
-                    className={`transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                      isActive
-                        ? "opacity-100 translate-y-0 relative z-10 pointer-events-auto"
-                        : "opacity-0 translate-y-3 absolute inset-0 pointer-events-none"
-                    }`}
-                  >
-                    <h3 className="font-sans font-medium text-base sm:text-xl md:text-2xl lg:text-[28px] text-white uppercase leading-[1.2] tracking-tight max-w-[560px] mb-1 sm:mb-3">
-                      {service.title}
-                    </h3>
-
-                    {/* Tagline / Subhead */}
-                    {service.tagline && (
-                      <p className="text-xs sm:text-sm md:text-base font-medium text-white/95 leading-snug mb-1.5 sm:mb-3">
-                        {service.tagline}
-                      </p>
-                    )}
-
-                    {/* Description Paragraph */}
-                    <p className="text-xs sm:text-sm lg:text-[16px] font-sans font-normal text-white/90 leading-[1.55] sm:leading-[1.65] max-w-[560px] mb-3 sm:mb-5 line-clamp-3 sm:line-clamp-none">
-                      {service.description}
-                    </p>
-
-                    {/* Action Link Button */}
-                    <div className="pt-0.5">
-                      <Link
-                        href={service.href}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-white text-[#3168ff] hover:bg-white/90 font-medium text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-md active:scale-95"
-                      >
-                        <span>{service.linkText}</span>
-                        <span aria-hidden="true">→</span>
-                      </Link>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Mobile Horizontal Bullets: Positioned stably below the content */}
-            <div className="flex lg:hidden items-center justify-end gap-2 pt-3">
-              {services.map((service, idx) => {
-                const isActive = idx === activeIdx;
-                return (
-                  <button
-                    key={service.id}
-                    onClick={() => goToSlide(idx)}
-                    aria-label={`Go to slide ${idx + 1}`}
-                    className={`transition-all duration-300 rounded-full cursor-pointer ${
-                      isActive
-                        ? "w-7 h-2 bg-white shadow-sm"
-                        : "w-2.5 h-2 bg-white/40 hover:bg-white/70"
-                    }`}
-                  />
-                );
-              })}
-            </div>
-          </div>
-
-        </div>
+      <div className="why-intro w-full px-4 sm:px-6 lg:px-8 pt-20 sm:pt-32 lg:pt-40 pb-12 sm:pb-16 lg:pb-24 text-center flex flex-col items-center overflow-hidden border-b border-[#E2E8F0]/60">
+        <h2 className="why-title font-sans font-medium uppercase tracking-tight text-[#0F1114] text-xl sm:text-3xl md:text-4xl lg:text-[44px] mb-3 sm:mb-6">
+          WHY CHOOSE <span className="text-[#1E63D8]">STEEL FRAME</span>
+        </h2>
+        <p className="why-para text-slate-600 text-xs sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-normal">
+          Engineered bespoke light gauge steel framing manufactured with millimeter precision. From architecturally complex cantilevers to 50-year Truecore® durability, bushfire BAL-FZ safety, and rapid on-site logistics — discover why South Australian builders choose Auzie Steel.
+        </p>
       </div>
 
-
+      {/* ===================================================================
+          2. THE 4 STORY STACK SECTIONS (Alternating Royal Rising Split Cards)
+          =================================================================== */}
+      {features.map((item) => (
+        <SplitStoryItem key={item.id} item={item} />
+      ))}
     </section>
   );
 }

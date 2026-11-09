@@ -137,7 +137,8 @@ export default function WhatWeDo() {
               start: "top top",
               end: () => `+=${window.innerHeight * (count + 0.6)}`,
               pin: true,
-              scrub: isPhone ? true : 1,
+              scrub: 0.6,
+              anticipatePin: 1,
               invalidateOnRefresh: true,
             },
           });

@@ -11,50 +11,75 @@ export default function SmoothScroll() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Respect user's motion preferences
     if (typeof window === "undefined") return;
+
+    // 1. Manual scroll restoration prevents browser scroll position conflict
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    // Respect user's motion preferences
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Initialize Lenis with optimal buttery lerp inertia (Apple / Awwwards standard)
+    // 2. High-Performance Butter-Smooth Lenis configuration (Exact Royal Rising physics: lerp 0.085)
     const lenis = new Lenis({
-      lerp: 0.085, // Silky smooth linear interpolation
-      smoothWheel: true,
+      lerp: 0.085,
       wheelMultiplier: 0.95,
-      touchMultiplier: 1.0,
+      touchMultiplier: 1.4,
+      smoothWheel: true,
       autoResize: true,
     });
 
     lenisRef.current = lenis;
+    (window as unknown as { lenis: Lenis; __lenis: Lenis }).lenis = lenis;
+    (window as unknown as { lenis: Lenis; __lenis: Lenis }).__lenis = lenis;
 
-    // Attach to global window object for component access (e.g. scrollTo controls)
-    (window as unknown as { lenis: Lenis }).lenis = lenis;
-
-    // Synchronize Lenis scrolling with GSAP ScrollTrigger
+    // 3. Connect Lenis to ScrollTrigger update
     lenis.on("scroll", ScrollTrigger.update);
-    window.addEventListener("resize", () => ScrollTrigger.refresh());
 
-    // Integrate Lenis raf loop directly into GSAP's ticker for zero-jitter, 60/120fps scrubbing
+    // 4. Connect Lenis to GSAP Ticker with exact Royal Rising lagSmoothing(0) for zero lag desync
     const updateTicker = (time: number) => {
       lenis.raf(time * 1000);
     };
 
     gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(500, 33); // Smooth over frame drops without abrupt jumping
+    gsap.ticker.lagSmoothing(0);
 
-    // Refresh triggers once Lenis is bound
-    const refreshTimer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 200);
+    // 5. Anchor link smooth scrolling with exact Royal Rising quartic ease
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('a[href^="#"]');
+      if (!target) return;
+      const href = target.getAttribute("href");
+      if (!href || href === "#") return;
+      e.preventDefault();
+      const targetPos = href === "#top" ? 0 : href;
+      lenis.scrollTo(targetPos, {
+        duration: 1.8,
+        easing: (t) => 1 - Math.pow(1 - t, 4),
+      });
+    };
+    document.addEventListener("click", handleAnchorClick);
+
+    // 6. Refresh triggers once Lenis is bound and on window resize/load
+    const handleRefresh = () => ScrollTrigger.refresh();
+    window.addEventListener("load", handleRefresh);
+    window.addEventListener("resize", handleRefresh);
+
+    const refreshTimer = setTimeout(handleRefresh, 200);
 
     return () => {
       clearTimeout(refreshTimer);
+      document.removeEventListener("click", handleAnchorClick);
+      window.removeEventListener("load", handleRefresh);
+      window.removeEventListener("resize", handleRefresh);
       gsap.ticker.remove(updateTicker);
       lenis.destroy();
       lenisRef.current = null;
       delete (window as unknown as { lenis?: Lenis }).lenis;
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
     };
   }, []);
 

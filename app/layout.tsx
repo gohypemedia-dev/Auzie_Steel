@@ -44,9 +44,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${archivoBlack.variable} ${inter.variable} ${montserrat.variable} ${playfair.variable} h-full antialiased`}
+      className={`${archivoBlack.variable} ${inter.variable} ${montserrat.variable} ${playfair.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-white text-[#0F1114] font-sans">
+      <body className="flex flex-col bg-white text-[#0F1114] font-sans">
         <SmoothScroll />
         <Navbar />
         <div className="flex-1">{children}</div>

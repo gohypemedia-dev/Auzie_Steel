@@ -120,7 +120,6 @@ export default function WhyChooseSteel() {
   const centerTypographyRef = useRef<HTMLDivElement>(null);
   const leftStreamRef = useRef<HTMLDivElement>(null);
   const rightStreamRef = useRef<HTMLDivElement>(null);
-  const [activeIdx, setActiveIdx] = useState(0);
 
   // Left Stream contains items 0, 2, 4
   const leftItems = [items[0], items[2], items[4]];
@@ -196,6 +195,7 @@ export default function WhyChooseSteel() {
         });
 
         const tl = gsap.timeline({
+          defaults: { ease: "none" },
           scrollTrigger: {
             id: "whySteelDualStreamTrigger",
             trigger: section,
@@ -203,14 +203,9 @@ export default function WhyChooseSteel() {
             end: "+=2200",
             pin: pinWrapper, // Pin inner wrapper to prevent DOM tree mutation on section
             pinSpacing: true,
-            scrub: 0.75,
+            scrub: 0.6,
             anticipatePin: 1,
             invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              const p = self.progress;
-              const current = Math.min(items.length - 1, Math.floor(p * items.length));
-              setActiveIdx(current);
-            },
           },
         });
 

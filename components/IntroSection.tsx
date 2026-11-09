@@ -67,15 +67,16 @@ export default function IntroSection() {
       if (subheading) gsap.set(subheading, { y: 25, opacity: 0 });
       if (textBlocks) gsap.set(textBlocks, { y: 20, opacity: 0 });
 
-      // Responsive, snappy scroll distance (1350px) so every scroll tick triggers fluid visual progress
+      // Responsive, snappy scroll distance (1350px) with exact Royal Rising scrub: 0.6
       const tl = gsap.timeline({
+        defaults: { ease: "none" },
         scrollTrigger: {
           trigger: section,
           start: "top top",
           end: "+=1350",
           pin: pinWrapper,
           pinSpacing: true,
-          scrub: 0.65,
+          scrub: 0.6,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
@@ -107,13 +108,13 @@ export default function IntroSection() {
 
       // ==============================================================
       // PHASE 2: Center Split Doors Part Horizontally (Left & Right)
-      // Flows seamlessly as the card reaches full screen
+      // Flows seamlessly as the card reaches full screen (sine.inOut like Royal Rising)
       // ==============================================================
       tl.to(
         doorLeft,
         {
           xPercent: -100,
-          ease: "power2.inOut",
+          ease: "sine.inOut",
           duration: 0.85,
         },
         "split"
@@ -123,7 +124,7 @@ export default function IntroSection() {
         doorRight,
         {
           xPercent: 100,
-          ease: "power2.inOut",
+          ease: "sine.inOut",
           duration: 0.85,
         },
         "split"
