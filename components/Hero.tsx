@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,8 +12,6 @@ export default function Hero() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
-
-  const [isMuted, setIsMuted] = useState(true);
 
   // GSAP Entrance and Parallax Scroll Effect
   useEffect(() => {
@@ -77,16 +75,6 @@ export default function Hero() {
     return () => ctx.revert();
   }, []);
 
-  const toggleSound = () => {
-    if (!videoRef.current) return;
-    const nextMuted = !isMuted;
-    videoRef.current.muted = nextMuted;
-    setIsMuted(nextMuted);
-    if (!nextMuted) {
-      videoRef.current.play().catch(() => {});
-    }
-  };
-
   return (
     <section
       id="hero-section"
@@ -99,7 +87,7 @@ export default function Hero() {
         src="/video/latest_video.mp4"
         autoPlay
         loop
-        muted={isMuted}
+        muted
         playsInline
         preload="auto"
         className="absolute inset-0 w-full h-full object-cover"
@@ -156,59 +144,6 @@ export default function Hero() {
               </Link>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Audio Mute/Unmute Toggle Button */}
-      <button
-        onClick={toggleSound}
-        aria-label={isMuted ? "Unmute video" : "Mute video"}
-        className="absolute bottom-8 right-6 sm:right-10 z-30 p-3 rounded-full bg-slate-900/80 hover:bg-slate-800 text-white border border-white/20 backdrop-blur-md shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center group"
-      >
-        {isMuted ? (
-          <svg
-            className="w-5 h-5 text-white/80 group-hover:text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
-            />
-          </svg>
-        ) : (
-          <svg
-            className="w-5 h-5 text-blue-400 group-hover:text-blue-300"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
-            />
-          </svg>
-        )}
-      </button>
-
-      {/* Subtle Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden sm:flex flex-col items-center pointer-events-none opacity-70">
-        <span className="text-[10px] uppercase font-mono tracking-widest text-slate-300 mb-1.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
-          Scroll to explore
-        </span>
-        <div className="w-5 h-8 border-2 border-white/40 rounded-full flex items-start justify-center p-1 drop-shadow-md">
-          <div className="w-1 h-2 bg-white rounded-full animate-bounce" />
         </div>
       </div>
     </section>

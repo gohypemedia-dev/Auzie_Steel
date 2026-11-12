@@ -110,23 +110,32 @@ function SplitStoryItem({ item }: { item: SplitFeature }) {
         }
 
         if (textCol && textElements.length > 0) {
-          gsap.from(textElements, {
-            x: item.reverse ? -24 : 24,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.06,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: textCol,
-              start: "top 92%",
-              once: true,
+          gsap.fromTo(
+            textElements,
+            {
+              x: item.reverse ? -28 : 28,
+              y: 20,
+              opacity: 0,
             },
-          });
+            {
+              x: 0,
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              stagger: 0.08,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: textCol,
+                start: "top 75%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
         }
       });
 
       // =====================================================================
-      // 2. DESKTOP ANIMATION (min-width: 961px): Exact Royal Rising Smooth Split (No Scroll Trapping)
+      // 2. DESKTOP ANIMATION (min-width: 961px): Smooth Reveal (No Scroll Trapping)
       // =====================================================================
       mm.add("(min-width: 961px) and (prefers-reduced-motion: no-preference)", () => {
         const media = section.querySelector(".split__media");
@@ -134,7 +143,7 @@ function SplitStoryItem({ item }: { item: SplitFeature }) {
         const textCol = section.querySelector(".split__text");
         const textChildren = section.querySelectorAll(".split__text > *");
 
-        // 1. Media clip-path unmask scrub (wipes open gracefully as card approaches viewport)
+        // 1. Media clip-path unmask scrub (wipes open gracefully respecting alternating direction)
         if (media) {
           gsap.fromTo(
             media,
@@ -171,20 +180,29 @@ function SplitStoryItem({ item }: { item: SplitFeature }) {
           );
         }
 
-        // 3. Stagger text elements into view immediately as section enters (Zero delay/lag)
+        // 3. Stagger information elements into view with slide & fade (visible in-screen reveal)
         if (textCol && textChildren.length > 0) {
-          gsap.from(textChildren, {
-            y: 36,
-            opacity: 0,
-            duration: 1.1,
-            ease: "power3.out",
-            stagger: 0.07,
-            scrollTrigger: {
-              trigger: textCol,
-              start: "top 78%",
-              once: true,
+          gsap.fromTo(
+            textChildren,
+            {
+              x: item.reverse ? -50 : 50,
+              y: 28,
+              opacity: 0,
             },
-          });
+            {
+              x: 0,
+              y: 0,
+              opacity: 1,
+              duration: 0.9,
+              stagger: 0.1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: textCol,
+                start: "center 85%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
         }
       });
     }, section);
@@ -195,7 +213,7 @@ function SplitStoryItem({ item }: { item: SplitFeature }) {
   return (
     <div
       ref={itemRef}
-      className={`split relative w-full min-h-[100svh] flex flex-col lg:flex-row items-stretch bg-[#FAF9F6] text-[#0F1114] overflow-hidden select-none border-b border-[#E2E8F0] ${
+      className={`split relative w-full min-h-[100svh] flex flex-col lg:flex-row items-stretch bg-[#FAF9F6] overflow-hidden select-none border-b border-[#E2E8F0] ${
         item.reverse ? "split--rev" : ""
       }`}
     >
@@ -222,34 +240,34 @@ function SplitStoryItem({ item }: { item: SplitFeature }) {
       </div>
 
       {/* ===================================================================
-          2. TEXT COLUMN (Clean Architectural Layout)
+          2. TEXT COLUMN (Information background is Blue everywhere, left or right)
           Feature Title -> Tagline -> Paragraph -> Pill CTA
           =================================================================== */}
       <div
-        className={`split__text relative z-10 w-full lg:w-1/2 min-h-auto lg:min-h-[100svh] flex flex-col justify-center items-start gap-4 sm:gap-5 lg:gap-6 px-6 sm:px-12 lg:px-16 xl:px-24 py-12 sm:py-16 lg:py-0 box-border ${
+        className={`split__text relative z-10 w-full lg:w-1/2 min-h-auto lg:min-h-[100svh] flex flex-col justify-center items-start gap-4 sm:gap-5 lg:gap-6 px-6 sm:px-12 lg:px-16 xl:px-24 py-12 sm:py-16 lg:py-0 box-border bg-[#1E63D8] text-white ${
           item.reverse ? "lg:order-1" : "lg:order-2"
         }`}
       >
         {/* Feature Heading */}
-        <h3 className="title text-[#1E63D8] font-sans font-medium uppercase tracking-tight text-[clamp(2.1rem,3.2vw,3.4rem)] leading-[1.08]">
+        <h3 className="title text-white font-sans font-medium uppercase tracking-tight text-[clamp(2.1rem,3.2vw,3.4rem)] leading-[1.08]">
           {item.title}
         </h3>
 
         {/* Lead-in Tagline (clean, no quotation marks) */}
-        <p className="quote text-[#0F1114] font-light text-[clamp(1.18rem,1.55vw,1.6rem)] leading-[1.35] max-w-[34ch]">
+        <p className="quote text-white font-light text-[clamp(1.18rem,1.55vw,1.6rem)] leading-[1.35] max-w-[34ch]">
           {item.quote}
         </p>
 
         {/* Detailed Explanation Paragraph */}
-        <p className="para text-slate-600 font-light text-[clamp(14px,0.98vw,15.5px)] leading-[1.75] max-w-[48ch]">
+        <p className="para text-blue-50/90 font-light text-[clamp(14px,0.98vw,15.5px)] leading-[1.75] max-w-[48ch]">
           {item.text}
         </p>
 
-        {/* Signature Rounded Pill CTA Button */}
+        {/* Signature Rounded CTA Button (Clean White on Blue) */}
         <div className="split__action pt-2">
           <Link
             href={item.href}
-            className="pill inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#1E63D8] hover:bg-[#1650B5] text-white text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all duration-300 shadow-md shadow-[#1E63D8]/25 hover:-translate-y-0.5 active:translate-y-0"
+            className="pill inline-flex items-center gap-2.5 px-8 py-3.5 rounded-[10px] bg-white hover:bg-blue-50 text-[#1E63D8] hover:text-[#1650B5] text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 shadow-lg shadow-black/15 hover:-translate-y-0.5 active:translate-y-0"
           >
             <span>{item.linkText}</span>
             <span aria-hidden="true" className="text-base font-bold">↗</span>
