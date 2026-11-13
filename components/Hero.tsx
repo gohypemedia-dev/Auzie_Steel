@@ -96,10 +96,10 @@ export default function Hero() {
       {/* Hero Content Container */}
       <div
         ref={contentRef}
-        className="relative z-20 w-full h-full flex flex-col justify-center pt-20 sm:pt-24 lg:pt-28"
+        className="relative z-20 w-full h-full flex flex-col justify-center pt-32 sm:pt-36 lg:pt-44"
       >
-        <div className="w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 xl:px-14">
-          <div className="max-w-xl sm:max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-5 text-left">
+        <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16">
+          <div className="max-w-xl sm:max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-5 text-left mt-16 sm:mt-24 lg:mt-32">
             {/* Main Editorial Headline (Reduced Font Size, Clean & Sharp) */}
             <h1
               ref={headingRef}

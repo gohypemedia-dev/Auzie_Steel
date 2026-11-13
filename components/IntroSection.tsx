@@ -297,10 +297,10 @@ export default function IntroSection() {
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/45 to-white/70 sm:bg-transparent sm:bg-gradient-to-r sm:from-white sm:via-white/85 sm:to-transparent z-[1] w-full md:w-[68%] lg:w-[58%]" />
           </div>
 
-          {/* Foreground Information: Left-Aligned with responsive spacing */}
+          {/* Foreground Information: Left-Aligned with responsive spacing matching Navbar logo */}
           <div
             ref={whoWeAreContentRef}
-            className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 w-full flex flex-col justify-center my-auto will-change-transform"
+            className="relative z-10 w-full px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16 flex flex-col justify-center my-auto will-change-transform"
           >
             {/* Left Aligned Content Column with clean vertical rhythm */}
             <div className="max-w-xl xl:max-w-[620px] text-left">

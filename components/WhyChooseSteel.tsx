@@ -490,25 +490,6 @@ export default function WhyChooseSteel() {
               <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed max-w-sm mx-auto font-normal">
                 Precision cold-formed Truecore® framing engineered for higher tolerances, rapid site assembly, and generational durability.
               </p>
-
-              {/* Minimal Center Circle Badge (Matching Reference ani4.mp4 circular CTA) */}
-              <div className="pt-2 flex justify-center pointer-events-auto">
-                <Link
-                  href="/steel-frames"
-                  className="w-24 h-24 rounded-full border border-[#CBD5E1] hover:border-[#1E63D8] bg-white/70 hover:bg-white backdrop-blur-sm shadow-sm flex flex-col items-center justify-center text-center p-2 transition-all duration-300 hover:scale-105 group"
-                >
-                  <span className="text-[10px] font-mono font-bold tracking-widest text-[#0F1114] uppercase group-hover:text-[#1E63D8]">
-                    6 CORE
-                  </span>
-                  <span className="text-[9px] font-mono tracking-wider text-[#64748B] uppercase">
-                    ADVANTAGES
-                  </span>
-                  <span className="text-xs text-[#1E63D8] mt-0.5 group-hover:translate-y-0.5 transition-transform">
-                    ↓
-                  </span>
-                </Link>
-              </div>
-
             </div>
           </div>
 

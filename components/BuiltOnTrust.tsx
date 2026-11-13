@@ -90,11 +90,11 @@ export default function BuiltOnTrust() {
                     {block.description}
                   </p>
 
-                  {/* Button (Exact Varco Pruden .btn--black-outline-black Pill) */}
+                  {/* Button (Brand Blue Pill) */}
                   <div>
                     <Link
                       href={block.href}
-                      className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-3.5 rounded-full border border-[#202020] text-[#202020] hover:bg-[#202020] hover:text-white font-medium text-xs sm:text-sm tracking-wide transition-all duration-200 active:scale-95 shadow-sm"
+                      className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-[#1E63D8] hover:bg-[#1551b8] text-white font-medium text-xs sm:text-sm tracking-wide transition-all duration-200 active:scale-95 shadow-md shadow-blue-600/25 hover:shadow-lg hover:shadow-blue-600/35 hover:scale-[1.02]"
                     >
                       <span>{block.linkText}</span>
                     </Link>

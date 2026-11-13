@@ -242,10 +242,13 @@ function SplitStoryItem({ item }: { item: SplitFeature }) {
       {/* ===================================================================
           2. TEXT COLUMN (Information background is Blue everywhere, left or right)
           Feature Title -> Tagline -> Paragraph -> Pill CTA
+          When on the left (item.reverse), padding-left matches Navbar logo alignment
           =================================================================== */}
       <div
-        className={`split__text relative z-10 w-full lg:w-1/2 min-h-auto lg:min-h-[100svh] flex flex-col justify-center items-start gap-4 sm:gap-5 lg:gap-6 px-6 sm:px-12 lg:px-16 xl:px-24 py-12 sm:py-16 lg:py-0 box-border bg-[#1E63D8] text-white ${
-          item.reverse ? "lg:order-1" : "lg:order-2"
+        className={`split__text relative z-10 w-full lg:w-1/2 min-h-auto lg:min-h-[100svh] flex flex-col justify-center items-start gap-4 sm:gap-5 lg:gap-6 py-12 sm:py-16 lg:py-0 box-border bg-[#1E63D8] text-white ${
+          item.reverse
+            ? "lg:order-1 pl-4 sm:pl-6 lg:pl-10 xl:pl-12 2xl:pl-16 pr-6 sm:pr-10 lg:pr-12 xl:pr-16"
+            : "lg:order-2 pl-6 sm:pl-10 lg:pl-14 xl:pl-16 2xl:pl-20 pr-4 sm:pr-6 lg:pr-10 xl:pr-12 2xl:pr-16"
         }`}
       >
         {/* Feature Heading */}

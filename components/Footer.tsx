@@ -1,38 +1,88 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 
 export default function Footer() {
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newsletterEmail) {
+      setNewsletterSubmitted(true);
+    }
+  };
+
   return (
     <footer className="w-full flex flex-col font-sans select-none overflow-visible">
       {/* =====================================================================
           MAIN FOOTER: ELECTRIC BLUE (#3168ff)
           ===================================================================== */}
-      <section className="relative z-10 w-full bg-[#3168ff] text-white pt-14 sm:pt-16 lg:pt-18 pb-8 sm:pb-10 overflow-hidden">
-        <div className="w-full max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
-          {/* Top Row: Auzie Steel Brand Header on Left (Columns 1-6),
-              Columns 7-12 is the 120px space occupied by the overlapping steel photo from above! */}
-          <div className="mb-10 sm:mb-12">
-            <div className="flex flex-col justify-center">
+      <section className="relative z-10 w-full bg-[#3168ff] text-white pt-14 sm:pt-16 lg:pt-20 pb-8 sm:pb-10 overflow-hidden">
+        {/* Aligned with Navbar Logo Guideline across all breakpoints */}
+        <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16">
+          {/* Top Row: Auzie Steel Brand Header on Left, Newsletter Form on Right */}
+          <div className="mb-10 sm:mb-14 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 sm:gap-10">
+            {/* Left: Brand Identity */}
+            <div className="flex flex-col justify-center max-w-lg">
               <Link href="/" className="inline-block group">
-                <span className="text-3xl sm:text-4xl font-sans font-medium tracking-tight text-white uppercase block leading-none">
+                <span className="text-3xl sm:text-4xl lg:text-[44px] font-sans font-medium tracking-tight text-white uppercase block leading-none">
                   AUZIE STEEL
                 </span>
                 <span className="block text-white/95 text-xs sm:text-[13px] !font-sans font-medium tracking-wide mt-2">
                   Auzie Steel — Light Gauge Steel
                 </span>
               </Link>
-              <p className="text-white/85 text-xs sm:text-sm !font-sans font-normal mt-1.5 max-w-lg">
-                We are the builder&apos;s choice in steel framing.
+              <p className="text-white/85 text-xs sm:text-sm !font-sans font-normal mt-2.5 max-w-md leading-relaxed">
+                We are the builder&apos;s choice in steel framing. Precision light gauge steel engineered for residential and commercial builds across Australia.
               </p>
             </div>
 
-            {/* Empty space reserved on desktop for the overlapping steel photo hanging down from above */}
-            </div>
+            {/* Right: Newsletter Subscription */}
+            <div className="w-full lg:max-w-md xl:max-w-lg">
+              <span className="block text-[11px] font-mono font-bold tracking-widest text-white/80 uppercase mb-1.5">
+                NEWSLETTER
+              </span>
+              <h4 className="text-base sm:text-lg font-sans font-medium text-white tracking-tight leading-snug mb-2.5">
+                Subscribe for engineering insights &amp; project updates.
+              </h4>
 
-          {/* 5 Clean Columns Grid (Underneath the Overlap) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-6 xl:gap-10 pt-2">
-            {/* Column 1: Systems (Col 1-2) */}
+              {newsletterSubmitted ? (
+                <div className="px-5 py-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white text-xs sm:text-sm font-medium">
+                  ✓ Thank you for subscribing to Auzie Steel updates!
+                </div>
+              ) : (
+                <form
+                  onSubmit={handleNewsletterSubmit}
+                  className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5"
+                >
+                  <input
+                    type="email"
+                    required
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    className="flex-1 px-4 sm:px-5 py-3 rounded-full bg-white/15 hover:bg-white/20 focus:bg-white/25 border border-white/30 focus:border-white text-white placeholder:text-white/60 text-xs sm:text-sm outline-none backdrop-blur-sm transition-all"
+                  />
+                  <button
+                    type="submit"
+                    className="px-6 sm:px-7 py-3 rounded-full bg-white text-[#1E63D8] hover:bg-blue-50 font-bold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-md shrink-0 cursor-pointer active:scale-95"
+                  >
+                    SUBSCRIBE
+                  </button>
+                </form>
+              )}
+
+              <span className="block text-[11px] text-white/65 mt-2">
+                No spam. Unsubscribe anytime.
+              </span>
+            </div>
+          </div>
+
+          {/* 5 Clean Columns Grid (Underneath the Brand Header & Newsletter) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-8 xl:gap-12 pt-2">
+            {/* Column 1: Systems */}
             <div className="space-y-3.5">
               <h3 className="text-base !font-sans font-medium text-white tracking-tight">
                 Steel Systems
@@ -61,7 +111,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Column 2: Capabilities (Col 3-4) */}
+            {/* Column 2: Capabilities */}
             <div className="space-y-3.5">
               <h3 className="text-base !font-sans font-medium text-white tracking-tight">
                 Capabilities
@@ -90,7 +140,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Column 3: Contact Details & Factory Address (Col 5-8, 4 columns wide) */}
+            {/* Column 3: Contact Details & Factory Address */}
             <div className="space-y-3.5">
               <h3 className="text-base !font-sans font-medium text-white tracking-tight">
                 Contact &amp; Factory
@@ -223,9 +273,8 @@ export default function Footer() {
 
         {/* ===================================================================
             5. DIVIDER & BOTTOM ROW (Exact Copyright, Credits & Social Media)
-            Placed below the watermark as requested
             =================================================================== */}
-        <div className="w-full max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
+        <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16">
           <div className="w-full h-px bg-white/20 mb-6 sm:mb-8" />
 
           <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 sm:gap-8 text-xs text-white/90 !font-sans">
