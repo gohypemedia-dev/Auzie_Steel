@@ -23,9 +23,9 @@ export default function AboutPage() {
     },
     {
       step: "02",
-      title: "100% BlueScope Truecore®",
+      title: "100% BlueScope TRUECORE® Steel",
       description:
-        "We exclusively roll-form from genuine Australian high-tensile BlueScope Truecore® steel. Every framing stud delivers proven structural integrity backed by an eligible 50-year warranty.",
+        "We roll-form exclusively from genuine Australian high-tensile BlueScope TRUECORE® steel. Every framing stud delivers proven structural integrity backed by an eligible 50-year warranty.",
       icon: (
         <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round" strokeLinejoin="round" />
@@ -35,9 +35,9 @@ export default function AboutPage() {
     },
     {
       step: "03",
-      title: "Millimeter BIM Precision",
+      title: "Millimetre Precision in BIM",
       description:
-        "Every stud, truss, and joist is modeled in state-of-the-art 3D BIM software directly from your architectural plans. Machine-punched service holes ensure electrical and plumbing rough-ins glide through.",
+        "We model every stud, truss and joist in 3D BIM software directly from your architectural plans. Machine-punched service holes make it easier to run wiring and pipes during rough-in.",
       icon: (
         <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
           <rect x="3" y="3" width="18" height="18" rx="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -81,7 +81,7 @@ export default function AboutPage() {
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              Based in Adelaide, Auzie Steel is transforming South Australia&apos;s residential and commercial building industry with millimeter-accurate light gauge steel framing and revolutionary Alpha Floor systems.
+              Based in Adelaide, Auzie Steel is transforming South Australia&apos;s residential and commercial building industry with millimetre-accurate light gauge steel framing and revolutionary Alpha Floor systems.
             </p>
           </div>
 
@@ -92,7 +92,7 @@ export default function AboutPage() {
                 100%
               </span>
               <span className="text-xs sm:text-sm font-sans text-slate-600 font-medium">
-                Australian Truecore® Steel
+                Australian TRUECORE® Steel
               </span>
             </div>
             <div>
@@ -105,10 +105,10 @@ export default function AboutPage() {
             </div>
             <div>
               <span className="text-2xl sm:text-3xl font-sans font-medium text-[#0F1114] block">
-                0mm
+                0&nbsp;mm
               </span>
               <span className="text-xs sm:text-sm font-sans text-slate-600 font-medium">
-                Warp, Shrink or Sag
+                Warping, Shrinkage or Sagging
               </span>
             </div>
             <div>
@@ -226,11 +226,11 @@ export default function AboutPage() {
       <section className="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="bg-slate-950 text-white rounded-[16px] p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto space-y-5">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight leading-tight text-white">
               Partner With South Australia&apos;s <span className="text-[#3B82F6]">Premier Fabricator</span>
             </h2>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-              Speak directly with our Adelaide engineering and detailing team. We provide fast, obligation-free framing takeoffs and project consultations.
+              Speak directly with our Adelaide engineering and detailing team. We provide fast, obligation-free framing take-offs and project consultations.
             </p>
             <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
               <Link

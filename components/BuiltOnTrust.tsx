@@ -19,9 +19,9 @@ export default function BuiltOnTrust() {
       number: "01",
       title: "END-TO-END SERVICE",
       description:
-        "We offer a specialised, all-encompassing design to delivery service that gives you peace of mind that your frame will be delivered on site within your timeframes. We make this a priority, as we have a long-standing depth of experience in the local building industry.",
+        "We offer a specialised, all-encompassing design-to-delivery service that gives you peace of mind that your frame will arrive on site when you need it. We make reliable delivery a priority, drawing on years of experience in the local building industry.",
       image: "/vp_pemb.jpg",
-      alt: "Contemporary corporate building with warm copper-toned tower and expansive glass facade",
+      alt: "Contemporary corporate building with warm copper-toned tower and expansive glass façade",
       linkText: "Explore Delivery Logistics",
       href: "/contact",
     },

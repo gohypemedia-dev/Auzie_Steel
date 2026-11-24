@@ -20,7 +20,7 @@ const openings = [
     type: "Full-Time • Manufacturing Plant",
     description:
       "Operate and monitor state-of-the-art computer-controlled roll-forming production lines, ensuring tight tolerances and continuous quality control.",
-    requirements: ["Machine operation experience", "High attention to detail & QA", "Forklift license preferred"],
+    requirements: ["Machine operation experience", "Attention to detail and a focus on quality assurance", "Forklift licence preferred"],
   },
   {
     role: "Framing Panel Assembly Technician",

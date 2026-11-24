@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Precision Steel Frames | Auzie Steel South Australia",
   description:
-    "Engineered light gauge steel wall framing, roof trusses, and modular floor cassettes roll-formed from Australian BlueScope Truecore® steel.",
+    "Engineered light gauge steel wall framing, roof trusses, and modular floor cassettes roll-formed from Australian BlueScope TRUECORE® steel.",
 };
 
 export default function SteelFramesPage() {
@@ -14,12 +14,12 @@ export default function SteelFramesPage() {
       step: "01",
       title: "Prefabricated Wall Frames",
       description:
-        "Factory-assembled wall panels fabricated to exact CAD/BIM tolerances. Pre-punched service holes eliminate onsite drilling, reducing rough-in time by up to 40%.",
+        "Factory-assembled wall panels are made to exact CAD/BIM tolerances. Pre-punched service holes eliminate the need to drill on site, reducing rough-in time by up to 40%.",
       image: "/why-choose-customisable-main.jpg",
       points: [
         "Load-bearing and non-load-bearing assemblies",
         "Pre-punched wiring and plumbing conduits",
-        "Guaranteed 0mm twist, warp, shrink or rot",
+        "Guaranteed against twisting, warping, shrinkage and rot",
       ],
     },
     {
@@ -57,7 +57,7 @@ export default function SteelFramesPage() {
     {
       feature: "Moisture & Fungal Rot",
       steel: "Will not absorb moisture, rot, warp, or sag",
-      timber: "Shrinks, bows, twists, and can foster mold",
+      timber: "Can shrink, bow, twist or develop mould",
     },
     {
       feature: "Bushfire Safety (AS 3959)",
@@ -66,12 +66,12 @@ export default function SteelFramesPage() {
     },
     {
       feature: "Dimensional Stability",
-      steel: "Precision engineered to within 0.5mm tolerances",
+      steel: "Precision-engineered to within 0.5\u00a0mm",
       timber: "Varies with humidity and natural grain imperfections",
     },
     {
       feature: "Structural Warranty",
-      steel: "50-Year BlueScope Truecore® Warranty*",
+      steel: "50-Year BlueScope TRUECORE® Warranty*",
       timber: "Standard builder warranty (typically 7–10 years)",
     },
   ];
@@ -95,7 +95,7 @@ export default function SteelFramesPage() {
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              Manufactured with millimeter precision from Australian high-tensile BlueScope Truecore® steel. Perfectly straight walls, zero wood rot, non-combustible ratings, and rapid onsite assembly across South Australia.
+              We manufacture frames to millimetre precision from Australian high-tensile BlueScope TRUECORE® steel. The frames form straight walls, do not rot, are non-combustible and can be assembled quickly on site across South Australia.
             </p>
           </div>
 
@@ -127,7 +127,7 @@ export default function SteelFramesPage() {
             </div>
             <div>
               <span className="text-2xl sm:text-3xl font-sans font-medium text-[#1E63D8] block">
-                0.5mm
+                0.5&nbsp;mm
               </span>
               <span className="text-xs sm:text-sm font-sans text-slate-600 font-medium">
                 CNC Fabrication Tolerance
@@ -151,7 +151,7 @@ export default function SteelFramesPage() {
             COMPLETE RESIDENTIAL &amp; <span className="text-[#1E63D8]">COMMERCIAL SYSTEMS</span>
           </h2>
           <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-            Custom engineered directly from your architectural plans and pre-punched for frictionless onsite service installations.
+            We engineer the frames to your architectural plans and pre-punch service holes to simplify installation on site.
           </p>
         </div>
 
@@ -214,7 +214,7 @@ export default function SteelFramesPage() {
           <div className="bg-white rounded-[14px] border border-[#CBD5E1] shadow-sm overflow-hidden">
             <div className="grid grid-cols-12 bg-[#EEF0F2] border-b border-[#CBD5E1] p-4 text-xs font-sans font-medium uppercase text-[#0F1114]">
               <div className="col-span-4 sm:col-span-4">Performance Criteria</div>
-              <div className="col-span-4 sm:col-span-4 text-[#1E63D8]">Auzie Steel Truecore®</div>
+              <div className="col-span-4 sm:col-span-4 text-[#1E63D8]">Auzie Steel TRUECORE®</div>
               <div className="col-span-4 sm:col-span-4 text-slate-500">Traditional Timber</div>
             </div>
 
@@ -244,11 +244,11 @@ export default function SteelFramesPage() {
       <section className="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="bg-slate-950 text-white rounded-[16px] p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto space-y-5">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight leading-tight">
-              Ready To Build With <span className="text-[#3B82F6]">Truecore® Steel</span>?
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight leading-tight text-white">
+              Ready To Build With <span className="text-[#3B82F6]">TRUECORE® Steel</span>?
             </h2>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-              Send through your architectural plans today for a fast, millimeter-accurate framing takeoff quote from our South Australian engineering team.
+              Send us your architectural plans for a fast, millimetre-accurate take-off and framing quote from our South Australian engineering team.
             </p>
             <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
               <Link

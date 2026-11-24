@@ -39,7 +39,7 @@ const projects: ProjectItem[] = [
     id: "engineered-roof-trusses",
     category: "ENGINEERED TRUSSES",
     title: "HIGH-SPAN ARCHITECTURAL ROOF TRUSSES",
-    description: "Precision roll-formed Truecore® steel trusses designed to resist high wind loads and bushfire conditions.",
+    description: "Precision roll-formed TRUECORE® steel trusses designed to resist high wind loads and bushfire conditions.",
     imageSrc: "/what-we-do-fabrications.jpg",
     href: "/steel-frames",
     columnOffsetClass: "lg:translate-y-24",
@@ -48,7 +48,7 @@ const projects: ProjectItem[] = [
     id: "modular-wall-framing",
     category: "CNC ROLL-FORMING",
     title: "AUTOMATED CNC WALL FRAMING SYSTEMS",
-    description: "Rapid prefabrication with millimeter-accurate wall panels ready for immediate on-site crane or manual lift.",
+    description: "Rapid prefabrication with millimetre-accurate wall panels ready for immediate on-site crane or manual lift.",
     imageSrc: "/what-we-do-custom-designs.jpg",
     href: "/steel-frames",
     columnOffsetClass: "lg:translate-y-0",
@@ -210,7 +210,7 @@ export default function ProjectsGallery() {
           </h2>
 
           <p className="mt-3 text-sm sm:text-base md:text-lg text-[#8A929B] font-normal max-w-xl leading-relaxed">
-            A curated showcase of residential and commercial structural frameworks engineered to millimeter tolerances across South Australia.
+            A curated showcase of residential and commercial structural frameworks engineered to millimetre tolerances across South Australia.
           </p>
         </div>
 

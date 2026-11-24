@@ -131,7 +131,7 @@ export default function Hero() {
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wider text-white bg-[#1E63D8] hover:bg-[#1551b8] shadow-lg shadow-blue-600/30 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 text-center"
+                className="inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wider text-white bg-[#1E63D8] hover:bg-[#1551b8] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 text-center"
               >
                 Get a Quote
               </Link>

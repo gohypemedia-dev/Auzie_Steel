@@ -24,7 +24,7 @@ export default function Home() {
       {/* 3. Services / Capabilities (Frame-by-Frame Canvas Animation) */}
       <WhatWeDo />
 
-      {/* 4. Why Choose Steel Frame (Slide Up Stacking Cards) */}
+      {/* 4. Why Choose Steel Framing? (Slide Up Stacking Cards) */}
       <WhyChooseSteelFrames />
 
       {/* 5. Why Light Gauge Steel (Dual Parallax Stream Cards) */}

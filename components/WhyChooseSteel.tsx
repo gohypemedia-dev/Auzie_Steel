@@ -68,9 +68,9 @@ const items: WhySteelItem[] = [
     step: "04",
     title: "Durable",
     description:
-      "No rotting, termites or warping that comes with wood frames.",
+      "Steel frames resist the rot, termite damage and warping that can affect timber frames.",
     imageSrc: "/why-choose-durable-main.jpg",
-    imageAlt: "Durable non-rotting termite proof Truecore steel",
+    imageAlt: "Durable, termite-proof TRUECORE® steel",
     tag: "PERMANENT DEFENCE",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
@@ -83,9 +83,9 @@ const items: WhySteelItem[] = [
     step: "05",
     title: "Fire resistant",
     description:
-      "There may be cheaper builder's insurance for houses built with cold formed steel.",
+      "There may be cheaper builder's insurance for houses built with cold-formed steel.",
     imageSrc: "/why-choose-fire-main.jpg",
-    imageAlt: "Non-combustible fire resistant steel structure",
+    imageAlt: "Non-combustible, fire-resistant steel structure",
     tag: "AS 3959 BAL-FZ COMPLIANT",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
@@ -488,7 +488,7 @@ export default function WhyChooseSteel() {
 
               {/* Subtitle */}
               <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed max-w-sm mx-auto font-normal">
-                Precision cold-formed Truecore® framing engineered for higher tolerances, rapid site assembly, and generational durability.
+                Precision cold-formed TRUECORE® framing engineered for higher tolerances, rapid site assembly, and generational durability.
               </p>
             </div>
           </div>

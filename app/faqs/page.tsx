@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Frequently Asked Questions | Auzie Steel South Australia",
   description:
-    "Common questions answered about light gauge steel framing, BlueScope Truecore® steel, Alpha Floor joist spans, and bushfire compliance.",
+    "Common questions answered about light gauge steel framing, BlueScope TRUECORE® steel, Alpha Floor joist spans, and bushfire compliance.",
 };
 
 const faqs = [
@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     q: "What warranty comes with Auzie Steel frames?",
-    a: "Auzie Steel exclusively manufactures from genuine Australian BlueScope Truecore® steel. When installed in accordance with BlueScope guidelines, residential structural framing is backed by an eligible warranty of up to 50 years.",
+    a: "Auzie Steel exclusively manufactures from genuine Australian BlueScope TRUECORE® steel. When installed in accordance with BlueScope guidelines, residential structural framing is backed by an eligible warranty of up to 50 years.",
   },
   {
     q: "Are steel frames certified for bushfire zones (BAL ratings)?",
@@ -29,7 +29,7 @@ const faqs = [
     a: "Alpha Floor joists deliver spans of 7+ metres without intermediate load-bearing drop beams. Furthermore, steel joists never shrink or loosen fasteners as moisture levels change, permanently eliminating squeaky floors.",
   },
   {
-    q: "Can standard drywall and external cladding be fixed to steel frames?",
+    q: "Can standard plasterboard and external cladding be fixed to steel frames?",
     a: "Yes. Standard plasterboard, fibre-cement sheets, brick veneer ties, and composite cladding systems fix directly into steel framing using self-drilling tek screws with standard cordless drivers.",
   },
 ];

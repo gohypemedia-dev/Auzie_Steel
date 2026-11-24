@@ -33,7 +33,7 @@ export default function PartnerBrandsStrip() {
       subtitle: "Australian Steel Producer",
       logo: (
         <svg viewBox="0 0 160 50" className="h-10 sm:h-11 md:h-12 w-auto select-none" xmlns="http://www.w3.org/2000/svg">
-          <g fill="#ffffff">
+          <g fill="#ffffff" transform="translate(44 0)">
             <path d="M14 26 C20 18, 28 18, 34 23 C40 28, 48 28, 54 20 L50 16 C45 22, 39 22, 34 18 C27 13, 19 14, 12 21 Z" fill="rgba(255,255,255,0.75)" />
             <path d="M18 21 C24 13, 32 13, 38 18 C44 23, 52 23, 58 15 L54 11 C49 17, 43 17, 38 13 C31 8, 23 9, 16 16 Z" fill="rgba(255,255,255,0.9)" />
             <path d="M22 16 C28 8, 36 8, 42 13 C48 18, 56 18, 62 10 L58 6 C53 12, 47 12, 42 8 C35 3, 27 4, 20 11 Z" fill="#ffffff" />

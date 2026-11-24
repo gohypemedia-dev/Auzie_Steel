@@ -17,7 +17,7 @@ export default function AlphaFloorPage() {
         "Eliminate expensive structural steel drop beams and intrusive internal load-bearing posts. Alpha Floor delivers unobstructed clear spans of 7+ metres with minimal deflection.",
       image: "/why-choose-durable-main.jpg",
       points: [
-        "Enables modern open-concept ground floor layouts",
+        "Enables modern open-plan ground floor layouts",
         "Significantly reduces structural engineer foundation costs",
         "Higher stiffness-to-weight ratio than timber I-joists",
       ],
@@ -31,27 +31,27 @@ export default function AlphaFloorPage() {
       points: [
         "Zero warranty callbacks for floor squeaks",
         "Rigid, silent, solid concrete-like underfoot feel",
-        "50-Year structural durability peace of mind",
+        "50 years of structural durability for peace of mind",
       ],
     },
     {
       step: "03",
       title: "Integrated Service Pass-Through",
       description:
-        "Engineered with large factory-punched web apertures, allowing plumbers, HVAC ducting, and electricians to run services seamlessly through the floor zone without drilling.",
+        "Large factory-punched openings in the joists let trades run pipes, ducts and cables through the floor zone without drilling.",
       image: "/built-on-trust-delivery.jpg",
       points: [
-        "Fits standard 150mm & 200mm air conditioning ducts",
-        "Zero onsite cutting or structural weakening of joists",
+        "Fits standard 150\u00a0mm and 200\u00a0mm air conditioning ducts",
+        "No need to cut or weaken joists on site",
         "Cuts subfloor rough-in trade hours in half",
       ],
     },
   ];
 
   const specs = [
-    { depth: "200mm", span: "Up to 5.2m", weight: "4.8 kg/m", services: "140mm circular & oblong" },
-    { depth: "250mm", span: "Up to 6.4m", weight: "5.6 kg/m", services: "180mm circular & oblong" },
-    { depth: "300mm", span: "Up to 7.8m", weight: "6.4 kg/m", services: "220mm circular & oblong" },
+    { depth: "200\u00a0mm", span: "Up to 5.2\u00a0m", weight: "4.8\u00a0kg/m", services: "140\u00a0mm circular & oblong" },
+    { depth: "250\u00a0mm", span: "Up to 6.4\u00a0m", weight: "5.6\u00a0kg/m", services: "180\u00a0mm circular & oblong" },
+    { depth: "300\u00a0mm", span: "Up to 7.8\u00a0m", weight: "6.4\u00a0kg/m", services: "220\u00a0mm circular & oblong" },
   ];
 
   return (
@@ -73,7 +73,7 @@ export default function AlphaFloorPage() {
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              Engineered light gauge steel floor joists redefining architectural freedom. Long clear spans, zero squeaks, massive services access, and rapid two-man installation for Australian multi-storey builds.
+              Our engineered light gauge steel floor joists deliver long clear spans and squeak-free floors, with room for building services and quick installation by a two-person crew.
             </p>
           </div>
 
@@ -81,7 +81,7 @@ export default function AlphaFloorPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-8 border-t border-[#CBD5E1]/70">
             <div>
               <span className="text-2xl sm:text-3xl font-sans font-medium text-[#1E63D8] block">
-                7.8M
+                7.8&nbsp;m
               </span>
               <span className="text-xs sm:text-sm font-sans text-slate-600 font-medium">
                 Maximum Clear Span
@@ -97,7 +97,7 @@ export default function AlphaFloorPage() {
             </div>
             <div>
               <span className="text-2xl sm:text-3xl font-sans font-medium text-[#0F1114] block">
-                220mm
+                220&nbsp;mm
               </span>
               <span className="text-xs sm:text-sm font-sans text-slate-600 font-medium">
                 HVAC Service Apertures
@@ -105,10 +105,10 @@ export default function AlphaFloorPage() {
             </div>
             <div>
               <span className="text-2xl sm:text-3xl font-sans font-medium text-[#1E63D8] block">
-                2-MAN
+                2-PERSON CREW
               </span>
               <span className="text-xs sm:text-sm font-sans text-slate-600 font-medium">
-                Rapid Crane-Free Install
+                Rapid Crane-Free Installation
               </span>
             </div>
           </div>
@@ -225,11 +225,11 @@ export default function AlphaFloorPage() {
       <section className="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="bg-slate-950 text-white rounded-[16px] p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto space-y-5">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight leading-tight text-white">
               Upgrade Your Next Build To <span className="text-[#3B82F6]">Alpha Floor</span>
             </h2>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-              Our engineering team can review your architectural plans and supply an engineered layout with complete span tables and joist layouts.
+              Our engineering team can review your architectural plans and provide a joist layout with complete span tables.
             </p>
             <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
               <Link

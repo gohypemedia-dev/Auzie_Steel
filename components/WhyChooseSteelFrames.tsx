@@ -29,7 +29,7 @@ const features: SplitFeature[] = [
     step: "01",
     title: "CUSTOMISABLE",
     quote: "We can manufacture any design created by an architect.",
-    text: "Before anything gets drawn, locked in or priced, we work closely with your builder and design team to fabricate custom light gauge steel frames directly from CAD/BIM models with extreme millimeter accuracy — enabling cantilevers, double-height ceiling voids, and expansive open-plan spans with complete structural confidence.",
+    text: "Before anything gets drawn, locked in or priced, we work closely with your builder and design team to fabricate custom light gauge steel frames directly from CAD/BIM models with millimetre accuracy — enabling cantilevers, double-height ceiling voids, and expansive open-plan spans with complete structural confidence.",
     imageSrc: "/why-choose-customisable-main.jpg",
     imageAlt: "Auzie Steel Customisable Steel Framing",
     linkText: "View Custom Specs",
@@ -41,9 +41,9 @@ const features: SplitFeature[] = [
     step: "02",
     title: "DURABLE",
     quote: "Our steel frames will not rot, warp, twist or attract termites.",
-    text: "Manufactured exclusively from premium high-tensile BlueScope Truecore® steel, our structural framing will not shrink or sag over decades of building life, providing 100% immunity to moisture, termite infestation, and fungal decay.",
+    text: "Manufactured exclusively from premium high-tensile BlueScope TRUECORE® steel, our structural framing will not shrink or sag over decades of building life, providing 100% immunity to moisture, termite infestation, and fungal decay.",
     imageSrc: "/why-choose-durable-main.jpg",
-    imageAlt: "Durable Termite Proof Steel Frames",
+    imageAlt: "Durable termite-proof steel frames",
     linkText: "View Durability Specs",
     href: "/steel-frames",
     reverse: true,
@@ -55,7 +55,7 @@ const features: SplitFeature[] = [
     quote: "Steel is a naturally non-combustible material, ideal for housing frames, especially in fire-prone areas.",
     text: "Inherently non-combustible, it will not ignite or fuel flames, making it the premier structural framing choice for Australian domestic builds complying with strict AS 3959 BAL-FZ standards.",
     imageSrc: "/why-choose-fire-main.jpg",
-    imageAlt: "Non Combustible Fire Retardant Framing",
+    imageAlt: "Non-combustible steel framing",
     linkText: "View Fire Resistance Specs",
     href: "/steel-frames",
     reverse: false,
@@ -64,10 +64,10 @@ const features: SplitFeature[] = [
     id: "transportation",
     step: "04",
     title: "TRANSPORTATION",
-    quote: "Our lightweight steel frames are easy to transport, and installation needs less manpower and minimal manual labour.",
+    quote: "Our lightweight steel frames are easy to transport and need less manual labour to install.",
     text: "Sequenced, colour-coded framing packs arrive directly to site with complete crane-truck logistics, keeping your construction weeks ahead of schedule and eliminating on-site cutting waste.",
     imageSrc: "/why-choose-transport-main.jpg",
-    imageAlt: "Lightweight High Speed Site Transportation",
+    imageAlt: "Transporting lightweight steel frames to site",
     linkText: "View Transportation Specs",
     href: "/contact",
     reverse: true,
@@ -347,10 +347,10 @@ export default function WhyChooseSteelFrames() {
           =================================================================== */}
       <div className="why-intro w-full px-4 sm:px-6 lg:px-8 pt-20 sm:pt-32 lg:pt-40 pb-12 sm:pb-16 lg:pb-24 text-center flex flex-col items-center overflow-hidden border-b border-[#E2E8F0]/60">
         <h2 className="why-title font-sans font-medium uppercase tracking-tight text-[#0F1114] text-xl sm:text-3xl md:text-4xl lg:text-[44px] mb-3 sm:mb-6">
-          WHY CHOOSE <span className="text-[#1E63D8]">STEEL FRAME</span>
+          WHY CHOOSE <span className="text-[#1E63D8]">STEEL FRAMING?</span>
         </h2>
         <p className="why-para text-slate-600 text-xs sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-normal">
-          Engineered bespoke light gauge steel framing manufactured with millimeter precision. From architecturally complex cantilevers to 50-year Truecore® durability, bushfire BAL-FZ safety, and rapid on-site logistics — discover why South Australian builders choose Auzie Steel.
+          We manufacture custom light gauge steel framing with millimetre precision. Discover why South Australian builders choose Auzie Steel for complex cantilevers, 50-year TRUECORE® steel durability, BAL-FZ applications and rapid on-site logistics.
         </p>
       </div>
 

@@ -27,7 +27,7 @@ const services: ServiceSlide[] = [
     title: "Custom Designs",
     tagline: "3D CAD & BIM Digital Precision",
     description:
-      "Engineered bespoke light gauge steel frames generated directly from CAD/BIM models with extreme millimeter accuracy.",
+      "We engineer custom light gauge steel frames directly from CAD/BIM models to millimetre accuracy.",
     imageSrc: "/what-we-do-custom-designs.jpg",
     imageAlt: "Custom light gauge steel home framing design",
     href: "/steel-frames",
@@ -35,8 +35,8 @@ const services: ServiceSlide[] = [
   {
     id: "fabrications",
     number: "02",
-    title: "Fabrications",
-    tagline: "High-Tensile BlueScope Truecore®",
+    title: "Fabrication",
+    tagline: "High-Tensile BlueScope TRUECORE® Steel",
     description:
       "Automated CNC roll-formed structural steel that will never rot, warp, twist, shrink or sag over decades of building life.",
     imageSrc: "/what-we-do-fabrications.jpg",
@@ -46,10 +46,10 @@ const services: ServiceSlide[] = [
   {
     id: "installations",
     number: "03",
-    title: "Installations",
+    title: "Installation",
     tagline: "Rapid Site Assembly & Erection",
     description:
-      "Sequenced, colour-coded framing packs arrive ready for rapid onsite erection with minimal crane time and manual labour.",
+      "Sequenced, colour-coded framing packs arrive ready for rapid on-site assembly with minimal crane time and manual labour.",
     imageSrc: "/what-we-do-installations.jpg",
     imageAlt: "Easy installation of light gauge steel frames on site",
     href: "/steel-frames",
@@ -60,9 +60,9 @@ const services: ServiceSlide[] = [
     title: "Our Promise",
     tagline: "On-Time Guaranteed Direct Logistics",
     description:
-      "End-to-end crane-truck logistics delivering precision engineered steel framing directly to site strictly on schedule.",
+      "We deliver precision-engineered steel framing directly to site by crane truck, on schedule.",
     imageSrc: "/what-we-do-our-promise.jpg",
-    imageAlt: "On-time direct to site steel frame delivery",
+    imageAlt: "On-time delivery of steel frames direct to site",
     href: "/contact",
   },
 ];

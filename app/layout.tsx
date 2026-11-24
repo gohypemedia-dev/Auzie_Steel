@@ -44,7 +44,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
+      lang="en-AU"
       className={`${archivoBlack.variable} ${inter.variable} ${montserrat.variable} ${playfair.variable} antialiased`}
     >
       <body className="flex flex-col bg-white text-[#0F1114] font-sans">

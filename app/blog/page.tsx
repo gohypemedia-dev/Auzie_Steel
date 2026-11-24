@@ -13,38 +13,38 @@ const articles = [
     id: 1,
     title: "Steel Framing vs Timber: Complete Builder Cost & Durability Breakdown",
     category: "Cost & Durability",
-    date: "October 18, 2026",
-    readTime: "5 Min Read",
+    date: "18\u00a0October 2026",
+    readTime: "5 min read",
     image: "/why-choose-transport-main.jpg",
     excerpt:
-      "A deep dive into initial framing costs vs total lifecycle savings, zero termite callbacks, rapid trade rough-ins, and the 50-year BlueScope Truecore® warranty advantage.",
+      "A deep dive into initial framing costs vs total lifecycle savings, zero termite callbacks, rapid trade rough-ins, and the 50-year BlueScope TRUECORE® warranty advantage.",
   },
   {
     id: 2,
     title: "Why Alpha Floor Joists Are Replacing Engineered Timber I-Joists",
     category: "Alpha Floor",
-    date: "October 02, 2026",
-    readTime: "4 Min Read",
+    date: "2\u00a0October 2026",
+    readTime: "4 min read",
     image: "/what-we-do-fabrications.jpg",
     excerpt:
-      "Explore how 7-metre clear spans, zero-squeak dimensional stability, and large factory-punched HVAC duct apertures are revolutionizing double-storey residential construction.",
+      "Explore how 7-metre clear spans, squeak-free floors and large factory-punched openings for HVAC ducts are revolutionising double-storey residential construction.",
   },
   {
     id: 3,
     title: "Building in Bushfire Attack Zones: Achieving BAL-40 & BAL-FZ Compliance",
     category: "Building Regulations",
-    date: "September 24, 2026",
-    readTime: "6 Min Read",
+    date: "24\u00a0September 2026",
+    readTime: "6 min read",
     image: "/why-choose-fire-main.jpg",
     excerpt:
-      "How non-combustible light gauge steel framing simplifies National Construction Code (NCC) bushfire regulations and protects homes in Adelaide Hills and regional SA.",
+      "How non-combustible light gauge steel framing helps builders meet National Construction Code (NCC) bushfire requirements and protect homes in the Adelaide Hills and regional South Australia.",
   },
   {
     id: 4,
-    title: "Accelerating Rough-In: How Pre-Punched Service Holes Save Days Onsite",
+    title: "Accelerating Rough-In: How Pre-Punched Service Holes Save Days on Site",
     category: "Trade Efficiency",
-    date: "September 11, 2026",
-    readTime: "3 Min Read",
+    date: "11\u00a0September 2026",
+    readTime: "3 min read",
     image: "/built-on-trust-standards.jpg",
     excerpt:
       "Electricians and plumbers share their experience with factory-punched service holes that eliminate hole-saw drilling and preserve structural framing integrity.",
@@ -53,21 +53,21 @@ const articles = [
     id: 5,
     title: "Ending Floor Squeaks Permanently: The Science of Steel Joist Rigidity",
     category: "Engineering Insights",
-    date: "August 28, 2026",
-    readTime: "4 Min Read",
+    date: "28\u00a0August 2026",
+    readTime: "4 min read",
     image: "/who-we-are-modern-building.jpg",
     excerpt:
       "Timber floor joists dry out, shrink, and loosen fasteners over time. Learn why high-tensile steel joists stay dimensionally unyielding for the lifetime of the home.",
   },
   {
     id: 6,
-    title: "3D CAD/BIM Detailing: How Digital Twins Prevent Onsite Framing Clashes",
+    title: "3D CAD/BIM Detailing: How Digital Twins Prevent Framing Clashes on Site",
     category: "Digital Detailing",
-    date: "August 15, 2026",
-    readTime: "5 Min Read",
+    date: "15\u00a0August 2026",
+    readTime: "5 min read",
     image: "/what-we-do-custom-designs.jpg",
     excerpt:
-      "Discover how automated FRAMECAD CNC roll-forming directly from digital architectural models prevents costly onsite structural modifications and trade re-work.",
+      "Discover how automated FRAMECAD CNC roll-forming from digital architectural models prevents costly structural changes and rework on site.",
   },
 ];
 
@@ -121,9 +121,9 @@ export default function BlogPage() {
               <div className="flex items-center gap-3 text-xs text-slate-500 font-medium">
                 <span>COST &amp; DURABILITY</span>
                 <span>•</span>
-                <span>OCTOBER 18, 2026</span>
+                <span>{articles[0].date}</span>
                 <span>•</span>
-                <span>5 MIN READ</span>
+                <span>{articles[0].readTime}</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-sans font-medium uppercase tracking-tight text-[#0F1114] group-hover:text-[#1E63D8] transition-colors leading-snug">
@@ -131,7 +131,7 @@ export default function BlogPage() {
               </h2>
 
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-                Compare direct material pricing, trade rough-in speeds, termite eradication costs, and zero-callback warranties. Discover why more South Australian builders are switching to Truecore® steel.
+                Compare direct material pricing, trade rough-in speeds, termite eradication costs, and zero-callback warranties. Discover why more South Australian builders are switching to TRUECORE® steel.
               </p>
             </div>
 
@@ -205,11 +205,11 @@ export default function BlogPage() {
       <section className="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="bg-slate-950 text-white rounded-[16px] p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto space-y-5">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-sans font-medium uppercase tracking-tight leading-tight text-white">
               Have A Custom Project <span className="text-[#3B82F6]">In Mind</span>?
             </h2>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-              Send your CAD or PDF building plans to our engineering team for an exact structural framing and Alpha Floor takeoff estimate.
+              Send your CAD or PDF building plans to our engineering team for a detailed estimate for structural framing and Alpha Floor.
             </p>
             <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
               <Link

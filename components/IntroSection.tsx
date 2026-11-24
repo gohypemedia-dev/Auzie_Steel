@@ -317,8 +317,8 @@ export default function IntroSection() {
                 ref={subheadingRef}
                 className="text-sm sm:text-lg md:text-xl lg:text-[22px] font-sans font-medium tracking-tight text-[#0F1114] leading-[1.3] mb-3 sm:mb-6"
               >
-                Our comprehensive,{" "}
-                <span className="text-[#1E63D8]">design to delivery</span> service
+                Our comprehensive{" "}
+                <span className="text-[#1E63D8]">design-to-delivery</span> service
                 is what sets us apart.
               </h3>
 
@@ -328,11 +328,11 @@ export default function IntroSection() {
                 className="space-y-3 sm:space-y-5 text-xs sm:text-sm lg:text-[15px] text-slate-800 sm:text-[#475569] leading-[1.65] font-normal"
               >
                 <p>
-                  Auzie Steel is Adelaide’s leading manufacturer of customisable steel frames for the South Australian building industry. We rely on advanced CAD/BIM technologies to engineer and roll-form housing frames made from premium high-tensile BlueScope Truecore® steel.
+                  Auzie Steel is Adelaide’s leading manufacturer of customisable steel frames for the South Australian building industry. We rely on advanced CAD/BIM technologies to engineer and roll-form housing frames made from premium high-tensile BlueScope TRUECORE® steel.
                 </p>
 
                 <p>
-                  We take care of every aspect of steel frame construction, from manufacturing the frame to delivery directly to site, to keep your project moving. We understand the importance of precision, efficiency and budget in every domestic building project.
+                  We take care of every aspect of steel frame construction, from manufacturing the frame to delivering it directly to site, to keep your project moving. We understand the importance of precision, efficiency and budget in every domestic building project.
                 </p>
               </div>
             </div>

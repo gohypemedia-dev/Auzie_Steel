@@ -39,7 +39,7 @@ export default function ContactPage() {
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              Speak directly with our Adelaide structural engineering team, upload your plans for an obligation-free framing takeoff estimate, or visit our manufacturing facility.
+              Speak directly with our Adelaide structural engineering team, upload your plans for an obligation-free framing estimate, or visit our manufacturing facility.
             </p>
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function ContactPage() {
                     <a href="tel:+61434287537" className="text-base font-bold text-[#0F1114] hover:text-[#1E63D8] transition-colors">
                       +61 434 287 537
                     </a>
-                    <span className="text-xs text-slate-500 block mt-0.5">Mon–Fri: 7:00 AM – 5:00 PM ACST</span>
+                    <span className="text-xs text-slate-500 block mt-0.5">Mon–Fri, 7 am to 5 pm (Adelaide time)</span>
                   </div>
                 </div>
 
@@ -150,7 +150,7 @@ export default function ContactPage() {
                     PLANS RECEIVED
                   </h3>
                   <p className="text-slate-600 text-sm max-w-md mx-auto leading-relaxed">
-                    Thank you! Our engineering takeoff team has received your project details. We will review your plans and contact you within 24 hours.
+                    Thank you! Our estimating team has received your project details. We will review your plans and contact you within 24 hours.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
@@ -166,7 +166,7 @@ export default function ContactPage() {
                       REQUEST A FRAMING ESTIMATE
                     </h2>
                     <p className="mt-1.5 text-xs sm:text-sm text-slate-600">
-                      Fill out the form below and attach your plans for a fast, millimeter-accurate quote.
+                      Fill in the form below and attach your plans for a fast, millimetre-accurate quote.
                     </p>
                   </div>
 
@@ -266,7 +266,7 @@ export default function ContactPage() {
                       Attach Architectural Plans (PDF, DWG, DXF)
                     </span>
                     <span className="text-xs text-slate-500 block mt-0.5">
-                      Click to browse or drag files here (Max 50MB)
+                      Click to browse or drag files here (maximum 50&nbsp;MB)
                     </span>
                   </div>
 
