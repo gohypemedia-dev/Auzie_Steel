@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import IntroSection from "@/components/IntroSection";
 import PartnerBrandsStrip from "@/components/PartnerBrandsStrip";
 import WhatWeDo from "@/components/WhatWeDo";
+import SteelFrameSequence from "@/components/SteelFrameSequence";
 import WhyChooseSteelFrames from "@/components/WhyChooseSteelFrames";
 import WhyChooseSteel from "@/components/WhyChooseSteel";
 import BuiltOnTrust from "@/components/BuiltOnTrust";
@@ -21,8 +22,11 @@ export default function Home() {
       {/* 2.5 Industry Partner Trust Marquee Strip */}
       <PartnerBrandsStrip />
 
-      {/* 3. Services / Capabilities (Frame-by-Frame Canvas Animation) */}
+      {/* 3. Services / Capabilities */}
       <WhatWeDo />
+
+      {/* 3.5 3D Steel Structure Frame-by-Frame ScrollTrigger Sequence */}
+      <SteelFrameSequence />
 
       {/* 4. Why Choose Steel Framing? (Slide Up Stacking Cards) */}
       <WhyChooseSteelFrames />
