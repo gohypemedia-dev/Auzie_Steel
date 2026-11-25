@@ -199,7 +199,7 @@ export default function WhatWeDo() {
     <section
       id="services"
       ref={sectionRef}
-      className="services relative w-full bg-[#FAF9F6] text-[#0F1114] select-none border-b border-[#CBD5E1]"
+      className="services relative w-full bg-[#FAF9F6] text-[#0F1114] select-none border-b border-[#CBD5E1] pb-14 sm:pb-20 lg:pb-28"
     >
       {/* ===================================================================
           1. INTRO HEADER (Royal Rising Split Slide-in Animation)

@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-interface SplitFeature {
+interface FeatureItem {
   id: string;
   step: string;
   title: string;
@@ -20,10 +20,9 @@ interface SplitFeature {
   imageAlt: string;
   linkText: string;
   href: string;
-  reverse: boolean;
 }
 
-const features: SplitFeature[] = [
+const features: FeatureItem[] = [
   {
     id: "customisable",
     step: "01",
@@ -34,7 +33,6 @@ const features: SplitFeature[] = [
     imageAlt: "Auzie Steel Customisable Steel Framing",
     linkText: "View Custom Specs",
     href: "/steel-frames",
-    reverse: false,
   },
   {
     id: "durable",
@@ -46,7 +44,6 @@ const features: SplitFeature[] = [
     imageAlt: "Durable termite-proof steel frames",
     linkText: "View Durability Specs",
     href: "/steel-frames",
-    reverse: true,
   },
   {
     id: "fire-retardant",
@@ -58,7 +55,6 @@ const features: SplitFeature[] = [
     imageAlt: "Non-combustible steel framing",
     linkText: "View Fire Resistance Specs",
     href: "/steel-frames",
-    reverse: false,
   },
   {
     id: "transportation",
@@ -70,268 +66,158 @@ const features: SplitFeature[] = [
     imageAlt: "Transporting lightweight steel frames to site",
     linkText: "View Transportation Specs",
     href: "/contact",
-    reverse: true,
   },
 ];
 
-function SplitStoryItem({ item }: { item: SplitFeature }) {
-  const itemRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const section = itemRef.current;
-    if (!section) return;
-
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      // =====================================================================
-      // 1. MOBILE RESPONSIVE ANIMATION (<960px)
-      // =====================================================================
-      mm.add("(max-width: 960px) and (prefers-reduced-motion: no-preference)", () => {
-        const media = section.querySelector(".split__media");
-        const textCol = section.querySelector(".split__text");
-        const textElements = section.querySelectorAll(".split__text > *");
-
-        if (media) {
-          gsap.fromTo(
-            media,
-            { xPercent: item.reverse ? 100 : -100 },
-            {
-              xPercent: 0,
-              duration: 1.1,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 95%",
-                once: true,
-              },
-            }
-          );
-        }
-
-        if (textCol && textElements.length > 0) {
-          gsap.fromTo(
-            textElements,
-            {
-              x: item.reverse ? -28 : 28,
-              y: 20,
-              opacity: 0,
-            },
-            {
-              x: 0,
-              y: 0,
-              opacity: 1,
-              duration: 0.8,
-              stagger: 0.08,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: textCol,
-                start: "top 75%",
-                toggleActions: "play none none reverse",
-              },
-            }
-          );
-        }
-      });
-
-      // =====================================================================
-      // 2. DESKTOP ANIMATION (min-width: 961px): Smooth Reveal (No Scroll Trapping)
-      // =====================================================================
-      mm.add("(min-width: 961px) and (prefers-reduced-motion: no-preference)", () => {
-        const media = section.querySelector(".split__media");
-        const img = section.querySelector(".split__img");
-        const textCol = section.querySelector(".split__text");
-        const textChildren = section.querySelectorAll(".split__text > *");
-
-        // 1. Media clip-path unmask scrub (wipes open gracefully respecting alternating direction)
-        if (media) {
-          gsap.fromTo(
-            media,
-            { clipPath: item.reverse ? "inset(0% 0% 0% 100%)" : "inset(0% 100% 0% 0%)" },
-            {
-              clipPath: "inset(0% 0% 0% 0%)",
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 85%",
-                end: "top 25%",
-                scrub: 0.6,
-              },
-            }
-          );
-        }
-
-        // 2. Parallax image subtle drift
-        if (img) {
-          gsap.fromTo(
-            img,
-            { yPercent: 6, scale: 1.05 },
-            {
-              yPercent: -6,
-              scale: 1,
-              ease: "none",
-              scrollTrigger: {
-                trigger: section,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true,
-              },
-            }
-          );
-        }
-
-        // 3. Stagger information elements into view with slide & fade (visible in-screen reveal)
-        if (textCol && textChildren.length > 0) {
-          gsap.fromTo(
-            textChildren,
-            {
-              x: item.reverse ? -50 : 50,
-              y: 28,
-              opacity: 0,
-            },
-            {
-              x: 0,
-              y: 0,
-              opacity: 1,
-              duration: 0.9,
-              stagger: 0.1,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: textCol,
-                start: "center 85%",
-                toggleActions: "play none none reverse",
-              },
-            }
-          );
-        }
-      });
-    }, section);
-
-    return () => ctx.revert();
-  }, [item.reverse]);
-
-  return (
-    <div
-      ref={itemRef}
-      className={`split relative w-full min-h-[100svh] flex flex-col lg:flex-row items-stretch bg-[#FAF9F6] overflow-hidden select-none border-b border-[#E2E8F0] ${
-        item.reverse ? "split--rev" : ""
-      }`}
-    >
-      {/* ===================================================================
-          1. MEDIA COLUMN (50% desktop, full width mobile)
-          Alternates left / right across features
-          =================================================================== */}
-      <div
-        className={`split__media will-change-[clip-path] relative w-full lg:w-1/2 h-[50vh] lg:h-auto min-h-[300px] lg:min-h-[100svh] overflow-hidden bg-[#EEF0F2] flex-none z-10 ${
-          item.reverse ? "lg:order-2" : "lg:order-1"
-        }`}
-      >
-        <div className="split__img absolute inset-0 lg:inset-[-8%_0] w-full h-full lg:h-[116%] will-change-transform">
-          <Image
-            src={item.imageSrc}
-            alt={item.imageAlt}
-            fill
-            sizes="(max-width: 960px) 100vw, 50vw"
-            priority={true}
-            quality={90}
-            className="object-cover object-center"
-          />
-        </div>
-      </div>
-
-      {/* ===================================================================
-          2. TEXT COLUMN (Information background is Blue everywhere, left or right)
-          Feature Title -> Tagline -> Paragraph -> Pill CTA
-          When on the left (item.reverse), padding-left matches Navbar logo alignment
-          =================================================================== */}
-      <div
-        className={`split__text relative z-10 w-full lg:w-1/2 min-h-auto lg:min-h-[100svh] flex flex-col justify-center items-start gap-4 sm:gap-5 lg:gap-6 py-12 sm:py-16 lg:py-0 box-border bg-[#1E63D8] text-white ${
-          item.reverse
-            ? "lg:order-1 pl-4 sm:pl-6 lg:pl-10 xl:pl-12 2xl:pl-16 pr-6 sm:pr-10 lg:pr-12 xl:pr-16"
-            : "lg:order-2 pl-6 sm:pl-10 lg:pl-14 xl:pl-16 2xl:pl-20 pr-4 sm:pr-6 lg:pr-10 xl:pr-12 2xl:pr-16"
-        }`}
-      >
-        {/* Feature Heading */}
-        <h3 className="title text-white font-sans font-medium uppercase tracking-tight text-[clamp(2.1rem,3.2vw,3.4rem)] leading-[1.08]">
-          {item.title}
-        </h3>
-
-        {/* Lead-in Tagline (clean, no quotation marks) */}
-        <p className="quote text-white font-light text-[clamp(1.18rem,1.55vw,1.6rem)] leading-[1.35] max-w-[34ch]">
-          {item.quote}
-        </p>
-
-        {/* Detailed Explanation Paragraph */}
-        <p className="para text-blue-50/90 font-light text-[clamp(14px,0.98vw,15.5px)] leading-[1.75] max-w-[48ch]">
-          {item.text}
-        </p>
-
-        {/* Signature Rounded CTA Button (Clean White on Blue) */}
-        <div className="split__action pt-2">
-          <Link
-            href={item.href}
-            className="pill inline-flex items-center gap-2.5 px-8 py-3.5 rounded-[10px] bg-white hover:bg-blue-50 text-[#1E63D8] hover:text-[#1650B5] text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 shadow-lg shadow-black/15 hover:-translate-y-0.5 active:translate-y-0"
-          >
-            <span>{item.linkText}</span>
-            <span aria-hidden="true" className="text-base font-bold">↗</span>
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function WhyChooseSteelFrames() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const pinWrapperRef = useRef<HTMLDivElement>(null);
+  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const imageScaleRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const textRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const section = sectionRef.current;
+    const pinWrapper = pinWrapperRef.current;
+    if (!section || !pinWrapper) return;
 
     const ctx = gsap.context(() => {
-      const offset = window.innerWidth <= 768 ? "12vw" : "18vw";
+      // 1. Initial State: Slide 0 active, Slides 1..3 hidden
+      features.forEach((_, idx) => {
+        const img = imageRefs.current[idx];
+        const scale = imageScaleRefs.current[idx];
+        const text = textRefs.current[idx];
 
-      // 1. Intro Title: slides in from left (-18vw)
-      gsap.fromTo(
-        ".why-intro .why-title",
-        { x: `-${offset}`, opacity: 0 },
-        {
-          x: "0vw",
-          opacity: 1,
-          duration: 1.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".why-intro",
-            start: "top 82%",
-            toggleActions: "play none none reverse",
-          },
+        if (img) {
+          gsap.set(img, {
+            clipPath: idx === 0 ? "inset(-4px -4px -4px -4px)" : "inset(100% -4px -4px -4px)",
+            zIndex: idx + 1,
+          });
         }
-      );
+        if (scale) {
+          gsap.set(scale, { scale: 1.02 });
+        }
+        if (text) {
+          gsap.set(text, {
+            opacity: idx === 0 ? 1 : 0,
+            y: idx === 0 ? 0 : 32,
+            pointerEvents: idx === 0 ? "auto" : "none",
+          });
+        }
+      });
 
-      // 2. Intro Paragraph: slides in from right (+18vw)
-      gsap.fromTo(
-        ".why-intro .why-para",
-        { x: offset, opacity: 0 },
-        {
-          x: "0vw",
-          opacity: 1,
-          duration: 1.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".why-intro",
-            start: "top 80%",
-            toggleActions: "play none none reverse",
+      // 2. Master Scrubbed Timeline for 100% Buttery Smooth Scrolling Transitions
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          id: "whyChooseSteelFramesSmoothTrigger",
+          trigger: pinWrapper,
+          start: "top top",
+          end: () => `+=${(features.length - 1) * window.innerHeight * 1.4}`,
+          pin: pinWrapper,
+          pinSpacing: true,
+          anticipatePin: 1,
+          scrub: 1.2, // Silk-smooth inertia damping
+          snap: {
+            snapTo: 1 / (features.length - 1),
+            duration: { min: 0.35, max: 0.65 },
+            delay: 0.2,
+            ease: "power2.out",
           },
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const currentStep = Math.min(
+              features.length - 1,
+              Math.max(0, Math.round(self.progress * (features.length - 1)))
+            );
+            textRefs.current.forEach((t, i) => {
+              if (t) {
+                t.style.pointerEvents = i === currentStep ? "auto" : "none";
+              }
+            });
+          },
+        },
+      });
+
+      // 3. Build smooth sequential transition phases
+      for (let i = 0; i < features.length - 1; i++) {
+        const currentText = textRefs.current[i];
+        const nextText = textRefs.current[i + 1];
+        const nextImg = imageRefs.current[i + 1];
+        const nextScale = imageScaleRefs.current[i + 1];
+
+        // Hold current slide comfortably so user can read
+        tl.to({}, { duration: 0.35 });
+
+        // Smooth synchronized crossfade of text + upward wipe of image
+        const stepTransition = gsap.timeline();
+
+        if (currentText) {
+          stepTransition.to(
+            currentText,
+            {
+              opacity: 0,
+              y: -32,
+              duration: 0.65,
+              ease: "power2.inOut",
+            },
+            0
+          );
         }
-      );
-    }, container);
+
+        if (nextText) {
+          stepTransition.fromTo(
+            nextText,
+            { opacity: 0, y: 32 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.65,
+              ease: "power2.out",
+            },
+            0.15
+          );
+        }
+
+        if (nextImg) {
+          stepTransition.fromTo(
+            nextImg,
+            { clipPath: "inset(100% -4px -4px -4px)" },
+            {
+              clipPath: "inset(-4px -4px -4px -4px)",
+              duration: 0.95,
+              ease: "power2.inOut",
+            },
+            0
+          );
+        }
+
+        if (nextScale) {
+          stepTransition.fromTo(
+            nextScale,
+            { scale: 1.07 },
+            {
+              scale: 1.02,
+              duration: 0.95,
+              ease: "power1.out",
+            },
+            0
+          );
+        }
+
+        tl.add(stepTransition);
+      }
+
+      // Final hold on the last slide
+      tl.to({}, { duration: 0.4 });
+    }, section);
 
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 250);
+    }, 200);
 
     return () => {
       clearTimeout(timer);
+      ScrollTrigger.getById("whyChooseSteelFramesSmoothTrigger")?.kill();
       ctx.revert();
     };
   }, []);
@@ -339,27 +225,119 @@ export default function WhyChooseSteelFrames() {
   return (
     <section
       id="why-choose-steel-frames"
-      ref={containerRef}
-      className="story-stack relative w-full bg-[#FAF9F6]"
+      ref={sectionRef}
+      className="relative w-full bg-[#FAF9F6] text-[#0F1114] select-none border-b border-[#E2E8F0]"
     >
-      {/* ===================================================================
-          1. INTRO HEADER (Matching "OUR SERVICES" slide-in animation & generous spacing)
-          =================================================================== */}
-      <div className="why-intro w-full px-4 sm:px-6 lg:px-8 pt-20 sm:pt-32 lg:pt-40 pb-12 sm:pb-16 lg:pb-24 text-center flex flex-col items-center overflow-hidden border-b border-[#E2E8F0]/60">
-        <h2 className="why-title font-sans font-medium uppercase tracking-tight text-[#0F1114] text-xl sm:text-3xl md:text-4xl lg:text-[44px] mb-3 sm:mb-6">
+      {/* =====================================================================
+          1. INTRO HEADER (Clean Architecture Editorial Entrance - Generous Space)
+          ===================================================================== */}
+      <div className="w-full px-4 sm:px-6 lg:px-8 pt-28 sm:pt-40 md:pt-48 lg:pt-56 pb-20 sm:pb-28 md:pb-36 lg:pb-44 text-center flex flex-col items-center justify-center overflow-hidden border-b border-[#E2E8F0]/60">
+        <h2 className="font-sans font-medium uppercase tracking-tight text-[#0F1114] text-xl sm:text-3xl md:text-4xl lg:text-[44px] mb-3 sm:mb-5">
           WHY CHOOSE <span className="text-[#1E63D8]">STEEL FRAMING?</span>
         </h2>
-        <p className="why-para text-slate-600 text-xs sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-normal">
+        <p className="text-slate-600 text-xs sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-normal">
           We manufacture custom light gauge steel framing with millimetre precision. Discover why South Australian builders choose Auzie Steel for complex cantilevers, 50-year TRUECORE® steel durability, BAL-FZ applications and rapid on-site logistics.
         </p>
       </div>
 
-      {/* ===================================================================
-          2. THE 4 STORY STACK SECTIONS (Alternating Royal Rising Split Cards)
-          =================================================================== */}
-      {features.map((item) => (
-        <SplitStoryItem key={item.id} item={item} />
-      ))}
+      {/* =====================================================================
+          2. PINNED ZORGE-9 LUXURY STAGE
+          Split Stage: Pinned Full-Screen Container (100% Fullscreen at Top)
+          ===================================================================== */}
+      <div
+        ref={pinWrapperRef}
+        className="relative w-full h-screen min-h-[100svh] overflow-hidden bg-[#FAF9F6] flex items-center justify-center"
+      >
+        <div className="relative w-full h-full flex flex-col lg:flex-row items-stretch">
+
+          {/* =================================================================
+              LEFT: ARCHITECTURAL IMAGE STAGE (50% desktop + 1px subpixel overlap)
+              Zorge 9 imageClipIn wipe reveal
+              ================================================================= */}
+          <div className="relative w-full lg:w-[calc(50%+1px)] lg:-mr-[1px] h-[45vh] lg:h-full overflow-hidden bg-transparent flex-none z-10">
+            {features.map((item, idx) => (
+              <div
+                key={item.id}
+                ref={(el) => {
+                  imageRefs.current[idx] = el;
+                }}
+                className="absolute inset-0 w-full h-full will-change-[clip-path]"
+                style={{
+                  zIndex: idx + 1,
+                  clipPath: idx === 0 ? "inset(-4px -4px -4px -4px)" : "inset(100% -4px -4px -4px)",
+                }}
+              >
+                <div
+                  ref={(el) => {
+                    imageScaleRefs.current[idx] = el;
+                  }}
+                  className="w-full h-full relative will-change-transform scale-[1.02]"
+                >
+                  <Image
+                    src={item.imageSrc}
+                    alt={item.imageAlt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 52vw"
+                    priority={idx === 0}
+                    quality={90}
+                    className="object-cover object-center will-change-transform"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* =================================================================
+              RIGHT: ELECTRIC BLUE INFORMATION STAGE (50% desktop, full-height)
+              Editorial Content: Category Kicker + Title + Quote + Description + CTA
+              ================================================================= */}
+          <div className="relative w-full lg:w-1/2 h-[55vh] lg:h-full bg-[#1E63D8] text-white flex flex-col justify-center items-center p-6 sm:p-10 lg:p-14 xl:p-16 2xl:p-20 box-border overflow-hidden z-20">
+            {features.map((item, idx) => (
+              <div
+                key={item.id}
+                ref={(el) => {
+                  textRefs.current[idx] = el;
+                }}
+                className="absolute inset-0 p-6 sm:p-10 lg:p-14 xl:p-16 2xl:p-20 flex flex-col justify-center items-start gap-4 sm:gap-6 will-change-transform max-w-xl mx-auto lg:mx-0"
+                style={{
+                  zIndex: idx + 1,
+                  pointerEvents: idx === 0 ? "auto" : "none",
+                  opacity: idx === 0 ? 1 : 0,
+                  transform: idx === 0 ? "none" : "translateY(38px)",
+                }}
+              >
+
+                {/* Title */}
+                <h3 className="text-white font-sans font-medium uppercase tracking-tight text-[clamp(2.2rem,3.6vw,3.8rem)] leading-[1.06]">
+                  {item.title}
+                </h3>
+
+                {/* Quote / Tagline */}
+                <p className="text-white font-light text-[clamp(1.15rem,1.45vw,1.55rem)] leading-[1.38] max-w-[36ch]">
+                  {item.quote}
+                </p>
+
+                {/* Detailed Description */}
+                <p className="text-blue-50/90 font-light text-[clamp(14px,0.95vw,15.5px)] leading-[1.75] max-w-[48ch]">
+                  {item.text}
+                </p>
+
+                {/* Action Button */}
+                <div className="pt-2 sm:pt-4">
+                  <Link
+                    href={item.href}
+                    className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-[10px] bg-white hover:bg-blue-50 text-[#1E63D8] hover:text-[#1650B5] text-xs sm:text-sm font-bold tracking-wider uppercase transition-all duration-300 shadow-lg shadow-black/15 hover:-translate-y-0.5 active:translate-y-0"
+                  >
+                    <span>{item.linkText}</span>
+                    <span aria-hidden="true" className="text-base font-bold">↗</span>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
     </section>
   );
 }
